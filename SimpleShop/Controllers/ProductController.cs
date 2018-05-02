@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using AutoMapper;
 using SimpleShop.Interfaces;
+using SimpleShop.Models;
+using SimpleShop.Models.ViewsModels;
 using SimpleShop.Services;
 
 namespace SimpleShop.Controllers
@@ -19,13 +22,15 @@ namespace SimpleShop.Controllers
         // GET: Product
         public ActionResult Index()
         {
-            return View();
+			var	products = Mapper.Map<List<Product>, List<ProductViewModel>>(_productMenager.GetAll());
+            return View(products);
         }
 
         // GET: Product/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+	        var product = Mapper.Map<Product, ProductViewModel>(_productMenager.GetById(id));
+            return View(product);
         }
 
         // GET: Product/Create
@@ -36,12 +41,12 @@ namespace SimpleShop.Controllers
 
         // POST: Product/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(ProductViewModel productViewModel)
         {
             try
             {
-                // TODO: Add insert logic here
-
+	            var product = Mapper.Map<ProductViewModel, Product>(productViewModel);
+				_productMenager.AddNew(product);
                 return RedirectToAction("Index");
             }
             catch
@@ -53,17 +58,18 @@ namespace SimpleShop.Controllers
         // GET: Product/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+	        var product = Mapper.Map<Product, ProductViewModel>(_productMenager.GetById(id));
+			return View(product);
         }
 
         // POST: Product/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, ProductViewModel productViewModel)
         {
             try
             {
-                // TODO: Add update logic here
-
+	            var product = Mapper.Map<ProductViewModel, Product>(productViewModel);
+	            _productMenager.Update(id, product);
                 return RedirectToAction("Index");
             }
             catch
@@ -75,23 +81,10 @@ namespace SimpleShop.Controllers
         // GET: Product/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
-        }
+			_productMenager.Remove(id);
+			return RedirectToAction("Index");
+		}
 
-        // POST: Product/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
     }
 }

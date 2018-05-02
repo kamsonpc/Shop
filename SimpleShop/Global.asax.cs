@@ -5,7 +5,9 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using AutoMapper;
 using SimpleShop.Controllers;
+using SimpleShop.Mapping;
 
 namespace SimpleShop
 {
@@ -18,6 +20,7 @@ namespace SimpleShop
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 	        IocUnityConfig.RegisterServices();
+			Mapper.Initialize(cfg => cfg.AddProfile<MappingProfiles>());
         }
 	}
 }

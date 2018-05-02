@@ -34,5 +34,7 @@ namespace SimpleShop.Models
         {
             return new ApplicationDbContext();
         }
-    }
+
+		public System.Data.Entity.DbSet<SimpleShop.Models.ViewsModels.ProductViewModel> ProductViewModels { get; set; }
+	}
 }
