@@ -226,9 +226,11 @@
     <Compile Include="App_Start\IocUnityConfig.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\UploadController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Interfaces\IUploadService.cs" />
     <Compile Include="Interfaces\IProductMenagerService.cs" />
     <Compile Include="Mapping\MappingProfiles.cs" />
     <Compile Include="Migrations\201804302127511_InitDb.cs" />
@@ -239,14 +241,20 @@
     <Compile Include="Migrations\201805021548111_V3.Designer.cs">
       <DependentUpon>201805021548111_V3.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805041534090_Add Image Model.cs" />
+    <Compile Include="Migrations\201805041534090_Add Image Model.Designer.cs">
+      <DependentUpon>201805041534090_Add Image Model.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Image.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ViewsModels\ProductViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ProductMenagerService.cs" />
+    <Compile Include="Services\UploadService.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -310,9 +318,11 @@
     <Content Include="Views\Product\Create.cshtml" />
     <Content Include="Views\Product\Details.cshtml" />
     <Content Include="Views\Product\Edit.cshtml" />
+    <Content Include="Views\Upload\UploadImage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="UploadedFiles\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -333,6 +343,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805021548111_V3.resx">
       <DependentUpon>201805021548111_V3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805041534090_Add Image Model.resx">
+      <DependentUpon>201805041534090_Add Image Model.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

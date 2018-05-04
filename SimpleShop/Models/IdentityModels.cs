@@ -29,12 +29,12 @@ namespace SimpleShop.Models
         }
 
 	    public DbSet<Product> Products { get; set; }
+	    public DbSet<Image> Images { get; set; }
 
 		public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
         }
 
-		public System.Data.Entity.DbSet<SimpleShop.Models.ViewsModels.ProductViewModel> ProductViewModels { get; set; }
-	}
+	   	}
 }
