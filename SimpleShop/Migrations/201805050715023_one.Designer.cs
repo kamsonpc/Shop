@@ -7,13 +7,13 @@ namespace SimpleShop.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class AddImageModel : IMigrationMetadata
+    public sealed partial class one : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddImageModel));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(one));
         
         string IMigrationMetadata.Id
         {
-            get { return "201805041534090_Add Image Model"; }
+            get { return "201805050715023_one"; }
         }
         
         string IMigrationMetadata.Source

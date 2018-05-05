@@ -26,7 +26,6 @@ namespace SimpleShop.Controllers
 	    public ActionResult UploadImage(HttpPostedFileBase file)
 	    {
 		    try
-
 		    {
 			    if (file.ContentLength > 0 && file.ContentLength < 32768 && file.ContentType.Contains("image"))
 			    {

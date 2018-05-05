@@ -3,7 +3,7 @@ namespace SimpleShop.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class AddImageModel : DbMigration
+    public partial class one : DbMigration
     {
         public override void Up()
         {
@@ -11,12 +11,13 @@ namespace SimpleShop.Migrations
                 "dbo.Images",
                 c => new
                     {
-                        ImageId = c.Int(nullable: false, identity: true),
+                        ImageId = c.Int(nullable: false),
                         ImgPath = c.String(),
                     })
-                .PrimaryKey(t => t.ImageId);
+                .PrimaryKey(t => t.ImageId)
+                .ForeignKey("dbo.Products", t => t.ImageId)
+                .Index(t => t.ImageId);
             
-            DropColumn("dbo.Products", "ImgUrl");
             DropTable("dbo.ProductViewModels");
         }
         
@@ -30,11 +31,11 @@ namespace SimpleShop.Migrations
                         Name = c.String(),
                         Price = c.Single(nullable: false),
                         Description = c.String(),
-                        ImgUrl = c.String(),
                     })
                 .PrimaryKey(t => t.ProductId);
             
-            AddColumn("dbo.Products", "ImgUrl", c => c.String());
+            DropForeignKey("dbo.Images", "ImageId", "dbo.Products");
+            DropIndex("dbo.Images", new[] { "ImageId" });
             DropTable("dbo.Images");
         }
     }
