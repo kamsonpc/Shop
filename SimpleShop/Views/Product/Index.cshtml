@@ -1,45 +1,58 @@
-﻿@model IEnumerable<SimpleShop.Models.Product>
+﻿@model IEnumerable<SimpleShop.Models.ViewsModels.ProductViewModel>
 
 @{
-    ViewBag.Title = "Index";
+	ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<div class="container">
+	<div class="well well-sm">
+		<strong>Category Title</strong>
+		<div class="btn-group">
+			<a href="#" id="list" class="btn btn-default btn-sm">
+				<span class="glyphicon glyphicon-th-list">
+				</span>List
+			</a> <a href="#" id="grid" class="btn btn-default btn-sm">
+				<span class="glyphicon glyphicon-th"></span>Grid
+			</a>
+		</div>
+	</div>
+	<div id="products" class="row list-group">
+		@foreach (var item in Model)
+		{
+			<div class="item  col-xs-4 col-lg-4">
+				<div class="thumbnail">
+					<img class="group list-group-image" src="@Url.Content("~/UploadedFiles/" + @item.Img)" alt="" />
+					<div class="caption">
+						<h4 class="group inner list-group-item-heading">
+							@Html.DisplayFor(modelItem => item.Name)
+						</h4>
+						<p class="group inner list-group-item-text">
+							@{
+								string excert = item.Description.Substring(0, 130) + "...";
+			
+								@excert;
+							}
+						</p>
+						<div class="row mt-small">
+							<div class="col-xs-12 col-md-6">
+								<p class="lead">
+									@Html.DisplayFor(modelItem => item.Price)
+								</p>
+							</div>
+							<div class="col-xs-12 col-md-6">
+								<a class="btn btn-success" href="http://www.jquery2dotnet.com">Add to cart <i class="glyphicon glyphicon-shopping-cart"></i></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		}
+	</div>
+</div>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Price)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Price)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ProductId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ProductId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ProductId })
-        </td>
-    </tr>
-}
 
-</table>
+
+
+
+

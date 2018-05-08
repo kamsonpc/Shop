@@ -226,7 +226,6 @@
     <Compile Include="App_Start\IocUnityConfig.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
-    <Compile Include="Controllers\UploadController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -237,13 +236,13 @@
     <Compile Include="Migrations\201804302127511_InitDb.Designer.cs">
       <DependentUpon>201804302127511_InitDb.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201805021548111_V3.cs" />
-    <Compile Include="Migrations\201805021548111_V3.Designer.cs">
-      <DependentUpon>201805021548111_V3.cs</DependentUpon>
+    <Compile Include="Migrations\201805071348214_adsa.cs" />
+    <Compile Include="Migrations\201805071348214_adsa.Designer.cs">
+      <DependentUpon>201805071348214_adsa.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201805050715023_one.cs" />
-    <Compile Include="Migrations\201805050715023_one.Designer.cs">
-      <DependentUpon>201805050715023_one.cs</DependentUpon>
+    <Compile Include="Migrations\201805071635114_rwqrw.cs" />
+    <Compile Include="Migrations\201805071635114_rwqrw.Designer.cs">
+      <DependentUpon>201805071635114_rwqrw.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -341,11 +340,11 @@
     <EmbeddedResource Include="Migrations\201804302127511_InitDb.resx">
       <DependentUpon>201804302127511_InitDb.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805021548111_V3.resx">
-      <DependentUpon>201805021548111_V3.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201805071348214_adsa.resx">
+      <DependentUpon>201805071348214_adsa.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805050715023_one.resx">
-      <DependentUpon>201805050715023_one.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201805071635114_rwqrw.resx">
+      <DependentUpon>201805071635114_rwqrw.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -18,7 +18,7 @@ namespace SimpleShop.Controllers
 			var container = new UnityContainer();
 
 			container.RegisterType<IProductMenagerService, ProductMenagerService>();
-			container.RegisterType<IUploadService, UploadService>();
+			//container.RegisterType<IUploadService, UploadService>();
 			DependencyResolver.SetResolver(new UnityDependencyResolver(container));
 
 

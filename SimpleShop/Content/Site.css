@@ -22,3 +22,9 @@ select,
 textarea {
     max-width: 280px;
 }
+.list-group-image {
+	height: 200px !important;
+}
+.mt-small {
+	padding-top: 10px;
+}

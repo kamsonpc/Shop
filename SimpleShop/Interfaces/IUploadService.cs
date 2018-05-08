@@ -12,5 +12,7 @@ namespace SimpleShop.Interfaces
 	{
 		void UploadImage(Image image);
 		bool RemoveImage(int id);
+		Image GetImgById(int id);
+		List<Image> GetImages();
 	}
 }

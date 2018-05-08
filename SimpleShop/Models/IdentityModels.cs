@@ -1,4 +1,6 @@
-﻿using System.Data.Entity;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Security.AccessControl;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -18,6 +20,8 @@ namespace SimpleShop.Models
             // Add custom user claims here
             return userIdentity;
         }
+		
+		public ICollection<Product> Products { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
@@ -29,7 +33,6 @@ namespace SimpleShop.Models
         }
 
 	    public DbSet<Product> Products { get; set; }
-	    public DbSet<Image> Images { get; set; }
 
 		public static ApplicationDbContext Create()
         {

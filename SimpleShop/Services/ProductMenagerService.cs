@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using AutoMapper;
@@ -25,6 +26,7 @@ namespace SimpleShop.Services
 		{
 			return _applicationDb.Products.SingleOrDefault(p => p.ProductId == id);
 		}
+
 
 		public void AddNew(Product product)
 		{
