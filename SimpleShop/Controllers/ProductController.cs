@@ -12,6 +12,7 @@ using SimpleShop.Services;
 
 namespace SimpleShop.Controllers
 {
+	[Authorize]
 	public class ProductController : Controller
 	{
 		private readonly IProductMenagerService _productMenager;
@@ -21,6 +22,7 @@ namespace SimpleShop.Controllers
 		}
 
 		// GET: Product
+		[AllowAnonymous]
 		public ActionResult Index()
 		{
 			var products = Mapper.Map<List<Product>, List<ProductViewModel>>(_productMenager.GetAll());
@@ -28,6 +30,7 @@ namespace SimpleShop.Controllers
 		}
 
 		// GET: Product/Details/5
+		[AllowAnonymous]
 		public ActionResult Details(int id)
 		{
 			var product = Mapper.Map<Product, ProductViewModel>(_productMenager.GetById(id));
@@ -46,7 +49,7 @@ namespace SimpleShop.Controllers
 		{
 			try
 			{
-				if (file.ContentLength > 0 && file.ContentLength < 327680 && file.ContentType.Contains("image"))
+				if (file.ContentLength > 0 && file.ContentLength < 327680 && file.ContentType.Contains("image") && ModelState.IsValid != false)
 				{
 
 
@@ -80,6 +83,10 @@ namespace SimpleShop.Controllers
 		[HttpPost]
 		public ActionResult Edit(int id, ProductViewModel productViewModel)
 		{
+			if (!ModelState.IsValid)
+			{
+				return View(productViewModel);
+			}
 			try
 			{
 				var product = Mapper.Map<ProductViewModel, Product>(productViewModel);
