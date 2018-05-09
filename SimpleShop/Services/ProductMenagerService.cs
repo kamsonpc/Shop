@@ -45,8 +45,23 @@ namespace SimpleShop.Services
 		public void Remove(int id)
 		{
 			var productInDb = GetById(id);
+			RemoveImage(productInDb.Img);
 			_applicationDb.Products.Remove(productInDb);
 			_applicationDb.SaveChanges();
+		}
+
+		public string UploadImage(HttpPostedFileBase file)
+		{
+			string path = Path.Combine(HttpContext.Current.Server.MapPath("~/UploadedFiles"), Path.GetFileName(file.FileName));
+			file.SaveAs(path);
+
+			return file.FileName;
+		}
+
+		public void RemoveImage(string fileName)
+		{
+			string path = Path.Combine(HttpContext.Current.Server.MapPath("~/UploadedFiles"), fileName);
+			File.Delete(path);
 		}
 	}
 }

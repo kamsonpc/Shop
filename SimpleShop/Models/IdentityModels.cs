@@ -38,6 +38,5 @@ namespace SimpleShop.Models
         {
             return new ApplicationDbContext();
         }
-
-	   	}
+	}
 }

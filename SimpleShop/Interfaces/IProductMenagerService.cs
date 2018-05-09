@@ -13,5 +13,6 @@ namespace SimpleShop.Interfaces
 		void AddNew(Product product);
 		bool Update(int id, Product product);
 		void Remove(int id);
+		string UploadImage(HttpPostedFileBase file);
 	}
 }

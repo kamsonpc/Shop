@@ -12,8 +12,11 @@ namespace SimpleShop.Models
 
 		[Key]
 		public int ProductId { get; set; }
+		[Required]
 		public string Name { get; set; }
+		[Required]
 		public float Price { get; set; }
+		[Required]
 		public string Description { get; set; }
 		public string Img { get; set; }
 

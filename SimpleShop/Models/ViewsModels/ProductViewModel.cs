@@ -11,11 +11,18 @@ namespace SimpleShop.Models.ViewsModels
 		[Key]
 		public int ProductId { get; set; }
 		[MaxLength(30)]
+		[Display(Name = "Nazwa")]
+		[Required]
 		public string Name { get; set; }
+		[Display(Name = "Cena")]
 		[DataType(DataType.Currency)]
+		[Required]
 		public float Price { get; set; }
-		[MaxLength(255)]
+		[Display(Name = "Opis")]
+		[MaxLength(512)]
+		[Required]
 		public string Description { get; set; }
+		[Display(Name = "Obrazek")]
 		public string Img { get; set; }
 	}
 }

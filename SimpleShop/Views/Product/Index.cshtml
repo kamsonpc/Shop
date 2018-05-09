@@ -3,44 +3,37 @@
 @{
 	ViewBag.Title = "Index";
 }
-
+<h2>Produkty</h2>
 <div class="container">
-	<div class="well well-sm">
-		<strong>Category Title</strong>
-		<div class="btn-group">
-			<a href="#" id="list" class="btn btn-default btn-sm">
-				<span class="glyphicon glyphicon-th-list">
-				</span>List
-			</a> <a href="#" id="grid" class="btn btn-default btn-sm">
-				<span class="glyphicon glyphicon-th"></span>Grid
-			</a>
-		</div>
-	</div>
 	<div id="products" class="row list-group">
 		@foreach (var item in Model)
 		{
 			<div class="item  col-xs-4 col-lg-4">
-				<div class="thumbnail">
-					<img class="group list-group-image" src="@Url.Content("~/UploadedFiles/" + @item.Img)" alt="" />
-					<div class="caption">
-						<h4 class="group inner list-group-item-heading">
-							@Html.DisplayFor(modelItem => item.Name)
-						</h4>
-						<p class="group inner list-group-item-text">
-							@{
-								string excert = item.Description.Substring(0, 130) + "...";
-			
-								@excert;
-							}
-						</p>
-						<div class="row mt-small">
-							<div class="col-xs-12 col-md-6">
-								<p class="lead">
-									@Html.DisplayFor(modelItem => item.Price)
-								</p>
-							</div>
-							<div class="col-xs-12 col-md-6">
-								<a class="btn btn-success" href="http://www.jquery2dotnet.com">Add to cart <i class="glyphicon glyphicon-shopping-cart"></i></a>
+				<div class="panel panel-default">
+					<div class="panel-heading">@Html.DisplayFor(modelItem => item.Name)</div>
+					<div class="panel-body">
+						<a href="@Url.Action("Details", "Product",new { id = item.ProductId })">
+							<img class="group index-product-img" src="@Url.Content("~/UploadedFiles/" + @item.Img)" alt="" />
+						</a>
+						<hr/>
+						<div class="caption">
+							<p class="group inner list-group-item-text">
+								@{
+									string excert = item.Description.Substring(0, 130) + "...";
+									@excert
+									;
+								}
+							</p>
+							<hr/>
+							<div class="row mt-small">
+								<div class="col-xs-12 col-md-5">
+									<p class="lead">
+										<b>@Html.DisplayFor(modelItem => item.Price)</b>
+									</p>
+								</div>
+								<div class="col-xs-12 col-md-7">
+									<a class="btn btn-danger" href="http://www.jquery2dotnet.com">Dodaj do Koszyka <i class="glyphicon glyphicon-shopping-cart"></i></a>
+								</div>
 							</div>
 						</div>
 					</div>

@@ -48,10 +48,9 @@ namespace SimpleShop.Controllers
 			{
 				if (file.ContentLength > 0 && file.ContentLength < 327680 && file.ContentType.Contains("image"))
 				{
-					string path = Path.Combine(Server.MapPath("~/UploadedFiles"), Path.GetFileName(file.FileName));
-					file.SaveAs(path);
 
-					productViewModel.Img = file.FileName;
+
+					productViewModel.Img = _productMenager.UploadImage(file);
 
 					var product = Mapper.Map<ProductViewModel, Product>(productViewModel);
 					_productMenager.AddNew(product);

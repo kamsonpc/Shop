@@ -229,7 +229,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Interfaces\IUploadService.cs" />
     <Compile Include="Interfaces\IProductMenagerService.cs" />
     <Compile Include="Mapping\MappingProfiles.cs" />
     <Compile Include="Migrations\201804302127511_InitDb.cs" />
@@ -244,16 +243,22 @@
     <Compile Include="Migrations\201805071635114_rwqrw.Designer.cs">
       <DependentUpon>201805071635114_rwqrw.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805081939155_affdsgs.cs" />
+    <Compile Include="Migrations\201805081939155_affdsgs.Designer.cs">
+      <DependentUpon>201805081939155_affdsgs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805091010231_fafdafad.cs" />
+    <Compile Include="Migrations\201805091010231_fafdafad.Designer.cs">
+      <DependentUpon>201805091010231_fafdafad.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\Image.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ViewsModels\ProductViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ProductMenagerService.cs" />
-    <Compile Include="Services\UploadService.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -314,10 +319,9 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Product\Index.cshtml" />
-    <Content Include="Views\Product\Create.cshtml" />
     <Content Include="Views\Product\Details.cshtml" />
     <Content Include="Views\Product\Edit.cshtml" />
-    <Content Include="Views\Upload\UploadImage.cshtml" />
+    <Content Include="Views\Product\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -345,6 +349,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805071635114_rwqrw.resx">
       <DependentUpon>201805071635114_rwqrw.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805081939155_affdsgs.resx">
+      <DependentUpon>201805081939155_affdsgs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805091010231_fafdafad.resx">
+      <DependentUpon>201805091010231_fafdafad.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
