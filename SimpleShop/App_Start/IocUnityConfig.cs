@@ -25,8 +25,9 @@ namespace SimpleShop.Controllers
 
 			container.RegisterType<ApplicationSignInManager>();
 			container.RegisterType<ApplicationUserManager>();
-			container.RegisterType<IUserStore<ApplicationUser>, UserStore<ApplicationUser>>(
-				new InjectionConstructor(typeof(ApplicationDbContext)));
+			container.RegisterType<ApplicationDbContext>();
+			container.RegisterType<AccountController>(new InjectionConstructor());
+
 			//container.RegisterType<IUploadService, UploadService>();
 			DependencyResolver.SetResolver(new UnityDependencyResolver(container));
 

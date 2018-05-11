@@ -12,7 +12,7 @@ namespace SimpleShop
         public void Configuration(IAppBuilder app)
         {
             ConfigureAuth(app);
-			//CreateAdmin();
+			CreateAdmin();
         }
 
 	    private void CreateAdmin()
@@ -22,24 +22,22 @@ namespace SimpleShop
 		    var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
 		    var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
 
-		    var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
-		    role.Name = "Admin";
-		    roleManager.Create(role);
-
-
-			if (!roleManager.RoleExists("Admin"))
+			if (!roleManager.RoleExists("Administrator"))
 		    {
+			    var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
+			    role.Name = "Administrator";
+			    roleManager.Create(role);
 
-			    var user = new ApplicationUser();
-			    user.UserName = "Admin";
+				var user = new ApplicationUser();
+			    user.UserName = "admin@gmail.com";
 			    user.Email = "admin@gmail.com";
 
-			    string userPass = "zaQ1@WSX";
+			    string userPass = "zaq1@WSX";
 
 			    var chkUser = UserManager.Create(user, userPass);
 			    if (chkUser.Succeeded)
 			    {
-				    UserManager.AddToRole(user.Id, "Admin");
+				    UserManager.AddToRole(user.Id, "Administrator");
 
 			    }
 			}

@@ -4,6 +4,7 @@
 	ViewBag.Title = "Index";
 }
 <h2>Produkty</h2>
+
 <div class="container">
 	<div id="products" class="row list-group">
 		@foreach (var item in Model)
@@ -12,8 +13,8 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">@Html.DisplayFor(modelItem => item.Name)</div>
 					<div class="panel-body">
-						<a href="@Url.Action("Details", "Product",new { id = item.ProductId })">
-							<img class="group index-product-img" src="@Url.Content("~/UploadedFiles/" + @item.Img)" alt="" />
+						<a href="@Url.Action("Details", "Product", new {id = item.ProductId})">
+							<img class="group index-product-img" src="@Url.Content("~/UploadedFiles/" + @item.Img)" alt=""/>
 						</a>
 						<hr/>
 						<div class="caption">
@@ -34,6 +35,14 @@
 								<div class="col-xs-12 col-md-7">
 									<a class="btn btn-danger" href="#">Dodaj do Koszyka <i class="glyphicon glyphicon-shopping-cart"></i></a>
 								</div>
+								@if (Request.IsAuthenticated && User.IsInRole("Administrator"))
+								{
+									<hr/>
+									<div class="col-xs-12 col-md-12">
+										<a class="btn btn-warning" href="@Url.Action("Edit", "Product", new {id = item.ProductId})"><i class="glyphicon glyphicon-pencil"></i>Edytuj</a>
+										<a class="btn btn-danger" href="@Url.Action("Delete", "Product", new {id = item.ProductId})"><i class="glyphicon glyphicon-trash"></i>Remove</a>
+									</div>
+								}
 							</div>
 						</div>
 					</div>
@@ -41,6 +50,11 @@
 			</div>
 		}
 	</div>
+	@if (Request.IsAuthenticated && User.IsInRole("Administrator"))
+	{
+		<a class="btn btn-success" href="@Url.Action("Create", "Product")"> <i class="glyphicon glyphicon-pencil"></i> Dodaj</a>
+
+	}
 </div>
 
 

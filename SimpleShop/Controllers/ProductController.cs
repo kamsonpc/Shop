@@ -12,7 +12,7 @@ using SimpleShop.Services;
 
 namespace SimpleShop.Controllers
 {
-	[Authorize]
+	[Authorize(Roles = "Administrator")]
 	public class ProductController : Controller
 	{
 		private readonly IProductMenagerService _productMenager;

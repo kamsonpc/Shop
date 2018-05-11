@@ -235,21 +235,9 @@
     <Compile Include="Migrations\201804302127511_InitDb.Designer.cs">
       <DependentUpon>201804302127511_InitDb.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201805071348214_adsa.cs" />
-    <Compile Include="Migrations\201805071348214_adsa.Designer.cs">
-      <DependentUpon>201805071348214_adsa.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805071635114_rwqrw.cs" />
-    <Compile Include="Migrations\201805071635114_rwqrw.Designer.cs">
-      <DependentUpon>201805071635114_rwqrw.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805081939155_affdsgs.cs" />
-    <Compile Include="Migrations\201805081939155_affdsgs.Designer.cs">
-      <DependentUpon>201805081939155_affdsgs.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805091010231_fafdafad.cs" />
-    <Compile Include="Migrations\201805091010231_fafdafad.Designer.cs">
-      <DependentUpon>201805091010231_fafdafad.cs</DependentUpon>
+    <Compile Include="Migrations\201805111759082_asdas.cs" />
+    <Compile Include="Migrations\201805111759082_asdas.Designer.cs">
+      <DependentUpon>201805111759082_asdas.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -344,17 +332,8 @@
     <EmbeddedResource Include="Migrations\201804302127511_InitDb.resx">
       <DependentUpon>201804302127511_InitDb.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805071348214_adsa.resx">
-      <DependentUpon>201805071348214_adsa.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805071635114_rwqrw.resx">
-      <DependentUpon>201805071635114_rwqrw.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805081939155_affdsgs.resx">
-      <DependentUpon>201805081939155_affdsgs.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805091010231_fafdafad.resx">
-      <DependentUpon>201805091010231_fafdafad.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201805111759082_asdas.resx">
+      <DependentUpon>201805111759082_asdas.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
