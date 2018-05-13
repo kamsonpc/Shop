@@ -15,17 +15,17 @@ namespace SimpleShop.Controllers
 	[Authorize(Roles = "Administrator")]
 	public class ProductController : Controller
 	{
-		private readonly IProductMenagerService _productMenager;
-		public ProductController(IProductMenagerService productMenager)
+		private readonly IProductService _productService;
+		public ProductController(IProductService productService)
 		{
-			_productMenager = productMenager;
+			_productService = productService;
 		}
 
 		// GET: Product
 		[AllowAnonymous]
 		public ActionResult Index()
 		{
-			var products = Mapper.Map<List<Product>, List<ProductViewModel>>(_productMenager.GetAll());
+			var products = Mapper.Map<List<Product>, List<ProductViewModel>>(_productService.GetAll());
 			return View(products);
 		}
 
@@ -33,7 +33,7 @@ namespace SimpleShop.Controllers
 		[AllowAnonymous]
 		public ActionResult Details(int id)
 		{
-			var product = Mapper.Map<Product, ProductViewModel>(_productMenager.GetById(id));
+			var product = Mapper.Map<Product, ProductViewModel>(_productService.GetById(id));
 			return View(product);
 		}
 
@@ -53,10 +53,10 @@ namespace SimpleShop.Controllers
 				{
 
 
-					productViewModel.Img = _productMenager.UploadImage(file);
+					productViewModel.Img = _productService.UploadImage(file);
 
 					var product = Mapper.Map<ProductViewModel, Product>(productViewModel);
-					_productMenager.AddNew(product);
+					_productService.AddNew(product);
 
 					return RedirectToAction("Index");
 				}
@@ -75,7 +75,7 @@ namespace SimpleShop.Controllers
 		// GET: Product/Edit/5
 		public ActionResult Edit(int id)
 		{
-			var product = Mapper.Map<Product, ProductViewModel>(_productMenager.GetById(id));
+			var product = Mapper.Map<Product, ProductViewModel>(_productService.GetById(id));
 			return View(product);
 		}
 
@@ -90,7 +90,7 @@ namespace SimpleShop.Controllers
 			try
 			{
 				var product = Mapper.Map<ProductViewModel, Product>(productViewModel);
-				_productMenager.Update(id, product);
+				_productService.Update(id, product);
 				return RedirectToAction("Index");
 			}
 			catch
@@ -102,7 +102,7 @@ namespace SimpleShop.Controllers
 		// GET: Product/Delete/5
 		public ActionResult Delete(int id)
 		{
-			_productMenager.Remove(id);
+			_productService.Remove(id);
 			return RedirectToAction("Index");
 		}
 

@@ -229,7 +229,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Interfaces\IProductMenagerService.cs" />
+    <Compile Include="Interfaces\IProductService.cs" />
     <Compile Include="Mapping\MappingProfiles.cs" />
     <Compile Include="Migrations\201804302127511_InitDb.cs" />
     <Compile Include="Migrations\201804302127511_InitDb.Designer.cs">
@@ -246,7 +246,7 @@
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ViewsModels\ProductViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\ProductMenagerService.cs" />
+    <Compile Include="Services\ProductService.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
