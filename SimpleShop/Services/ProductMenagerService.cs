@@ -9,10 +9,10 @@ using SimpleShop.Models;
 
 namespace SimpleShop.Services
 {
-	public class ProductService : IProductService
+	public class ProductMenagerService : IProductMenagerService
 	{
 		private readonly ApplicationDbContext _applicationDb;
-		public ProductService(ApplicationDbContext applicationDb)
+		public ProductMenagerService(ApplicationDbContext applicationDb)
 		{
 			_applicationDb = applicationDb;
 		}
@@ -53,8 +53,7 @@ namespace SimpleShop.Services
 		public bool Update(int id, Product product)
 		{
 			var productInDb = GetById(id);
-		    Mapper.Map(product,productInDb);
-			var abc = productInDb;
+			Mapper.Map<Product>(product);
 			_applicationDb.SaveChanges();
 			return true;
 		}

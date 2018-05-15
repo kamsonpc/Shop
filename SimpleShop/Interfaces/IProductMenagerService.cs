@@ -6,7 +6,7 @@ using SimpleShop.Models;
 
 namespace SimpleShop.Interfaces
 {
-	public interface IProductService
+	public interface IProductMenagerService
 	{
 		List<Product> GetAll();
 		Product GetById(int id);

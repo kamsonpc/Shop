@@ -21,13 +21,12 @@ namespace SimpleShop.Controllers
 		{
 			var container = new UnityContainer();
 
-			container.RegisterType<IProductService, ProductService>();
+			container.RegisterType<IProductMenagerService, ProductMenagerService>();
 
 			container.RegisterType<ApplicationSignInManager>();
 			container.RegisterType<ApplicationUserManager>();
 			container.RegisterType<ApplicationDbContext>();
 			container.RegisterType<AccountController>(new InjectionConstructor());
-			container.RegisterType<ManageController>(new InjectionConstructor());
 
 			//container.RegisterType<IUploadService, UploadService>();
 			DependencyResolver.SetResolver(new UnityDependencyResolver(container));
