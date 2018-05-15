@@ -235,15 +235,20 @@
     <Compile Include="Migrations\201804302127511_InitDb.Designer.cs">
       <DependentUpon>201804302127511_InitDb.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201805111759082_asdas.cs" />
-    <Compile Include="Migrations\201805111759082_asdas.Designer.cs">
-      <DependentUpon>201805111759082_asdas.cs</DependentUpon>
+    <Compile Include="Migrations\201805151328015_dsa.cs" />
+    <Compile Include="Migrations\201805151328015_dsa.Designer.cs">
+      <DependentUpon>201805151328015_dsa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805151417581_Remove_UserID_From_Product.cs" />
+    <Compile Include="Migrations\201805151417581_Remove_UserID_From_Product.Designer.cs">
+      <DependentUpon>201805151417581_Remove_UserID_From_Product.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\ProductUnit.cs" />
     <Compile Include="Models\ViewsModels\ProductViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ProductService.cs" />
@@ -332,8 +337,11 @@
     <EmbeddedResource Include="Migrations\201804302127511_InitDb.resx">
       <DependentUpon>201804302127511_InitDb.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805111759082_asdas.resx">
-      <DependentUpon>201805111759082_asdas.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201805151328015_dsa.resx">
+      <DependentUpon>201805151328015_dsa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805151417581_Remove_UserID_From_Product.resx">
+      <DependentUpon>201805151417581_Remove_UserID_From_Product.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

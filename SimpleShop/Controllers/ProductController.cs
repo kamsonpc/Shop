@@ -34,6 +34,8 @@ namespace SimpleShop.Controllers
 		public ActionResult Details(int id)
 		{
 			var product = Mapper.Map<Product, ProductViewModel>(_productService.GetById(id));
+			product.Quantity = _productService.CountProductUnits(id);
+		
 			return View(product);
 		}
 
@@ -56,7 +58,9 @@ namespace SimpleShop.Controllers
 					productViewModel.Img = _productService.UploadImage(file);
 
 					var product = Mapper.Map<ProductViewModel, Product>(productViewModel);
-					_productService.AddNew(product);
+					int quantity = productViewModel.Quantity;
+
+					_productService.AddNew(product,quantity);
 
 					return RedirectToAction("Index");
 				}

@@ -20,8 +20,7 @@ namespace SimpleShop.Models
 		public string Description { get; set; }
 		public string Img { get; set; }
 
-		public int UserId { get; set; }
-		public virtual ApplicationUser User { get; set; }
+		public ICollection<ProductUnit> ProductUnits { get; set; }
 		
 	}
 }

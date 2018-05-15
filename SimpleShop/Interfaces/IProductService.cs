@@ -10,9 +10,11 @@ namespace SimpleShop.Interfaces
 	{
 		List<Product> GetAll();
 		Product GetById(int id);
-		void AddNew(Product product);
+		void AddNew(Product product,int quantity);
 		bool Update(int id, Product product);
 		void Remove(int id);
 		string UploadImage(HttpPostedFileBase file);
+
+		int CountProductUnits(int id);
 	}
 }

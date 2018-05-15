@@ -20,8 +20,6 @@ namespace SimpleShop.Models
             // Add custom user claims here
             return userIdentity;
         }
-		
-		public ICollection<Product> Products { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
@@ -33,6 +31,7 @@ namespace SimpleShop.Models
         }
 
 	    public DbSet<Product> Products { get; set; }
+	    public DbSet<ProductUnit> ProductUnits { get; set; }
 
 		public static ApplicationDbContext Create()
         {

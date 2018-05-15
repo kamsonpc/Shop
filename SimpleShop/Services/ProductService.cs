@@ -28,10 +28,26 @@ namespace SimpleShop.Services
 		}
 
 
-		public void AddNew(Product product)
+		public void AddNew(Product product,int quantity)
 		{
-			_applicationDb.Products.Add(product);
-			_applicationDb.SaveChanges();
+			using (var ctx = new ApplicationDbContext())
+			{
+				_applicationDb.Products.Add(product);
+				_applicationDb.SaveChanges();
+			}
+
+			var productUnit = new ProductUnit();
+			productUnit.ProductId = product.ProductId;
+
+			for (int i = 0; i < quantity; i++)
+			{
+				using (var ctx = new ApplicationDbContext())
+				{
+					_applicationDb.ProductUnits.Add(productUnit);
+					_applicationDb.SaveChanges();
+				}
+			}
+			
 		}
 
 		public bool Update(int id, Product product)
@@ -57,6 +73,12 @@ namespace SimpleShop.Services
 			file.SaveAs(path);
 
 			return file.FileName;
+		}
+
+		public int CountProductUnits(int id)
+		{
+			int unitNumber = _applicationDb.ProductUnits.Where(p => p.ProductId == id).ToList().Count();
+			return unitNumber;
 		}
 
 		public void RemoveImage(string fileName)

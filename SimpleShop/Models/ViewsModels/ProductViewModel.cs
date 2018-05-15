@@ -19,10 +19,13 @@ namespace SimpleShop.Models.ViewsModels
 		[Required]
 		public float Price { get; set; }
 		[Display(Name = "Opis")]
-		[MaxLength(512)]
+		[MinLength(156)]
 		[Required]
 		public string Description { get; set; }
 		[Display(Name = "Obrazek")]
 		public string Img { get; set; }
+		[Required]
+		[Display(Name = "Ilość Sztuk")]
+		public int Quantity { get; set; }
 	}
 }
