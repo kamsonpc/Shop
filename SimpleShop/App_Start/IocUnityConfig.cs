@@ -21,7 +21,8 @@ namespace SimpleShop.Controllers
 		{
 			var container = new UnityContainer();
 
-			container.RegisterType<IProductMenagerService, ProductMenagerService>();
+			container.RegisterType<IProductService, ProductService>();
+			container.RegisterType<IOrderService, OrderService>();
 
 			container.RegisterType<ApplicationSignInManager>();
 			container.RegisterType<ApplicationUserManager>();

@@ -33,7 +33,7 @@
 									</p>
 								</div>
 								<div class="col-xs-12 col-md-7">
-									<a class="btn btn-danger" href="#">Dodaj do Koszyka <i class="glyphicon glyphicon-shopping-cart"></i></a>
+									<a class="btn btn-danger" href="@Url.Action("Buy", "Product", new {id = item.ProductId})">Kup <i class="glyphicon glyphicon-shopping-cart"></i></a>
 								</div>
 								@if (Request.IsAuthenticated && User.IsInRole("Administrator"))
 								{

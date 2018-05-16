@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
@@ -8,7 +9,9 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using SimpleShop.Interfaces;
 using SimpleShop.Models;
+using SimpleShop.Models.ViewsModels;
 
 namespace SimpleShop.Controllers
 {
@@ -17,13 +20,12 @@ namespace SimpleShop.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-
 	    public AccountController()
 	    {
 
 	    }
 
-		public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+		public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
@@ -53,9 +55,8 @@ namespace SimpleShop.Controllers
             }
         }
 
-        //
-        // GET: /Account/Login
-        [AllowAnonymous]
+		// GET: /Account/Login
+		[AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
@@ -238,7 +239,7 @@ namespace SimpleShop.Controllers
             return code == null ? View("Error") : View();
         }
 
-        //
+
         // POST: /Account/ResetPassword
         [HttpPost]
         [AllowAnonymous]

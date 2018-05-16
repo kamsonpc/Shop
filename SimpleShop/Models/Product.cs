@@ -19,8 +19,9 @@ namespace SimpleShop.Models
 		[Required]
 		public string Description { get; set; }
 		public string Img { get; set; }
+		public int Quantity { get; set; }
 
-		public ICollection<ProductUnit> ProductUnits { get; set; }
+		public ICollection<Order> Orders { get; set; }
 		
 	}
 }

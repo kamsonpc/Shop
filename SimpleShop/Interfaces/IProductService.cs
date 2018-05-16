@@ -6,15 +6,14 @@ using SimpleShop.Models;
 
 namespace SimpleShop.Interfaces
 {
-	public interface IProductMenagerService
+	public interface IProductService
 	{
 		List<Product> GetAll();
 		Product GetById(int id);
-		void AddNew(Product product,int quantity);
+		void AddNew(Product product);
 		bool Update(int id, Product product);
 		void Remove(int id);
 		string UploadImage(HttpPostedFileBase file);
-
-		int CountProductUnits(int id);
+		void ChangeQuantity(int id,int quantity);
 	}
 }

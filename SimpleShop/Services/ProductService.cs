@@ -9,17 +9,17 @@ using SimpleShop.Models;
 
 namespace SimpleShop.Services
 {
-	public class ProductMenagerService : IProductMenagerService
+	public class ProductService : IProductService
 	{
 		private readonly ApplicationDbContext _applicationDb;
-		public ProductMenagerService(ApplicationDbContext applicationDb)
+		public ProductService(ApplicationDbContext applicationDb)
 		{
 			_applicationDb = applicationDb;
 		}
 
 		public List<Product> GetAll()
 		{
-			return	_applicationDb.Products.ToList();
+			return _applicationDb.Products.ToList();
 		}
 
 		public Product GetById(int id)
@@ -28,26 +28,10 @@ namespace SimpleShop.Services
 		}
 
 
-		public void AddNew(Product product,int quantity)
+		public void AddNew(Product product)
 		{
-			using (var ctx = new ApplicationDbContext())
-			{
-				_applicationDb.Products.Add(product);
-				_applicationDb.SaveChanges();
-			}
-
-			var productUnit = new ProductUnit();
-			productUnit.ProductId = product.ProductId;
-
-			for (int i = 0; i < quantity; i++)
-			{
-				using (var ctx = new ApplicationDbContext())
-				{
-					_applicationDb.ProductUnits.Add(productUnit);
-					_applicationDb.SaveChanges();
-				}
-			}
-			
+			_applicationDb.Products.Add(product);
+			_applicationDb.SaveChanges();
 		}
 
 		public bool Update(int id, Product product)
@@ -74,16 +58,17 @@ namespace SimpleShop.Services
 			return file.FileName;
 		}
 
-		public int CountProductUnits(int id)
-		{
-			int unitNumber = _applicationDb.ProductUnits.Where(p => p.ProductId == id).ToList().Count();
-			return unitNumber;
-		}
-
 		public void RemoveImage(string fileName)
 		{
 			string path = Path.Combine(HttpContext.Current.Server.MapPath("~/UploadedFiles"), fileName);
 			File.Delete(path);
+		}
+
+		public void ChangeQuantity(int id, int quantity)
+		{
+			var productInDb = GetById(id);
+			productInDb.Quantity -= quantity;
+			_applicationDb.SaveChanges();
 		}
 	}
 }
