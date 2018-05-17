@@ -12,10 +12,13 @@ namespace SimpleShop.Models.ViewsModels
 		public int OrderId { get; set; }
 		public int ProductId { get; set; }
 		public string ApplicationUserId { get; set; }
-
-		public int Price { get; set; }
+		[DataType(DataType.Currency)]
+		[Display(Name = "Cena")]
+		public float Price { get; set; }
+		[Display(Name = "Ilość sztuk")]
 		public int Quantity { get; set; }
 
+		[Display(Name = "Data Zakupu")]
 		public DateTime Date { get; set; }
 	}
 }

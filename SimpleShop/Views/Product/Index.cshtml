@@ -1,4 +1,4 @@
-﻿@model IEnumerable<SimpleShop.Models.ViewsModels.ProductViewModel>
+﻿@model SimpleShop.Models.ViewsModels.CategoryProductVM
 
 @{
 	ViewBag.Title = "Index";
@@ -6,55 +6,68 @@
 <h2>Produkty</h2>
 
 <div class="container">
-	<div id="products" class="row list-group">
-		@foreach (var item in Model)
+	<div class="row">
+		<div class="col-md-2">
+			<h4>Kategorie</h4>
+			<ul class="list-group">
+				@foreach (var item in Model.categories)
 		{
-			<div class="item  col-xs-4 col-lg-4">
-				<div class="panel panel-default">
-					<div class="panel-heading">@Html.DisplayFor(modelItem => item.Name)</div>
-					<div class="panel-body">
-						<a href="@Url.Action("Details", "Product", new {id = item.ProductId})">
-							<img class="group index-product-img" src="@Url.Content("~/UploadedFiles/" + @item.Img)" alt=""/>
-						</a>
-						<hr/>
-						<div class="caption">
-							<p class="group inner list-group-item-text">
-								@{
-									string excert = item.Description.Substring(0, 130) + "...";
-									@excert
-									;
-								}
-							</p>
-							<hr/>
-							<div class="row mt-small">
-								<div class="col-xs-12 col-md-5">
-									<p class="lead">
-										<b>@Html.DisplayFor(modelItem => item.Price)</b>
+			<li class="list-group-item"><a href="@Url.Action("Category", "Product", new {id = item.CategoryId})">@item.Name</a></li>
+}
+			</ul>
+		</div>
+		<div class="col-md-10">
+			<div id="products" class="row list-group">
+				@foreach (var item in Model.product)
+				{
+					<div class="item  col-xs-4 col-lg-4">
+						<div class="panel panel-default">
+							<div class="panel-heading">@Html.DisplayFor(modelItem => item.Name)</div>
+							<div class="panel-body">
+								<a href="@Url.Action("Details", "Product", new {id = item.ProductId})">
+									<img class="group index-product-img" src="@Url.Content("~/UploadedFiles/" + @item.Img)" alt="" />
+								</a>
+								<hr />
+								<div class="caption">
+									<p class="group inner list-group-item-text">
+										@{
+											string excert = item.Description.Substring(0, 130) + "...";
+											@excert
+											;
+										}
 									</p>
-								</div>
-								<div class="col-xs-12 col-md-7">
-									<a class="btn btn-danger" href="@Url.Action("Buy", "Product", new {id = item.ProductId})">Kup <i class="glyphicon glyphicon-shopping-cart"></i></a>
-								</div>
-								@if (Request.IsAuthenticated && User.IsInRole("Administrator"))
-								{
-									<hr/>
-									<div class="col-xs-12 col-md-12">
-										<a class="btn btn-warning" href="@Url.Action("Edit", "Product", new {id = item.ProductId})"><i class="glyphicon glyphicon-pencil"></i>Edytuj</a>
-										<a class="btn btn-danger" href="@Url.Action("Delete", "Product", new {id = item.ProductId})"><i class="glyphicon glyphicon-trash"></i>Remove</a>
+									<hr />
+									<div class="row mt-small">
+										<div class="col-xs-12 col-md-8">
+											<p class="lead">
+												<b>@Html.DisplayFor(modelItem => item.Price)</b>
+											</p>
+										</div>
+										<div class="col-xs-12 col-md-4">
+											<a class="btn btn-danger" href="@Url.Action("Buy", "Product", new {id = item.ProductId})">Kup <i class="glyphicon glyphicon-shopping-cart"></i></a>
+										</div>
+										@if (Request.IsAuthenticated && User.IsInRole("Administrator"))
+										{
+											<hr />
+											<div class="col-xs-12 col-md-12">
+												<a class="btn btn-warning" href="@Url.Action("Edit", "Product", new {id = item.ProductId})"><i class="glyphicon glyphicon-pencil"></i>Edytuj</a>
+												<a class="btn btn-danger" href="@Url.Action("Delete", "Product", new {id = item.ProductId})"><i class="glyphicon glyphicon-trash"></i>Remove</a>
+											</div>
+										}
 									</div>
-								}
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
+				}
 			</div>
-		}
-	</div>
-	@if (Request.IsAuthenticated && User.IsInRole("Administrator"))
-	{
-		<a class="btn btn-success" href="@Url.Action("Create", "Product")"> <i class="glyphicon glyphicon-pencil"></i> Dodaj</a>
+			@if (Request.IsAuthenticated && User.IsInRole("Administrator"))
+			{
+				<a class="btn btn-success" href="@Url.Action("Create", "Product")"> <i class="glyphicon glyphicon-pencil"></i> Dodaj</a>
 
-	}
+			}
+		</div>
+	</div>
 </div>
 
 

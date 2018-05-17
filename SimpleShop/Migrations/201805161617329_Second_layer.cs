@@ -3,12 +3,19 @@ namespace SimpleShop.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class AddOrdersModel : DbMigration
+    public partial class Second_layer : DbMigration
     {
         public override void Up()
         {
-            DropForeignKey("dbo.ProductUnits", "ProductId", "dbo.Products");
-            DropIndex("dbo.ProductUnits", new[] { "ProductId" });
+            CreateTable(
+                "dbo.Categories",
+                c => new
+                    {
+                        CategoryId = c.Int(nullable: false, identity: true),
+                        Name = c.String(),
+                    })
+                .PrimaryKey(t => t.CategoryId);
+            
             CreateTable(
                 "dbo.Orders",
                 c => new
@@ -16,7 +23,7 @@ namespace SimpleShop.Migrations
                         OrderId = c.Int(nullable: false, identity: true),
                         ProductId = c.Int(nullable: false),
                         ApplicationUserId = c.String(maxLength: 128),
-                        Price = c.Int(nullable: false),
+                        Price = c.Single(nullable: false),
                         Quantity = c.Int(nullable: false),
                         Date = c.DateTime(nullable: false),
                     })
@@ -26,29 +33,30 @@ namespace SimpleShop.Migrations
                 .Index(t => t.ProductId)
                 .Index(t => t.ApplicationUserId);
             
+            AddColumn("dbo.Products", "Img", c => c.String());
             AddColumn("dbo.Products", "Quantity", c => c.Int(nullable: false));
-            DropTable("dbo.ProductUnits");
+            AddColumn("dbo.Products", "CategoryId", c => c.Int(nullable: false));
+            AlterColumn("dbo.Products", "Name", c => c.String(nullable: false));
+            AlterColumn("dbo.Products", "Description", c => c.String(nullable: false));
+            CreateIndex("dbo.Products", "CategoryId");
+            AddForeignKey("dbo.Products", "CategoryId", "dbo.Categories", "CategoryId", cascadeDelete: true);
         }
         
         public override void Down()
         {
-            CreateTable(
-                "dbo.ProductUnits",
-                c => new
-                    {
-                        ProductUnitId = c.Int(nullable: false, identity: true),
-                        ProductId = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => t.ProductUnitId);
-            
             DropForeignKey("dbo.Orders", "ProductId", "dbo.Products");
             DropForeignKey("dbo.Orders", "ApplicationUserId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.Products", "CategoryId", "dbo.Categories");
             DropIndex("dbo.Orders", new[] { "ApplicationUserId" });
             DropIndex("dbo.Orders", new[] { "ProductId" });
+            DropIndex("dbo.Products", new[] { "CategoryId" });
+            AlterColumn("dbo.Products", "Description", c => c.String());
+            AlterColumn("dbo.Products", "Name", c => c.String());
+            DropColumn("dbo.Products", "CategoryId");
             DropColumn("dbo.Products", "Quantity");
+            DropColumn("dbo.Products", "Img");
             DropTable("dbo.Orders");
-            CreateIndex("dbo.ProductUnits", "ProductId");
-            AddForeignKey("dbo.ProductUnits", "ProductId", "dbo.Products", "ProductId", cascadeDelete: true);
+            DropTable("dbo.Categories");
         }
     }
 }

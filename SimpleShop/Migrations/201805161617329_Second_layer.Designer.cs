@@ -7,13 +7,13 @@ namespace SimpleShop.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class dsa : IMigrationMetadata
+    public sealed partial class Second_layer : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(dsa));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Second_layer));
         
         string IMigrationMetadata.Id
         {
-            get { return "201805151328015_dsa"; }
+            get { return "201805161617329_Second_layer"; }
         }
         
         string IMigrationMetadata.Source

@@ -222,6 +222,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="App_Start\IocUnityConfig.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -230,6 +231,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Interfaces\ICategoryService.cs" />
     <Compile Include="Interfaces\IOrderService.cs" />
     <Compile Include="Interfaces\IProductService.cs" />
     <Compile Include="Mapping\MappingProfiles.cs" />
@@ -237,28 +239,23 @@
     <Compile Include="Migrations\201804302127511_InitDb.Designer.cs">
       <DependentUpon>201804302127511_InitDb.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201805151328015_dsa.cs" />
-    <Compile Include="Migrations\201805151328015_dsa.Designer.cs">
-      <DependentUpon>201805151328015_dsa.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805151417581_Remove_UserID_From_Product.cs" />
-    <Compile Include="Migrations\201805151417581_Remove_UserID_From_Product.Designer.cs">
-      <DependentUpon>201805151417581_Remove_UserID_From_Product.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805151529531_Add Orders Model .cs" />
-    <Compile Include="Migrations\201805151529531_Add Orders Model .Designer.cs">
-      <DependentUpon>201805151529531_Add Orders Model .cs</DependentUpon>
+    <Compile Include="Migrations\201805161617329_Second_layer.cs" />
+    <Compile Include="Migrations\201805161617329_Second_layer.Designer.cs">
+      <DependentUpon>201805161617329_Second_layer.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Category.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\ViewsModels\CategoryProductVM.cs" />
     <Compile Include="Models\ViewsModels\OrderProductViewModel.cs" />
     <Compile Include="Models\ViewsModels\OrderViewModel.cs" />
     <Compile Include="Models\ViewsModels\ProductViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\CategoryService.cs" />
     <Compile Include="Services\OrderService.cs" />
     <Compile Include="Services\ProductService.cs" />
     <Compile Include="Startup.cs" />
@@ -325,6 +322,11 @@
     <Content Include="Views\Product\Edit.cshtml" />
     <Content Include="Views\Product\Create.cshtml" />
     <Content Include="Views\Orders\Index.cshtml" />
+    <Content Include="Views\Categories\Create.cshtml" />
+    <Content Include="Views\Categories\Delete.cshtml" />
+    <Content Include="Views\Categories\Details.cshtml" />
+    <Content Include="Views\Categories\Edit.cshtml" />
+    <Content Include="Views\Categories\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -347,14 +349,8 @@
     <EmbeddedResource Include="Migrations\201804302127511_InitDb.resx">
       <DependentUpon>201804302127511_InitDb.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805151328015_dsa.resx">
-      <DependentUpon>201805151328015_dsa.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805151417581_Remove_UserID_From_Product.resx">
-      <DependentUpon>201805151417581_Remove_UserID_From_Product.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805151529531_Add Orders Model .resx">
-      <DependentUpon>201805151529531_Add Orders Model .cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201805161617329_Second_layer.resx">
+      <DependentUpon>201805161617329_Second_layer.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

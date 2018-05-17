@@ -9,6 +9,7 @@ namespace SimpleShop.Interfaces
 	public interface IProductService
 	{
 		List<Product> GetAll();
+		List<Product> GetByCategory(int id);
 		Product GetById(int id);
 		void AddNew(Product product);
 		bool Update(int id, Product product);

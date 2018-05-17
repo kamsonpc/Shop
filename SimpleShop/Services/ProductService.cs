@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -22,6 +23,11 @@ namespace SimpleShop.Services
 			return _applicationDb.Products.ToList();
 		}
 
+		public List<Product>GetByCategory(int id)
+		{
+			return _applicationDb.Products.Where(b => b.Category.CategoryId == id).ToList();
+		}
+
 		public Product GetById(int id)
 		{
 			return _applicationDb.Products.SingleOrDefault(p => p.ProductId == id);
@@ -37,7 +43,11 @@ namespace SimpleShop.Services
 		public bool Update(int id, Product product)
 		{
 			var productInDb = GetById(id);
-			Mapper.Map<Product>(product);
+			productInDb.Quantity = product.Quantity;
+			productInDb.Description = product.Description;
+			productInDb.Name = product.Name;
+			productInDb.Price = product.Price;
+			productInDb.CategoryId = product.CategoryId;
 			_applicationDb.SaveChanges();
 			return true;
 		}

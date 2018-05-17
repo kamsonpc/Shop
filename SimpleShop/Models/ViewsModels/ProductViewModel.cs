@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace SimpleShop.Models.ViewsModels
 {
@@ -27,5 +28,9 @@ namespace SimpleShop.Models.ViewsModels
 		[Required]
 		[Display(Name = "Ilość Sztuk")]
 		public int Quantity { get; set; }
+
+		public IEnumerable<SelectListItem> Categories { get; set; }
+
+		public int CategoryId { get; set; }
 	}
 }

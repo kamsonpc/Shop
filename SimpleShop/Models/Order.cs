@@ -16,10 +16,13 @@ namespace SimpleShop.Models
 		
 		public ApplicationUser ApplicationUser { get;set;}
 		public string ApplicationUserId { get;set;}
-
-		public int Price { get; set; }
+		[DataType(DataType.Currency)]
+		[Display(Name = "Cena")]
+		public float Price { get; set; }
+		[Display(Name = "Ilość sztuk")]
 		public int Quantity { get; set; }
 
+		[Display(Name = "Data Zakupu")]
 		public DateTime Date { get; set; }
 	}
 }

@@ -11,6 +11,7 @@ using SimpleShop.Models.ViewsModels;
 
 namespace SimpleShop.Controllers
 {
+	[Authorize]
     public class OrdersController : Controller
     {
 	    private readonly IOrderService _orderService;

@@ -23,6 +23,7 @@ namespace SimpleShop.Controllers
 
 			container.RegisterType<IProductService, ProductService>();
 			container.RegisterType<IOrderService, OrderService>();
+			container.RegisterType<ICategoryService, CategoryService>();
 
 			container.RegisterType<ApplicationSignInManager>();
 			container.RegisterType<ApplicationUserManager>();
