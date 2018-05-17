@@ -20,7 +20,7 @@ namespace SimpleShop.Services
 
 		public List<Product> GetAll()
 		{
-			return _applicationDb.Products.ToList();
+			return _applicationDb.Products.OrderBy(m => m.AddDate).ToList();
 		}
 
 		public List<Product>GetByCategory(int id)
@@ -36,6 +36,7 @@ namespace SimpleShop.Services
 
 		public void AddNew(Product product)
 		{
+			product.AddDate = DateTime.Now;
 			_applicationDb.Products.Add(product);
 			_applicationDb.SaveChanges();
 		}

@@ -10,6 +10,7 @@ namespace SimpleShop.Models.ViewsModels
 	{
 		[Key]
 		public int OrderId { get; set; }
+		[Display(Name = "Nazwa")]
 		public int ProductId { get; set; }
 		public string ApplicationUserId { get; set; }
 		[DataType(DataType.Currency)]

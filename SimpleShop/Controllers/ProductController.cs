@@ -134,6 +134,7 @@ namespace SimpleShop.Controllers
 				order.Date = DateTime.Now;
 				order.Price = product.Price;
 				order.Quantity = 1;
+
 				_order.AddNew(order);
 			}
 			return RedirectToAction("Index","Orders");
@@ -151,5 +152,26 @@ namespace SimpleShop.Controllers
 
 			return View("Index",CategoryProducts);
 		}
+
+		[AllowAnonymous]
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public ActionResult Search(string name)
+		{
+			var products = Mapper.Map<List<Product>, List<ProductViewModel>>(_product.GetAll());
+			var categories = _category.GetAll();
+
+			if (name!="")
+			{
+				products = products.FindAll(m => m.Name.Contains(name));
+			}
+			
+			CategoryProductVM CategoryProducts = new CategoryProductVM();
+			CategoryProducts.product = products;
+			CategoryProducts.categories = categories;
+
+			return View("Index", CategoryProducts);
+		}
+
 	}
 }

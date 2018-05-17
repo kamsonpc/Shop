@@ -4,17 +4,17 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Lista Kategorii Produktów</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
+
+<table class="table table-bordered table-hover">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Name)
         </th>
-        <th></th>
+	    <th>
+			Operacje
+	    </th>
     </tr>
 
 @foreach (var item in Model) {
@@ -23,10 +23,13 @@
             @Html.DisplayFor(modelItem => item.Name)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.CategoryId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.CategoryId })
+	        <a class="btn btn-warning" href="@Url.Action("Edit", "Categories", new {id = item.CategoryId})"><i class="glyphicon glyphicon-pencil"></i></a>
+	        <a class="btn btn-danger" href="@Url.Action("Delete", "Categories", new {id = item.CategoryId})"><i class="glyphicon glyphicon-trash"></i></a>
         </td>
     </tr>
 }
 
 </table>
+<p>
+	<a class="btn btn-success" href="@Url.Action("Create", "Categories")"> <i class="glyphicon glyphicon-plus"></i> Dodaj</a>
+</p>

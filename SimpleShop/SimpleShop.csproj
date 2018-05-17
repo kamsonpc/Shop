@@ -110,6 +110,9 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="ThenInclude.EF6, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ThenInclude.EF6.1.0.0.5\lib\net452\ThenInclude.EF6.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
       <HintPath>..\packages\Unity.5.2.0\lib\net47\Unity.Abstractions.dll</HintPath>
     </Reference>
@@ -243,6 +246,10 @@
     <Compile Include="Migrations\201805161617329_Second_layer.Designer.cs">
       <DependentUpon>201805161617329_Second_layer.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805171323515_Product add date.cs" />
+    <Compile Include="Migrations\201805171323515_Product add date.Designer.cs">
+      <DependentUpon>201805171323515_Product add date.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
@@ -351,6 +358,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805161617329_Second_layer.resx">
       <DependentUpon>201805161617329_Second_layer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805171323515_Product add date.resx">
+      <DependentUpon>201805171323515_Product add date.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

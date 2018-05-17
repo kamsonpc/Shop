@@ -23,8 +23,8 @@ textarea {
     max-width: 280px;
 }
 .index-product-img {
-	height: 200px !important;
-	margin: 0px auto;
+	height: 200px;
+	margin: 0 auto;
 	display: block;
 }
 .mt-small {
@@ -33,4 +33,18 @@ textarea {
 .img-details {
 	max-width: 320px;
 	margin: 0 auto;
+}
+.caption .list-group-item-text {
+	height: 80px;
+	color: #4c4c4c;
+	overflow: hidden;
+}
+.btn {
+	border-radius: 4px;
+}
+.search-container {
+
+	margin-left: auto;
+	width: 280px;
+	padding: 10px 0;
 }

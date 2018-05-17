@@ -16,6 +16,11 @@ namespace SimpleShop.Services
 			_applicationDb = applicationDb;
 		}
 
+		public List<Order> GetAll()
+		{
+			return _applicationDb.Orders.Include(m => m.Product).ToList();
+		}
+
 		public void AddNew(Order order)
 		{
 			_applicationDb.Orders.Add(order);
