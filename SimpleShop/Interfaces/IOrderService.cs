@@ -11,6 +11,10 @@ namespace SimpleShop.Interfaces
 	{
 		void AddNew(Order order);
 		List<Order> GetOrdersByUser(string id);
-		Order GetDetails(int id);
+		List<Order> GetAllOrders();
+		Order GetById(int id);
+		bool ChangePayment(int id);
+
+
 	}
 }

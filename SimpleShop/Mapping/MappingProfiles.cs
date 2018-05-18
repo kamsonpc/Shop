@@ -19,8 +19,8 @@ namespace SimpleShop.Mapping
 			CreateMap<OrderViewModel, Order>();
 			CreateMap<Order, OrderViewModel>();
 
-			CreateMap<OrderProductViewModel, Order>();
-			CreateMap<Order, OrderProductViewModel>();
+			CreateMap<OrderProductUserVM, Order>();
+			CreateMap<Order, OrderProductUserVM>();
 
 
 		}

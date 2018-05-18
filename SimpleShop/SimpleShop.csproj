@@ -230,6 +230,7 @@
     <Compile Include="App_Start\IocUnityConfig.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
+    <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -250,6 +251,14 @@
     <Compile Include="Migrations\201805171323515_Product add date.Designer.cs">
       <DependentUpon>201805171323515_Product add date.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805180821439_Add payment iteam.cs" />
+    <Compile Include="Migrations\201805180821439_Add payment iteam.Designer.cs">
+      <DependentUpon>201805180821439_Add payment iteam.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805180852543_Imporant Changes.cs" />
+    <Compile Include="Migrations\201805180852543_Imporant Changes.Designer.cs">
+      <DependentUpon>201805180852543_Imporant Changes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
@@ -258,7 +267,7 @@
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ViewsModels\CategoryProductVM.cs" />
-    <Compile Include="Models\ViewsModels\OrderProductViewModel.cs" />
+    <Compile Include="Models\ViewsModels\OrderProductUserVM.cs" />
     <Compile Include="Models\ViewsModels\OrderViewModel.cs" />
     <Compile Include="Models\ViewsModels\ProductViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -334,6 +343,7 @@
     <Content Include="Views\Categories\Details.cshtml" />
     <Content Include="Views\Categories\Edit.cshtml" />
     <Content Include="Views\Categories\Index.cshtml" />
+    <Content Include="Views\Payment\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -361,6 +371,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805171323515_Product add date.resx">
       <DependentUpon>201805171323515_Product add date.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805180821439_Add payment iteam.resx">
+      <DependentUpon>201805180821439_Add payment iteam.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805180852543_Imporant Changes.resx">
+      <DependentUpon>201805180852543_Imporant Changes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

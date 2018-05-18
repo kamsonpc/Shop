@@ -14,7 +14,7 @@ namespace SimpleShop.Models
 		public  Product Product { get; set; }
 		public  int ProductId { get; set; }
 		
-		public ApplicationUser ApplicationUser { get;set;}
+		public virtual ApplicationUser ApplicationUser { get;set;}
 		public string ApplicationUserId { get;set;}
 		[DataType(DataType.Currency)]
 		[Display(Name = "Cena")]
@@ -24,5 +24,7 @@ namespace SimpleShop.Models
 
 		[Display(Name = "Data Zakupu")]
 		public DateTime Date { get; set; }
+
+		public bool Payment { get; set; }
 	}
 }

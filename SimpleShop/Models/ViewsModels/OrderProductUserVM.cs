@@ -6,12 +6,13 @@ using System.Web;
 
 namespace SimpleShop.Models.ViewsModels
 {
-	public class OrderProductViewModel
+	public class OrderProductUserVM
 	{
 		[Key]
 		public int OrderId { get; set; }
 		public int ProductId { get; set; }
 		public Product Product { get; set; }
+		public ApplicationUser ApplicationUser { get; set; }
 		public string ApplicationUserId { get; set; }
 
 		[DataType(DataType.Currency)]
@@ -19,7 +20,8 @@ namespace SimpleShop.Models.ViewsModels
 		public float Price { get; set; }
 		[Display(Name = "Ilość sztuk")]
 		public int Quantity { get; set; }
-
+		[Display(Name = "Płatność")]
+		public bool Payment { get; set; }
 		[Display(Name = "Data Zakupu")]
 		public DateTime Date { get; set; }
 

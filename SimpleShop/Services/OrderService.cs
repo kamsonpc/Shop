@@ -27,7 +27,7 @@ namespace SimpleShop.Services
 			_applicationDb.SaveChanges();
 		}
 
-		public Order GetDetails(int id)
+		public Order GetById(int id)
 		{
 			var order = _applicationDb.Orders.SingleOrDefault(o => o.OrderId == id);
 			return order;
@@ -38,6 +38,35 @@ namespace SimpleShop.Services
 			var orders = _applicationDb.Orders.Where(b => b.ApplicationUserId == id).Include(m => m.Product).ToList();
 			return orders;
 
+		}
+
+		public List<Order> GetAllOrders()
+		{
+			var orders = _applicationDb.Orders.Include(m => m.Product).Include(x => x.ApplicationUser).OrderBy(d => d.Date).ToList();
+			return orders;
+
+		}
+
+		public bool ChangePayment(int id)
+		{
+			var order = GetById(id);
+			if(order!=null)
+			{
+				if (order.Payment)
+				{
+					order.Payment = false;
+				}
+				else
+				{
+					order.Payment = true;
+				}
+				_applicationDb.SaveChanges();
+				return true;
+			}
+			else
+			{
+				return false;
+			}
 		}
 
 	}

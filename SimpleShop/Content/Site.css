@@ -41,10 +41,17 @@ textarea {
 }
 .btn {
 	border-radius: 4px;
+	transition: background-color 0.3s;
 }
 .search-container {
 
 	margin-left: auto;
 	width: 280px;
-	padding: 10px 0;
+	padding: 20px 0;
+}
+.panel-product{
+	transition: all 0.3s;
+}
+.panel-product:hover {
+	box-shadow: 0 0 20px -4px rgba(99,96,99,1);
 }

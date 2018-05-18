@@ -3,9 +3,24 @@
 @{
 	ViewBag.Title = "Index";
 }
-<h2>Produkty</h2>
+
 
 <div class="container">
+	<div class="row">
+		<div class="col-md-6"><h2>Produkty</h2></div>
+		<div class="col-md-6">
+			@using (Html.BeginForm("Search", "Product", FormMethod.Post))
+			{
+				@Html.AntiForgeryToken()
+				<div class="input-group search-container">
+					<span class="input-group-btn">
+						<button class="btn btn-primary" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+					</span>
+					<input type="text" name="name" class="form-control" placeholder="Wyszukaj ...">
+				</div>
+			}
+		</div>
+	</div>
 	<div class="row">
 		<div class="col-md-2">
 			<h4>Kategorie</h4>
@@ -17,21 +32,11 @@
 			</ul>
 		</div>
 		<div class="col-md-10">
-			@using (Html.BeginForm("Search", "Product", FormMethod.Post))
-			{
-				@Html.AntiForgeryToken()
-				<div class="input-group search-container">
-					<span class="input-group-btn">
-						<button class="btn btn-primary" type="submit"><i class="glyphicon glyphicon-search"></i></button>
-					</span>
-					<input type="text" name="name" class="form-control" placeholder="Search for...">
-				</div>
-			}
 			<div id="products" class="row list-group">
 				@foreach (var item in Model.product)
 				{
 					<div class="item  col-xs-4 col-lg-4">
-						<div class="panel panel-default">
+						<div class="panel panel-primary panel-product">
 							<div class="panel-heading">@Html.DisplayFor(modelItem => item.Name)</div>
 							<div class="panel-body">
 								<a href="@Url.Action("Details", "Product", new {id = item.ProductId})">

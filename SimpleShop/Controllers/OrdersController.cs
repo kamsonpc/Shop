@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using AutoMapper;
 using Microsoft.AspNet.Identity;
 using SimpleShop.Interfaces;
@@ -22,7 +23,7 @@ namespace SimpleShop.Controllers
 	    public ActionResult Index()
 		{
 			var orders = _orderService.GetOrdersByUser(User.Identity.GetUserId());
-			var result = Mapper.Map<List<Order>, List<OrderProductViewModel>>(orders);
+			var result = Mapper.Map<List<Order>, List<OrderProductUserVM>>(orders);
 			return View(result);
 		}
 	}

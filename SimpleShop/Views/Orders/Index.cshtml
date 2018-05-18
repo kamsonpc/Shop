@@ -1,4 +1,4 @@
-﻿@model IEnumerable<SimpleShop.Models.ViewsModels.OrderProductViewModel>
+﻿@model IEnumerable<SimpleShop.Models.ViewsModels.OrderProductUserVM>
 
 @{
 	ViewBag.Title = "Index";
@@ -21,25 +21,38 @@
 			<th>
 				@Html.DisplayNameFor(model => model.Date)
 			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Payment)
+			</th>
 		</tr>
 	</thead>
 	<tbody>
 		@foreach (var item in Model)
 		{
-			<tr>
-				<td>
-					@Html.DisplayFor(modelItem => item.Product.Name)
-				</td>
-				<td>
-					@Html.DisplayFor(modelItem => item.Price)
-				</td>
-				<td>
-					@Html.DisplayFor(modelItem => item.Quantity)
-				</td>
-				<td>
-					@Html.DisplayFor(modelItem => item.Date)
-				</td>
-			</tr>
+		<tr>
+			<td>
+				@Html.DisplayFor(modelItem => item.Product.Name)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Price)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Quantity)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Date)
+			</td>
+			<td>
+				@if(item.Payment)
+				{
+					<b>Tak</b>
+				}
+				else
+				{
+					<b>Nie</b>
+				}
+			</td>
+		</tr>
 		}
 	</tbody>
 </table>

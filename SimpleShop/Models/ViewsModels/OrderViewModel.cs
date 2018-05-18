@@ -21,5 +21,7 @@ namespace SimpleShop.Models.ViewsModels
 
 		[Display(Name = "Data Zakupu")]
 		public DateTime Date { get; set; }
+		[Display(Name = "Płatność")]
+		public bool Payment { get; set; }
 	}
 }

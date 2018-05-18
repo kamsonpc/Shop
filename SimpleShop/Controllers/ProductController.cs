@@ -134,6 +134,7 @@ namespace SimpleShop.Controllers
 				order.Date = DateTime.Now;
 				order.Price = product.Price;
 				order.Quantity = 1;
+				order.Payment = false;
 
 				_order.AddNew(order);
 			}
