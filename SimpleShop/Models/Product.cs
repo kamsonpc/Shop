@@ -19,9 +19,12 @@ namespace SimpleShop.Models
 		[Required]
 		public string Description { get; set; }
 		public string Img { get; set; }
+		[Required]
 		public int Quantity { get; set; }
+		[Required]
 		public DateTime AddDate { get; set; }
 		public virtual Category Category { get; set; }
+		[Required]
 		public int CategoryId { get; set; }
 		public virtual ICollection<Order> Orders { get; set; }
 		

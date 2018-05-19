@@ -255,9 +255,13 @@
     <Compile Include="Migrations\201805180821439_Add payment iteam.Designer.cs">
       <DependentUpon>201805180821439_Add payment iteam.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201805180852543_Imporant Changes.cs" />
-    <Compile Include="Migrations\201805180852543_Imporant Changes.Designer.cs">
-      <DependentUpon>201805180852543_Imporant Changes.cs</DependentUpon>
+    <Compile Include="Migrations\201805192011418_required property.cs" />
+    <Compile Include="Migrations\201805192011418_required property.Designer.cs">
+      <DependentUpon>201805192011418_required property.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805192227273_afdfdsa.cs" />
+    <Compile Include="Migrations\201805192227273_afdfdsa.Designer.cs">
+      <DependentUpon>201805192227273_afdfdsa.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -268,8 +272,8 @@
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ViewsModels\CategoryProductVM.cs" />
     <Compile Include="Models\ViewsModels\OrderProductUserVM.cs" />
-    <Compile Include="Models\ViewsModels\OrderViewModel.cs" />
-    <Compile Include="Models\ViewsModels\ProductViewModel.cs" />
+    <Compile Include="Models\ViewsModels\OrderVM.cs" />
+    <Compile Include="Models\ViewsModels\ProductVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CategoryService.cs" />
     <Compile Include="Services\OrderService.cs" />
@@ -375,8 +379,11 @@
     <EmbeddedResource Include="Migrations\201805180821439_Add payment iteam.resx">
       <DependentUpon>201805180821439_Add payment iteam.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805180852543_Imporant Changes.resx">
-      <DependentUpon>201805180852543_Imporant Changes.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201805192011418_required property.resx">
+      <DependentUpon>201805192011418_required property.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805192227273_afdfdsa.resx">
+      <DependentUpon>201805192227273_afdfdsa.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

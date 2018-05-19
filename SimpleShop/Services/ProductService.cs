@@ -42,21 +42,40 @@ namespace SimpleShop.Services
 		public bool Update(int id, Product product)
 		{
 			var productInDb = GetById(id);
-			productInDb.Quantity = product.Quantity;
-			productInDb.Description = product.Description;
-			productInDb.Name = product.Name;
-			productInDb.Price = product.Price;
-			productInDb.CategoryId = product.CategoryId;
-			_applicationDb.SaveChanges();
-			return true;
+			if (productInDb != null)
+			{
+				productInDb.Quantity = product.Quantity;
+				productInDb.Description = product.Description;
+				productInDb.Name = product.Name;
+				productInDb.Price = product.Price;
+				productInDb.CategoryId = product.CategoryId;
+				_applicationDb.SaveChanges();
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+			
 		}
 
 		public void Remove(int id)
 		{
 			var productInDb = GetById(id);
-			RemoveImage(productInDb.Img);
-			_applicationDb.Products.Remove(productInDb);
-			_applicationDb.SaveChanges();
+			if (productInDb != null)
+			{
+				try
+				{
+					RemoveImage(productInDb.Img);
+					_applicationDb.Products.Remove(productInDb);
+					_applicationDb.SaveChanges();
+				}
+				catch (Exception e)
+				{
+					Console.WriteLine(e);
+					throw new Exception("File not removed");
+				}
+			}	
 		}
 
 		public string UploadImage(HttpPostedFileBase file)
@@ -76,8 +95,12 @@ namespace SimpleShop.Services
 		public void ChangeQuantity(int id, int quantity)
 		{
 			var productInDb = GetById(id);
-			productInDb.Quantity -= quantity;
-			_applicationDb.SaveChanges();
+			if (productInDb!=null)
+			{
+				productInDb.Quantity -= quantity;
+				_applicationDb.SaveChanges();
+			}
+			
 		}
 	}
 }

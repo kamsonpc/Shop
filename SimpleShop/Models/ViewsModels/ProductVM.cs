@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace SimpleShop.Models.ViewsModels
 {
-	public class ProductViewModel
+	public class ProductVM
 	{
 		[Key]
 		public int ProductId { get; set; }
@@ -24,13 +24,15 @@ namespace SimpleShop.Models.ViewsModels
 		[Required]
 		public string Description { get; set; }
 		[Display(Name = "Obrazek")]
+		[Required]
 		public string Img { get; set; }
 		[Required]
+		[Range(1,1000)]
 		[Display(Name = "Ilość Sztuk")]
 		public int Quantity { get; set; }
 
 		public IEnumerable<SelectListItem> Categories { get; set; }
-
+		[Required]
 		public int CategoryId { get; set; }
 	}
 }

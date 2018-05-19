@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Mvc;
-using AutoMapper;
+﻿using System.Web.Mvc;
 using SimpleShop.Interfaces;
-using SimpleShop.Models;
-using SimpleShop.Models.ViewsModels;
 
 namespace SimpleShop.Controllers
 {
@@ -20,9 +14,7 @@ namespace SimpleShop.Controllers
 
 		public ActionResult Index()
 		{
-			var products = Mapper.Map<List<Product>,List<ProductViewModel>>(_product.GetAll());
-			var last_products = products.Skip(Math.Max(0, products.Count() - 3));
-			return View(last_products);
+			return View();
 		}
 
 		public ActionResult About()

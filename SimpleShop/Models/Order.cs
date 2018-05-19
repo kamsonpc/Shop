@@ -11,20 +11,28 @@ namespace SimpleShop.Models
 	{
 		[Key]
 		public int OrderId { get; set; }
+	
 		public  Product Product { get; set; }
-		public  int ProductId { get; set; }
-		
+
+		[Required]
+		public int ProductId { get; set; }
+
 		public virtual ApplicationUser ApplicationUser { get;set;}
+
+		[Required]
 		public string ApplicationUserId { get;set;}
+
 		[DataType(DataType.Currency)]
-		[Display(Name = "Cena")]
+		[Required]
 		public float Price { get; set; }
-		[Display(Name = "Ilość sztuk")]
+
+		[Required]
 		public int Quantity { get; set; }
 
-		[Display(Name = "Data Zakupu")]
+		[Required]
 		public DateTime Date { get; set; }
 
+		[Required]
 		public bool Payment { get; set; }
 	}
 }

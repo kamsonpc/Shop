@@ -8,7 +8,7 @@ namespace SimpleShop.Models.ViewsModels
 {
 	public class CategoryProductVM
 	{
-		public List<ProductViewModel> product { get; set; }
+		public List<ProductVM> product { get; set; }
 		public ICollection<Category> categories  { get; set; }
 	}
 }

@@ -6,7 +6,7 @@ using System.Web;
 
 namespace SimpleShop.Models.ViewsModels
 {
-	public class OrderViewModel
+	public class OrderVM
 	{
 		[Key]
 		public int OrderId { get; set; }

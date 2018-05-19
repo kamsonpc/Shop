@@ -13,11 +13,11 @@ namespace SimpleShop.Mapping
 	{
 		public MappingProfiles()
 		{
-			CreateMap<Product, ProductViewModel>();
-			CreateMap<ProductViewModel, Product>();
+			CreateMap<Product, ProductVM>();
+			CreateMap<ProductVM, Product>();
 
-			CreateMap<OrderViewModel, Order>();
-			CreateMap<Order, OrderViewModel>();
+			CreateMap<OrderVM, Order>();
+			CreateMap<Order, OrderVM>();
 
 			CreateMap<OrderProductUserVM, Order>();
 			CreateMap<Order, OrderProductUserVM>();

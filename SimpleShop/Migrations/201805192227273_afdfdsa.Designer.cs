@@ -7,13 +7,13 @@ namespace SimpleShop.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class ImporantChanges : IMigrationMetadata
+    public sealed partial class afdfdsa : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(ImporantChanges));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(afdfdsa));
         
         string IMigrationMetadata.Id
         {
-            get { return "201805180852543_Imporant Changes"; }
+            get { return "201805192227273_afdfdsa"; }
         }
         
         string IMigrationMetadata.Source

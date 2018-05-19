@@ -36,8 +36,15 @@ namespace SimpleShop.Controllers
 
 	    public ActionResult Change(int id)
 		{
-			_order.ChangePayment(id);
-			return RedirectToAction("Index");
+			if (_order.ChangePayment(id))
+			{
+				return RedirectToAction("Index");
+			}
+			else
+			{
+				return HttpNotFound();
+			}
+			
 		}
 	}
 }
