@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using AutoMapper;
@@ -9,7 +7,6 @@ using Microsoft.AspNet.Identity;
 using SimpleShop.Interfaces;
 using SimpleShop.Models;
 using SimpleShop.Models.ViewsModels;
-using SimpleShop.Services;
 
 namespace SimpleShop.Controllers
 {
@@ -19,7 +16,7 @@ namespace SimpleShop.Controllers
 		private readonly IOrderService _order;
 		private readonly IProductService _product;
 		private readonly ICategoryService _category;
-		public ProductController(IProductService product,IOrderService order,ICategoryService category)
+		public ProductController(IProductService product, IOrderService order, ICategoryService category)
 		{
 			_product = product;
 			_order = order;
@@ -33,11 +30,13 @@ namespace SimpleShop.Controllers
 			var products = Mapper.Map<List<Product>, List<ProductViewModel>>(_product.GetAll());
 			var categories = _category.GetAll();
 
-			CategoryProductVM CategoryProducts = new CategoryProductVM();
-			CategoryProducts.product = products;
-			CategoryProducts.categories = categories;
+			CategoryProductVM categoryProducts = new CategoryProductVM
+			{
+				product = products,
+				categories = categories
+			};
 
-			return View(CategoryProducts);
+			return View(categoryProducts);
 		}
 
 		// GET: Product/Details/5
@@ -51,19 +50,22 @@ namespace SimpleShop.Controllers
 		// GET: Product/Create
 		public ActionResult Create()
 		{
-			ProductViewModel productViewModel = new ProductViewModel();
-			productViewModel.Categories = _category.GetSelectList();
+			ProductViewModel productViewModel = new ProductViewModel
+			{
+				Categories = _category.GetSelectList()
+			};
+
 			return View(productViewModel);
 		}
 
 		// POST: Product/Create
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public ActionResult Create(ProductViewModel productViewModel,HttpPostedFileBase file)
+		public ActionResult Create(ProductViewModel productViewModel, HttpPostedFileBase file)
 		{
 			try
 			{
-				if (file.ContentLength > 0 && file.ContentLength < 327680 && file.ContentType.Contains("image") && ModelState.IsValid != false)
+				if (file.ContentLength > 0 && file.ContentLength < 327680 && file.ContentType.Contains("image") && ModelState.IsValid)
 				{
 					productViewModel.Img = _product.UploadImage(file);
 
@@ -128,17 +130,18 @@ namespace SimpleShop.Controllers
 			{
 				_product.ChangeQuantity(id, 1);
 
-				Order order = new Order();
-				order.ApplicationUserId = User.Identity.GetUserId();
-				order.ProductId = product.ProductId;
-				order.Date = DateTime.Now;
-				order.Price = product.Price;
-				order.Quantity = 1;
-				order.Payment = false;
-
+				Order order = new Order
+				{
+					ApplicationUserId = User.Identity.GetUserId(),
+					ProductId = product.ProductId,
+					Date = DateTime.Now,
+					Price = product.Price,
+					Quantity = 1,
+					Payment = false
+				};
 				_order.AddNew(order);
 			}
-			return RedirectToAction("Index","Orders");
+			return RedirectToAction("Index", "Orders");
 		}
 
 		[AllowAnonymous]
@@ -147,11 +150,13 @@ namespace SimpleShop.Controllers
 			var products = Mapper.Map<List<Product>, List<ProductViewModel>>(_product.GetByCategory(id));
 			var categories = _category.GetAll();
 
-			CategoryProductVM CategoryProducts = new CategoryProductVM();
-			CategoryProducts.product = products;
-			CategoryProducts.categories = categories;
+			CategoryProductVM categoryProducts = new CategoryProductVM
+			{
+				product = products,
+				categories = categories
+			};
 
-			return View("Index",CategoryProducts);
+			return View("Index", categoryProducts);
 		}
 
 		[AllowAnonymous]
@@ -162,16 +167,19 @@ namespace SimpleShop.Controllers
 			var products = Mapper.Map<List<Product>, List<ProductViewModel>>(_product.GetAll());
 			var categories = _category.GetAll();
 
-			if (name!="")
+			if (name != "")
 			{
 				products = products.FindAll(m => m.Name.Contains(name));
 			}
-			
-			CategoryProductVM CategoryProducts = new CategoryProductVM();
-			CategoryProducts.product = products;
-			CategoryProducts.categories = categories;
 
-			return View("Index", CategoryProducts);
+			CategoryProductVM categoryProducts = new CategoryProductVM
+			{
+				product = products,
+				categories = categories
+			};
+
+
+			return View("Index", categoryProducts);
 		}
 
 	}

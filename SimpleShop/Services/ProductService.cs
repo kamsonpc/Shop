@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Web;
-using AutoMapper;
 using SimpleShop.Interfaces;
 using SimpleShop.Models;
 
@@ -63,7 +61,7 @@ namespace SimpleShop.Services
 
 		public string UploadImage(HttpPostedFileBase file)
 		{
-			string path = Path.Combine(HttpContext.Current.Server.MapPath("~/UploadedFiles"), Path.GetFileName(file.FileName));
+			string path = Path.Combine(HttpContext.Current.Server.MapPath("~/UploadedFiles"), Path.GetFileName(file.FileName) ?? throw new InvalidOperationException());
 			file.SaveAs(path);
 
 			return file.FileName;
