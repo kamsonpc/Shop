@@ -50,7 +50,7 @@ namespace SimpleShop.Services
 		public bool ChangePayment(int id)
 		{
 			var order = GetById(id);
-			if(order!=null)
+			if (order != null)
 			{
 				if (order.Payment)
 				{

@@ -25,9 +25,19 @@ namespace SimpleShop.Controllers
 		    var result = Mapper.Map<List<Order>, List<OrderProductUserVM>>(orders);
 		    return View(result);
 	    }
+		[HttpPost]
+	    public ActionResult Search(string name)
+	    {
+		    var orders = _order.GetAllOrders();
+		    if (name != "")
+		    {
+			   orders = orders.FindAll(m => m.ApplicationUser.UserName.Contains(name));
+		    }
+		    var result = Mapper.Map<List<Order>, List<OrderProductUserVM>>(orders);
+			return View("Index",result);
+	    }
 
-
-		public ActionResult Change(int id)
+	    public ActionResult Change(int id)
 		{
 			_order.ChangePayment(id);
 			return RedirectToAction("Index");
