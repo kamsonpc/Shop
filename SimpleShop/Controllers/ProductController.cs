@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using AutoMapper;
@@ -41,9 +42,13 @@ namespace SimpleShop.Controllers
 
 		// GET: Product/Details/5
 		[AllowAnonymous]
-		public ActionResult Details(int id)
+		public ActionResult Details(int? id)
 		{
-			var product = Mapper.Map<Product, ProductVM>(_product.GetById(id));
+			if (id == null)
+			{
+				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+			}
+			var product = Mapper.Map<Product, ProductVM>(_product.GetById(id.Value));
 			if (product == null)
 			{
 				return HttpNotFound();
@@ -92,9 +97,13 @@ namespace SimpleShop.Controllers
 		}
 
 		[Authorize(Roles = "Administrator")]
-		public ActionResult Edit(int id)
+		public ActionResult Edit(int? id)
 		{
-			var product = Mapper.Map<Product, ProductVM>(_product.GetById(id));
+			if (id == null)
+			{
+				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+			}
+			var product = Mapper.Map<Product, ProductVM>(_product.GetById(id.Value));
 			if (product == null)
 			{
 				return HttpNotFound();
@@ -106,14 +115,18 @@ namespace SimpleShop.Controllers
 		[Authorize(Roles = "Administrator")]
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public ActionResult Edit(int id, ProductVM productVm)
+		public ActionResult Edit(int? id, ProductVM productVm)
 		{
+			if (id == null)
+			{
+				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+			}
 			if (!ModelState.IsValid)
 			{
 				return View(productVm);
 			}
 			var product = Mapper.Map<ProductVM, Product>(productVm);
-			if (_product.Update(id, product))
+			if (_product.Update(id.Value, product))
 			{
 				return RedirectToAction("Index");
 
@@ -133,13 +146,22 @@ namespace SimpleShop.Controllers
 		}
 
 		[Authorize]
-		public ActionResult Buy(int id)
+		public ActionResult Buy(int? id)
 		{
-			var product = _product.GetById(id);
-			var user = User.Identity.GetUserId();
-			if (product != null && user != null)
+			if (id == null)
 			{
-				_product.ChangeQuantity(id, 1);
+				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+			}
+
+			var product = _product.GetById(id.Value);
+			var user = User.Identity.GetUserId();
+			if (product == null)
+			{
+				return HttpNotFound();
+			}
+			if ( user != null)
+			{
+				_product.ChangeQuantity(id.Value, 1);
 
 				Order order = new Order
 				{
@@ -156,9 +178,14 @@ namespace SimpleShop.Controllers
 		}
 
 		[AllowAnonymous]
-		public ActionResult Category(int id)
+		public ActionResult Category(int? id)
 		{
-			var products = Mapper.Map<List<Product>, List<ProductVM>>(_product.GetByCategory(id));
+			if (id == null)
+			{
+				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+			}
+
+			var products = Mapper.Map<List<Product>, List<ProductVM>>(_product.GetByCategory(id.Value));
 			var categories = _category.GetAll();
 
 			CategoryProductVM categoryProducts = new CategoryProductVM

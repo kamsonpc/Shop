@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Net;
 using System.Web.Mvc;
 using AutoMapper;
 using SimpleShop.Interfaces;
@@ -34,9 +35,13 @@ namespace SimpleShop.Controllers
 			return View("Index",result);
 	    }
 
-	    public ActionResult Change(int id)
+	    public ActionResult Change(int? id)
 		{
-			if (_order.ChangePayment(id))
+			if (id == null)
+			{
+				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+			}
+			if (_order.ChangePayment(id.Value))
 			{
 				return RedirectToAction("Index");
 			}

@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Net;
+using System.Web.Mvc;
 using SimpleShop.Interfaces;
 using SimpleShop.Models;
 
@@ -44,9 +45,13 @@ namespace SimpleShop.Controllers
         }
 
         // GET: Categories/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id)
         {
-            Category category = _categoryService.GetById(id);
+	        if (id == null)
+	        {
+				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+	        }
+            Category category = _categoryService.GetById(id.Value);
             if (category == null)
             {
                 return HttpNotFound();
@@ -59,21 +64,29 @@ namespace SimpleShop.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Category category,int id)
+        public ActionResult Edit(Category category,int? id)
         {
+	        if (id == null)
+	        {
+				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+	        }
             if (ModelState.IsValid)
             {
-	            _categoryService.Update(id, category);
+	            _categoryService.Update(id.Value, category);
                 return RedirectToAction("Index");
             }
             return View(category);
         }
 
         // GET: Categories/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int? id)
         {
+	        if (id == null)
+	        {
+		        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+	        }
 
-			_categoryService.Remove(id);
+			_categoryService.Remove(id.Value);
 	        return RedirectToAction("Index");
 		}
     }
