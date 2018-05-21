@@ -27,7 +27,7 @@ namespace SimpleShop.Controllers
 
 			container.RegisterType<ApplicationSignInManager>();
 			container.RegisterType<ApplicationUserManager>();
-			container.RegisterType<ApplicationDbContext>();
+			container.RegisterType<IApplicationDbContex,ApplicationDbContext>();
 			container.RegisterType<AccountController>(new InjectionConstructor());
 			container.RegisterType<ManageController>(new InjectionConstructor());
 

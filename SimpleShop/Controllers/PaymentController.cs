@@ -47,7 +47,7 @@ namespace SimpleShop.Controllers
 			}
 			else
 			{
-				return HttpNotFound();
+				return new HttpStatusCodeResult(HttpStatusCode.NotFound);
 			}
 			
 		}

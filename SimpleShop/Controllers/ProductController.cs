@@ -51,7 +51,7 @@ namespace SimpleShop.Controllers
 			var product = Mapper.Map<Product, ProductVM>(_product.GetById(id.Value));
 			if (product == null)
 			{
-				return HttpNotFound();
+				return new HttpStatusCodeResult(HttpStatusCode.NotFound);
 			}
 			return View(product);
 		}
@@ -106,7 +106,7 @@ namespace SimpleShop.Controllers
 			var product = Mapper.Map<Product, ProductVM>(_product.GetById(id.Value));
 			if (product == null)
 			{
-				return HttpNotFound();
+				return new HttpStatusCodeResult(HttpStatusCode.NotFound);
 			}
 			product.Categories = _category.GetSelectList();
 			return View(product);
@@ -139,9 +139,13 @@ namespace SimpleShop.Controllers
 		}
 
 		[Authorize(Roles = "Administrator")]
-		public ActionResult Delete(int id)
+		public ActionResult Delete(int? id)
 		{
-			_product.Remove(id);
+			if (id == null)
+			{
+				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+			}
+			_product.Remove(id.Value);
 			return RedirectToAction("Index");
 		}
 
@@ -157,7 +161,7 @@ namespace SimpleShop.Controllers
 			var user = User.Identity.GetUserId();
 			if (product == null)
 			{
-				return HttpNotFound();
+				return new HttpStatusCodeResult(HttpStatusCode.NotFound);
 			}
 			if ( user != null)
 			{

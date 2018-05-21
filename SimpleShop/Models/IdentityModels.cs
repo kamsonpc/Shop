@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security.DataHandler;
+using SimpleShop.Interfaces;
 
 namespace SimpleShop.Models
 {
@@ -24,7 +25,7 @@ namespace SimpleShop.Models
 	    public virtual ICollection<Order> Orders { get; set; }
     }
 
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>,IApplicationDbContex
     {
 		
         public ApplicationDbContext()

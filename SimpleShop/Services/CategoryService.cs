@@ -9,8 +9,8 @@ namespace SimpleShop.Services
 
 	public class CategoryService : ICategoryService
 	{
-		private readonly ApplicationDbContext _applicationDb;
-		public CategoryService(ApplicationDbContext applicationDb)
+		private readonly IApplicationDbContex _applicationDb;
+		public CategoryService(IApplicationDbContex applicationDb)
 		{
 			_applicationDb = applicationDb;
 		}

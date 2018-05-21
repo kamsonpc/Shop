@@ -10,8 +10,8 @@ namespace SimpleShop.Services
 {
 	public class ProductService : IProductService
 	{
-		private readonly ApplicationDbContext _applicationDb;
-		public ProductService(ApplicationDbContext applicationDb)
+		private readonly IApplicationDbContex _applicationDb;
+		public ProductService(IApplicationDbContex applicationDb)
 		{
 			_applicationDb = applicationDb;
 		}

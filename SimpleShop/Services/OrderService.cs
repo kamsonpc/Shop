@@ -8,8 +8,8 @@ namespace SimpleShop.Services
 {
 	public class OrderService : IOrderService
 	{
-		private readonly ApplicationDbContext _applicationDb;
-		public OrderService(ApplicationDbContext applicationDb)
+		private readonly IApplicationDbContex _applicationDb;
+		public OrderService(IApplicationDbContex applicationDb)
 		{
 			_applicationDb = applicationDb;
 		}
