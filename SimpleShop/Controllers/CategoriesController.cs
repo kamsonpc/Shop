@@ -1,36 +1,32 @@
 ﻿using System.Net;
 using System.Web.Mvc;
+using SimpleShop.Filters;
 using SimpleShop.Interfaces;
 using SimpleShop.Models;
 
 namespace SimpleShop.Controllers
 {
-	[Authorize(Roles = "Administrator")]
+	[AuthorizeCustom(Roles = "Administrator")]
 	public class CategoriesController : Controller
     {
 
 		private readonly ICategoryService _categoryService;
+
 	    public CategoriesController(ICategoryService categoryService)
 	    {
 		    _categoryService = categoryService;
 	    }
 
-		// GET: Categories
-		public ActionResult Index()
+	    public ActionResult Index()
         {
             return View(_categoryService.GetAll());
         }
 
-
-        // GET: Categories/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Categories/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(Category category)
@@ -44,7 +40,6 @@ namespace SimpleShop.Controllers
             return View(category);
         }
 
-        // GET: Categories/Edit/5
         public ActionResult Edit(int? id)
         {
 	        if (id == null)
@@ -54,14 +49,11 @@ namespace SimpleShop.Controllers
             Category category = _categoryService.GetById(id.Value);
             if (category == null)
             {
-                return HttpNotFound();
-            }
+				return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+			}
             return View(category);
         }
 
-        // POST: Categories/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Category category,int? id)
@@ -78,7 +70,6 @@ namespace SimpleShop.Controllers
             return View(category);
         }
 
-        // GET: Categories/Delete/5
         public ActionResult Delete(int? id)
         {
 	        if (id == null)

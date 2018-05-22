@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Net;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
@@ -397,9 +398,14 @@ namespace SimpleShop.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        //
-        // GET: /Account/ExternalLoginFailure
-        [AllowAnonymous]
+	    [AllowAnonymous]
+	    public ActionResult AuthorizationError()
+	    {
+			return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+	    }
+		//
+		// GET: /Account/ExternalLoginFailure
+		[AllowAnonymous]
         public ActionResult ExternalLoginFailure()
         {
             return View();

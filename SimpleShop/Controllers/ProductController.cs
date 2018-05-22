@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using AutoMapper;
 using Microsoft.AspNet.Identity;
+using SimpleShop.Filters;
 using SimpleShop.Interfaces;
 using SimpleShop.Models;
 using SimpleShop.Models.ViewsModels;
@@ -48,7 +49,9 @@ namespace SimpleShop.Controllers
 			{
 				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 			}
+
 			var product = Mapper.Map<Product, ProductVM>(_product.GetById(id.Value));
+
 			if (product == null)
 			{
 				return new HttpStatusCodeResult(HttpStatusCode.NotFound);
@@ -56,7 +59,7 @@ namespace SimpleShop.Controllers
 			return View(product);
 		}
 
-		[Authorize(Roles = "Administrator")]
+		[AuthorizeCustom(Roles = "Administrator")]
 		public ActionResult Create()
 		{
 			ProductVM productVm = new ProductVM
@@ -70,7 +73,7 @@ namespace SimpleShop.Controllers
 		// POST: Product/Create
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		[Authorize(Roles = "Administrator")]
+		[AuthorizeCustom(Roles = "Administrator")]
 		public ActionResult Create(ProductVM productVm, HttpPostedFileBase file)
 		{
 			if (file.ContentLength > 0 && file.ContentLength < 327680 && file.ContentType.Contains("image") && ModelState.IsValid)
@@ -96,7 +99,7 @@ namespace SimpleShop.Controllers
 			return View();
 		}
 
-		[Authorize(Roles = "Administrator")]
+		[AuthorizeCustom(Roles = "Administrator")]
 		public ActionResult Edit(int? id)
 		{
 			if (id == null)
@@ -112,7 +115,7 @@ namespace SimpleShop.Controllers
 			return View(product);
 		}
 
-		[Authorize(Roles = "Administrator")]
+		[AuthorizeCustom(Roles = "Administrator")]
 		[HttpPost]
 		[ValidateAntiForgeryToken]
 		public ActionResult Edit(int? id, ProductVM productVm)
@@ -138,7 +141,7 @@ namespace SimpleShop.Controllers
 
 		}
 
-		[Authorize(Roles = "Administrator")]
+		[AuthorizeCustom(Roles = "Administrator")]
 		public ActionResult Delete(int? id)
 		{
 			if (id == null)
@@ -157,13 +160,13 @@ namespace SimpleShop.Controllers
 				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 			}
 
-			var product = _product.GetById(id.Value);
+			var product = Mapper.Map<Product, ProductVM>(_product.GetById(id.Value));
 			var user = User.Identity.GetUserId();
 			if (product == null)
 			{
 				return new HttpStatusCodeResult(HttpStatusCode.NotFound);
 			}
-			if ( user != null)
+			if (user != null)
 			{
 				_product.ChangeQuantity(id.Value, 1);
 
@@ -177,8 +180,10 @@ namespace SimpleShop.Controllers
 					Payment = false
 				};
 				_order.AddNew(order);
+				return View("BuySuccess", product);
 			}
-			return RedirectToAction("Index", "Orders");
+			return RedirectToAction("Index");
+
 		}
 
 		[AllowAnonymous]

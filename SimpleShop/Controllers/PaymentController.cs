@@ -2,13 +2,14 @@
 using System.Net;
 using System.Web.Mvc;
 using AutoMapper;
+using SimpleShop.Filters;
 using SimpleShop.Interfaces;
 using SimpleShop.Models;
 using SimpleShop.Models.ViewsModels;
 
 namespace SimpleShop.Controllers
 {
-	[Authorize(Roles = "Administrator")]
+	[AuthorizeCustom(Roles = "Administrator")]
 	public class PaymentController : Controller
     {
 	    private readonly IOrderService _order;
@@ -45,11 +46,8 @@ namespace SimpleShop.Controllers
 			{
 				return RedirectToAction("Index");
 			}
-			else
-			{
-				return new HttpStatusCodeResult(HttpStatusCode.NotFound);
-			}
-			
+			return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+
 		}
 	}
 }
