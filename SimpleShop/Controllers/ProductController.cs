@@ -96,7 +96,8 @@ namespace SimpleShop.Controllers
 			}
 
 			ViewBag.Message = "File bad file type";
-			return View();
+			productVm.Categories = _category.GetSelectList();
+			return View(productVm);
 		}
 
 		[AuthorizeCustom(Roles = "Administrator")]
@@ -126,7 +127,10 @@ namespace SimpleShop.Controllers
 			}
 			if (!ModelState.IsValid)
 			{
+				productVm.Categories = _category.GetSelectList();
+
 				return View(productVm);
+
 			}
 			var product = Mapper.Map<ProductVM, Product>(productVm);
 			if (_product.Update(id.Value, product))
@@ -159,6 +163,23 @@ namespace SimpleShop.Controllers
 			{
 				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 			}
+			var shipping = Mapper.Map<Product, ShippingVM>(_product.GetById(id.Value));
+			if (shipping == null)
+			{
+				return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+			}
+			return View(shipping);
+
+		}
+
+		[Authorize]
+		[HttpPost]
+		public ActionResult Buy(int? id, ShippingVM shippingData)
+		{
+			if (id == null)
+			{
+				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+			}
 
 			var product = Mapper.Map<Product, ProductVM>(_product.GetById(id.Value));
 			var user = User.Identity.GetUserId();
@@ -166,7 +187,8 @@ namespace SimpleShop.Controllers
 			{
 				return new HttpStatusCodeResult(HttpStatusCode.NotFound);
 			}
-			if (user != null)
+
+			if (ModelState.IsValid)
 			{
 				_product.ChangeQuantity(id.Value, 1);
 
@@ -177,13 +199,19 @@ namespace SimpleShop.Controllers
 					Date = DateTime.Now,
 					Price = product.Price,
 					Quantity = 1,
-					Payment = false
+					Payment = false,
+					NameAndSurname = shippingData.NameAndSurname,
+					Address = shippingData.Address,
+					CityCode = shippingData.CityCode,
+					Country = shippingData.Country
 				};
+
+
 				_order.AddNew(order);
 				return View("BuySuccess", product);
+
 			}
 			return RedirectToAction("Index");
-
 		}
 
 		[AllowAnonymous]

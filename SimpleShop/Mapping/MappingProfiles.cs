@@ -22,6 +22,12 @@ namespace SimpleShop.Mapping
 			CreateMap<OrderProductUserVM, Order>();
 			CreateMap<Order, OrderProductUserVM>();
 
+			CreateMap<ShippingVM, Order>();
+			CreateMap<Order, ShippingVM>();
+
+			CreateMap<ShippingVM, Product>();
+			CreateMap<Product, ShippingVM>();
+
 
 		}
 	}

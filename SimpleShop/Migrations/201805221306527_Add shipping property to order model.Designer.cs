@@ -7,13 +7,13 @@ namespace SimpleShop.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class afdfdsa : IMigrationMetadata
+    public sealed partial class Addshippingpropertytoordermodel : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(afdfdsa));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Addshippingpropertytoordermodel));
         
         string IMigrationMetadata.Id
         {
-            get { return "201805192227273_afdfdsa"; }
+            get { return "201805221306527_Add shipping property to order model"; }
         }
         
         string IMigrationMetadata.Source
