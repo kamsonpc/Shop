@@ -34,11 +34,18 @@ namespace SimpleShop.Models
 
 		[Required]
 		public bool Payment { get; set; }
-
+		[Required]
 		public string NameAndSurname { get; set; }
-		public string Address { get; set; }
-		public string CityCode { get; set; }
-		public string Country { get; set; }
 
+		[Required]
+		public string PhoneNumber { get; set; }
+
+		[Required]
+		public string Address { get; set; }
+		[Required]
+		public string CityCode { get; set; }
+		[Required]
+		public string Country { get; set; }
+		
 	}
 }

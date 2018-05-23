@@ -14,6 +14,10 @@ namespace SimpleShop.Models.ViewsModels
 		[Display(Name = "Imię i Nazwisko")]
 		public string NameAndSurname { get; set; }
 		[Required]
+		[DataType(DataType.PhoneNumber)]
+		[Display(Name = "Numer Telefonu")]
+		public string PhoneNumber { get; set; }
+		[Required]
 		[Display(Name = "Adres")]
 		public string Address { get; set; }
 		[Display(Name = "Kod Pocztowy")]

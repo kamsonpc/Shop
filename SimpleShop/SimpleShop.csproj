@@ -265,6 +265,10 @@
     <Compile Include="Migrations\201805221306527_Add shipping property to order model.Designer.cs">
       <DependentUpon>201805221306527_Add shipping property to order model.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805230738258_Add phone number to order Model.cs" />
+    <Compile Include="Migrations\201805230738258_Add phone number to order Model.Designer.cs">
+      <DependentUpon>201805230738258_Add phone number to order Model.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
@@ -272,6 +276,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\Status.cs" />
     <Compile Include="Models\ViewsModels\CategoryProductVM.cs" />
     <Compile Include="Models\ViewsModels\OrderProductUserVM.cs" />
     <Compile Include="Models\ViewsModels\OrderVM.cs" />
@@ -353,6 +358,7 @@
     <Content Include="Views\Payment\Index.cshtml" />
     <Content Include="Views\Product\BuySuccess.cshtml" />
     <Content Include="Views\Product\Buy.cshtml" />
+    <Content Include="Views\Payment\Shipping.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -389,6 +395,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805221306527_Add shipping property to order model.resx">
       <DependentUpon>201805221306527_Add shipping property to order model.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805230738258_Add phone number to order Model.resx">
+      <DependentUpon>201805230738258_Add phone number to order Model.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

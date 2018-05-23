@@ -67,9 +67,11 @@
         <td>
             @Html.DisplayFor(modelItem => item.Date)
         </td>
-        <td>
-	        <a class="btn btn-warning" href="@Url.Action("Change",new {id = item.OrderId})">Zmień Status Płatności</a>
-	    </td>
+		<td>
+			<a class="btn btn-warning" href="@Url.Action("Change",new {id = item.OrderId})">Zmień Status Płatności</a>
+			<a class="btn btn-primary" href="@Url.Action("Shipping",new {id = item.OrderId})">Dane Wysyłki</a>
+
+		</td>
     </tr>
 }
 

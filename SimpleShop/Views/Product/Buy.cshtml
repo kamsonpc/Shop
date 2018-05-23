@@ -20,9 +20,15 @@
 				@Html.ValidationMessageFor(model => model.NameAndSurname, "", new { @class = "text-danger" })
 			</div>
 		</div>
-
 		<div class="form-group">
-		   <label class="control-label col-md-2">Adress</label>
+			@Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				@Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+				@Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-md-2">Adres</label>
 			<div class="col-md-2">
 				@Html.EditorFor(model => model.CityCode, new { htmlAttributes = new { @class = "form-control" } })
 				@Html.ValidationMessageFor(model => model.CityCode, "", new { @class = "text-danger" })
@@ -47,4 +53,8 @@
 			</div>
 		</div>
 	</div>
+	@section Scripts {
+		@Scripts.Render("~/bundles/jqueryval")
+	}
+
 }

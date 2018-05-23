@@ -201,6 +201,7 @@ namespace SimpleShop.Controllers
 					Quantity = 1,
 					Payment = false,
 					NameAndSurname = shippingData.NameAndSurname,
+					PhoneNumber = shippingData.PhoneNumber,
 					Address = shippingData.Address,
 					CityCode = shippingData.CityCode,
 					Country = shippingData.Country

@@ -49,5 +49,21 @@ namespace SimpleShop.Controllers
 			return new HttpStatusCodeResult(HttpStatusCode.NotFound);
 
 		}
+
+	    public ActionResult Shipping(int? id)
+	    {
+		    if (id == null)
+		    {
+			    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+		    }
+
+		    var shippingData = Mapper.Map<Order, ShippingVM>(_order.GetById(id.Value));
+		    if (shippingData==null)
+		    {
+				return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+			}
+
+		    return View(shippingData);
+	    }
 	}
 }
