@@ -19,8 +19,7 @@ namespace SimpleShop.Controllers
 	    public ActionResult Index()
 		{
 			var orders = _orderService.GetOrdersByUser(User.Identity.GetUserId());
-			var result = Mapper.Map<List<Order>, List<OrderProductUserVM>>(orders);
-			return View(result);
+			return View(orders);
 		}
 	}
 }

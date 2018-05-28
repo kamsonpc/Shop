@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
+using AutoMapper;
 using SimpleShop.Interfaces;
 using SimpleShop.Models;
+using SimpleShop.Models.ViewsModels;
 
 namespace SimpleShop.Services
 {
@@ -16,32 +18,37 @@ namespace SimpleShop.Services
 			_applicationDb = applicationDb;
 		}
 
-		public List<Product> GetAll()
+		public List<ProductVM> GetAll()
 		{
-			return _applicationDb.Products.OrderBy(m => m.AddDate).ToList();
+			var products = _applicationDb.Products.OrderBy(m => m.AddDate).ToList();
+			return Mapper.Map<List<Product>,List<ProductVM>>(products);
 		}
 
-		public List<Product>GetByCategory(int id)
+		public List<ProductVM>GetByCategory(int id)
 		{
-			return _applicationDb.Products.Where(b => b.Category.CategoryId == id).ToList();
+			var products = _applicationDb.Products.Where(b => b.Category.CategoryId == id).ToList();
+			return Mapper.Map<List<Product>, List<ProductVM>>(products);
 		}
 
-		public Product GetById(int id)
+		public ProductVM GetById(int id)
 		{
-			return _applicationDb.Products.SingleOrDefault(p => p.ProductId == id);
+			var product = _applicationDb.Products.SingleOrDefault(p => p.ProductId == id);
+			return Mapper.Map<Product,ProductVM>(product);
 		}
 
 
-		public void AddNew(Product product)
+		public void AddNew(ProductVM productVM)
 		{
+			var product = Mapper.Map<ProductVM, Product>(productVM);
 			product.AddDate = DateTime.Now;
 			_applicationDb.Products.Add(product);
 			_applicationDb.SaveChanges();
 		}
 
-		public bool Update(int id, Product product)
+		public bool Update(int id, ProductVM productVm)
 		{
-			var productInDb = GetById(id);
+			var product = Mapper.Map<ProductVM, Product>(productVm);
+			var productInDb = _applicationDb.Products.SingleOrDefault(p => p.ProductId == id); 
 			if (productInDb != null)
 			{
 				productInDb.Quantity = product.Quantity;
@@ -61,7 +68,7 @@ namespace SimpleShop.Services
 
 		public void Remove(int id)
 		{
-			var productInDb = GetById(id);
+			var productInDb = _applicationDb.Products.SingleOrDefault(p => p.ProductId == id);
 			if (productInDb != null)
 			{
 				try

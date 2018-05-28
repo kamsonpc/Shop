@@ -8,7 +8,7 @@ using SimpleShop.Models;
 using SimpleShop.Models.ViewsModels;
 
 namespace SimpleShop.Controllers
-{
+{ 
 	[AuthorizeCustom(Roles = "Administrator")]
 	public class PaymentController : Controller
     {
@@ -20,9 +20,7 @@ namespace SimpleShop.Controllers
  
 	    public ActionResult Index()
 	    {
-		    var orders = _order.GetAllOrders();
-		    var result = Mapper.Map<List<Order>, List<OrderProductUserVM>>(orders);
-		    return View(result);
+		    return View(_order.GetAllOrders());
 	    }
 		[HttpPost]
 	    public ActionResult Search(string name)
@@ -30,10 +28,10 @@ namespace SimpleShop.Controllers
 		    var orders = _order.GetAllOrders();
 		    if (name != "")
 		    {
-			   orders = orders.FindAll(m => m.ApplicationUser.UserName.Contains(name));
+			    orders = _order.SearchByName(name);
 		    }
-		    var result = Mapper.Map<List<Order>, List<OrderProductUserVM>>(orders);
-			return View("Index",result);
+
+		    return View("Index", orders);
 	    }
 
 	    public ActionResult Change(int? id)
@@ -57,7 +55,7 @@ namespace SimpleShop.Controllers
 			    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 		    }
 
-		    var shippingData = Mapper.Map<Order, ShippingVM>(_order.GetById(id.Value));
+		    var shippingData = _order.GetShippingById(id.Value);
 		    if (shippingData==null)
 		    {
 				return new HttpStatusCodeResult(HttpStatusCode.NotFound);

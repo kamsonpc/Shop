@@ -23,13 +23,14 @@ namespace SimpleShop.Controllers
 			_product = product;
 			_order = order;
 			_category = category;
+			
 		}
 
 		// GET: Product
 		[AllowAnonymous]
 		public ActionResult Index()
 		{
-			var products = Mapper.Map<List<Product>, List<ProductVM>>(_product.GetAll());
+			var products = _product.GetAll();
 			var categories = _category.GetAll();
 
 			CategoryProductVM categoryProducts = new CategoryProductVM
@@ -49,8 +50,8 @@ namespace SimpleShop.Controllers
 			{
 				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 			}
-
-			var product = Mapper.Map<Product, ProductVM>(_product.GetById(id.Value));
+		
+			var product = _product.GetById(id.Value);
 
 			if (product == null)
 			{
@@ -76,14 +77,18 @@ namespace SimpleShop.Controllers
 		[AuthorizeCustom(Roles = "Administrator")]
 		public ActionResult Create(ProductVM productVm, HttpPostedFileBase file)
 		{
-			if (file.ContentLength > 0 && file.ContentLength < 327680 && file.ContentType.Contains("image") && ModelState.IsValid)
+			if (!ModelState.IsValid)
+			{
+				productVm.Categories = _category.GetSelectList();
+				return View(productVm);
+			}
+
+			if (file.ContentLength > 0 && file.ContentLength < 327680 && file.ContentType.Contains("image"))
 			{
 				try
 				{
 					productVm.Img = _product.UploadImage(file);
-
-					var product = Mapper.Map<ProductVM, Product>(productVm);
-					_product.AddNew(product);
+					_product.AddNew(productVm);
 
 					return RedirectToAction("Index");
 
@@ -107,7 +112,7 @@ namespace SimpleShop.Controllers
 			{
 				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 			}
-			var product = Mapper.Map<Product, ProductVM>(_product.GetById(id.Value));
+			var product = _product.GetById(id.Value);
 			if (product == null)
 			{
 				return new HttpStatusCodeResult(HttpStatusCode.NotFound);
@@ -132,8 +137,7 @@ namespace SimpleShop.Controllers
 				return View(productVm);
 
 			}
-			var product = Mapper.Map<ProductVM, Product>(productVm);
-			if (_product.Update(id.Value, product))
+			if (_product.Update(id.Value, productVm))
 			{
 				return RedirectToAction("Index");
 
@@ -163,12 +167,17 @@ namespace SimpleShop.Controllers
 			{
 				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 			}
-			var shipping = Mapper.Map<Product, ShippingVM>(_product.GetById(id.Value));
+			var shipping = _product.GetById(id.Value);
 			if (shipping == null)
 			{
 				return new HttpStatusCodeResult(HttpStatusCode.NotFound);
 			}
-			return View(shipping);
+			ShippingVM shippingVm = new ShippingVM
+			{
+				ProductId = shipping.ProductId
+			};
+
+			return View(shippingVm);
 
 		}
 
@@ -181,7 +190,7 @@ namespace SimpleShop.Controllers
 				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 			}
 
-			var product = Mapper.Map<Product, ProductVM>(_product.GetById(id.Value));
+			var product = _product.GetById(id.Value);
 			var user = User.Identity.GetUserId();
 			if (product == null)
 			{
@@ -223,7 +232,7 @@ namespace SimpleShop.Controllers
 				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 			}
 
-			var products = Mapper.Map<List<Product>, List<ProductVM>>(_product.GetByCategory(id.Value));
+			var products = _product.GetByCategory(id.Value);
 			var categories = _category.GetAll();
 
 			CategoryProductVM categoryProducts = new CategoryProductVM
@@ -240,7 +249,7 @@ namespace SimpleShop.Controllers
 		[ValidateAntiForgeryToken]
 		public ActionResult Search(string name)
 		{
-			var products = Mapper.Map<List<Product>, List<ProductVM>>(_product.GetAll());
+			var products = _product.GetAll();
 			var categories = _category.GetAll();
 
 			if (name != "")

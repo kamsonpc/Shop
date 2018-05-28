@@ -1,8 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using AutoMapper;
 using SimpleShop.Interfaces;
 using SimpleShop.Models;
+using SimpleShop.Models.ViewsModels;
 
 namespace SimpleShop.Services
 {
@@ -14,9 +17,10 @@ namespace SimpleShop.Services
 			_applicationDb = applicationDb;
 		}
 
-		public List<Order> GetAll()
+		public List<OrderVM> GetAll()
 		{
-			return _applicationDb.Orders.Include(m => m.Product).ToList();
+			var orders = _applicationDb.Orders.Include(m => m.Product).ToList();
+			return Mapper.Map<List<Order>,List<OrderVM>>(orders);
 		}
 
 		public void AddNew(Order order)
@@ -25,23 +29,32 @@ namespace SimpleShop.Services
 			_applicationDb.SaveChanges();
 		}
 
-		public Order GetById(int id)
+		public OrderVM GetById(int id)
 		{
 			var order = _applicationDb.Orders.SingleOrDefault(o => o.OrderId == id);
-			return order;
+			var orderVm = Mapper.Map<Order, OrderVM>(order);  
+			return orderVm;
+		}
+		public ShippingVM GetShippingById(int id)
+		{
+			var order = _applicationDb.Orders.SingleOrDefault(o => o.OrderId == id);
+			var orderVm = Mapper.Map<Order, ShippingVM>(order);
+			return orderVm;
 		}
 
-		public List<Order> GetOrdersByUser(string id)
+		public List<OrderProductUserVM> GetOrdersByUser(string id)
 		{
 			var orders = _applicationDb.Orders.Where(b => b.ApplicationUserId == id).Include(m => m.Product).ToList();
-			return orders;
+			var ordersVm = Mapper.Map<List<Order>, List<OrderProductUserVM>>(orders);
+			return ordersVm;
 
 		}
 
-		public List<Order> GetAllOrders()
+		public List<OrderProductUserVM> GetAllOrders()
 		{
 			var orders = _applicationDb.Orders.Include(m => m.Product).Include(x => x.ApplicationUser).OrderBy(d => d.Date).ToList();
-			return orders;
+			var ordersVm = Mapper.Map<List<Order>, List<OrderProductUserVM>>(orders);
+			return ordersVm;
 
 		}
 
@@ -67,5 +80,10 @@ namespace SimpleShop.Services
 			}
 		}
 
+		public List<OrderProductUserVM> SearchByName(string query)
+		{
+			var orders =_applicationDb.Orders.ToList().FindAll(m => m.ApplicationUser.UserName.Contains(query));
+			return Mapper.Map<List<Order>,List<OrderProductUserVM>>(orders);
+		}
 	}
 }
