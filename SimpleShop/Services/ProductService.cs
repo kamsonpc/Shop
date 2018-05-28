@@ -12,77 +12,83 @@ namespace SimpleShop.Services
 {
 	public class ProductService : IProductService
 	{
-		private readonly IApplicationDbContex _applicationDb;
-		public ProductService(IApplicationDbContex applicationDb)
-		{
-			_applicationDb = applicationDb;
-		}
-
 		public List<ProductVM> GetAll()
 		{
-			var products = _applicationDb.Products.OrderBy(m => m.AddDate).ToList();
-			return Mapper.Map<List<Product>,List<ProductVM>>(products);
+			using (ApplicationDbContext ctx = new ApplicationDbContext())
+			{
+				var products = ctx.Products.OrderBy(m => m.AddDate).ToList();
+				return Mapper.Map<List<Product>, List<ProductVM>>(products);
+			}
 		}
 
 		public List<ProductVM>GetByCategory(int id)
 		{
-			var products = _applicationDb.Products.Where(b => b.Category.CategoryId == id).ToList();
-			return Mapper.Map<List<Product>, List<ProductVM>>(products);
+			using (ApplicationDbContext ctx = new ApplicationDbContext())
+			{
+				var products = ctx.Products.Where(b => b.Category.CategoryId == id).ToList();
+				return Mapper.Map<List<Product>, List<ProductVM>>(products);
+			}
 		}
 
 		public ProductVM GetById(int id)
 		{
-			var product = _applicationDb.Products.SingleOrDefault(p => p.ProductId == id);
-			return Mapper.Map<Product,ProductVM>(product);
+			using (ApplicationDbContext ctx = new ApplicationDbContext())
+			{
+				var product = ctx.Products.SingleOrDefault(p => p.ProductId == id);
+				return Mapper.Map<Product, ProductVM>(product);
+			}
 		}
 
 
 		public void AddNew(ProductVM productVM)
 		{
-			var product = Mapper.Map<ProductVM, Product>(productVM);
-			product.AddDate = DateTime.Now;
-			_applicationDb.Products.Add(product);
-			_applicationDb.SaveChanges();
+			using (ApplicationDbContext ctx = new ApplicationDbContext())
+			{
+				var product = Mapper.Map<ProductVM, Product>(productVM);
+				product.AddDate = DateTime.Now;
+				ctx.Products.Add(product);
+				ctx.SaveChanges();
+			}
 		}
 
-		public bool Update(int id, ProductVM productVm)
+		public void Update(int id, ProductVM productVm)
 		{
 			var product = Mapper.Map<ProductVM, Product>(productVm);
-			var productInDb = _applicationDb.Products.SingleOrDefault(p => p.ProductId == id); 
-			if (productInDb != null)
+			using (ApplicationDbContext ctx = new ApplicationDbContext())
 			{
-				productInDb.Quantity = product.Quantity;
-				productInDb.Description = product.Description;
-				productInDb.Name = product.Name;
-				productInDb.Price = product.Price;
-				productInDb.CategoryId = product.CategoryId;
-				_applicationDb.SaveChanges();
-				return true;
+				var productInDb = ctx.Products.SingleOrDefault(p => p.ProductId == id);
+				if (productInDb != null)
+				{
+					productInDb.Quantity = product.Quantity;
+					productInDb.Description = product.Description;
+					productInDb.Name = product.Name;
+					productInDb.Price = product.Price;
+					productInDb.CategoryId = product.CategoryId;
+					ctx.SaveChanges();
+				}
 			}
-			else
-			{
-				return false;
-			}
-			
 		}
 
 		public void Remove(int id)
 		{
-			var productInDb = _applicationDb.Products.SingleOrDefault(p => p.ProductId == id);
-			if (productInDb != null)
+			using (ApplicationDbContext ctx = new ApplicationDbContext())
 			{
-				try
+				var productInDb = ctx.Products.SingleOrDefault(p => p.ProductId == id);
+				if (productInDb != null)
 				{
-					RemoveImage(productInDb.Img);
-					_applicationDb.Products.Remove(productInDb);
-					_applicationDb.SaveChanges();
+					try
+					{
+						RemoveImage(productInDb.Img);
+						ctx.Products.Remove(productInDb);
+						ctx.SaveChanges();
+					}
+					catch (Exception e)
+					{
+						Console.WriteLine(e);
+						throw new Exception("File not removed");
+					}
 				}
-				catch (Exception e)
-				{
-					Console.WriteLine(e);
-					throw new Exception("File not removed");
-				}
-			}	
+			}
 		}
 
 		public string UploadImage(HttpPostedFileBase file)
@@ -101,13 +107,16 @@ namespace SimpleShop.Services
 
 		public void ChangeQuantity(int id, int quantity)
 		{
-			var productInDb = GetById(id);
-			if (productInDb!=null)
+			using (ApplicationDbContext ctx = new ApplicationDbContext())
 			{
-				productInDb.Quantity -= quantity;
-				_applicationDb.SaveChanges();
+				var productInDb = GetById(id);
+				if (productInDb != null)
+				{
+					productInDb.Quantity -= quantity;
+					ctx.SaveChanges();
+				}
 			}
-			
+
 		}
 	}
 }

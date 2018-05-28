@@ -11,51 +11,63 @@ namespace SimpleShop.Services
 {
 	public class OrderService : IOrderService
 	{
-		private readonly IApplicationDbContex _applicationDb;
-		public OrderService(IApplicationDbContex applicationDb)
-		{
-			_applicationDb = applicationDb;
-		}
-
 		public List<OrderVM> GetAll()
 		{
-			var orders = _applicationDb.Orders.Include(m => m.Product).ToList();
-			return Mapper.Map<List<Order>,List<OrderVM>>(orders);
+			using (ApplicationDbContext ctx = new ApplicationDbContext())
+			{
+				var orders = ctx.Orders.Include(m => m.Product).ToList();
+				return Mapper.Map<List<Order>, List<OrderVM>>(orders);
+			}
+			
 		}
 
 		public void AddNew(Order order)
 		{
-			_applicationDb.Orders.Add(order);
-			_applicationDb.SaveChanges();
+			using (ApplicationDbContext ctx = new ApplicationDbContext())
+			{
+				ctx.Orders.Add(order);
+				ctx.SaveChanges();
+			}
 		}
 
 		public OrderVM GetById(int id)
 		{
-			var order = _applicationDb.Orders.SingleOrDefault(o => o.OrderId == id);
-			var orderVm = Mapper.Map<Order, OrderVM>(order);  
-			return orderVm;
+			using (ApplicationDbContext ctx = new ApplicationDbContext())
+			{
+				var order = ctx.Orders.SingleOrDefault(o => o.OrderId == id);
+				var orderVm = Mapper.Map<Order, OrderVM>(order);
+				return orderVm;
+			}
 		}
 		public ShippingVM GetShippingById(int id)
 		{
-			var order = _applicationDb.Orders.SingleOrDefault(o => o.OrderId == id);
-			var orderVm = Mapper.Map<Order, ShippingVM>(order);
-			return orderVm;
+			using (ApplicationDbContext ctx = new ApplicationDbContext())
+			{
+				var order = ctx.Orders.SingleOrDefault(o => o.OrderId == id);
+				var orderVm = Mapper.Map<Order, ShippingVM>(order);
+				return orderVm;
+			}
 		}
 
 		public List<OrderProductUserVM> GetOrdersByUser(string id)
 		{
-			var orders = _applicationDb.Orders.Where(b => b.ApplicationUserId == id).Include(m => m.Product).ToList();
-			var ordersVm = Mapper.Map<List<Order>, List<OrderProductUserVM>>(orders);
-			return ordersVm;
-
+			using (ApplicationDbContext ctx = new ApplicationDbContext())
+			{
+				var orders = ctx.Orders.Where(b => b.ApplicationUserId == id).Include(m => m.Product).ToList();
+				var ordersVm = Mapper.Map<List<Order>, List<OrderProductUserVM>>(orders);
+				return ordersVm;
+			}
 		}
 
 		public List<OrderProductUserVM> GetAllOrders()
 		{
-			var orders = _applicationDb.Orders.Include(m => m.Product).Include(x => x.ApplicationUser).OrderBy(d => d.Date).ToList();
-			var ordersVm = Mapper.Map<List<Order>, List<OrderProductUserVM>>(orders);
-			return ordersVm;
-
+			using (ApplicationDbContext ctx = new ApplicationDbContext())
+			{
+				var orders = ctx.Orders.Include(m => m.Product).Include(x => x.ApplicationUser).OrderBy(d => d.Date)
+					.ToList();
+				var ordersVm = Mapper.Map<List<Order>, List<OrderProductUserVM>>(orders);
+				return ordersVm;
+			}
 		}
 
 		public bool ChangePayment(int id)
@@ -71,7 +83,12 @@ namespace SimpleShop.Services
 				{
 					order.Payment = true;
 				}
-				_applicationDb.SaveChanges();
+
+				using (ApplicationDbContext ctx = new ApplicationDbContext())
+				{
+					ctx.SaveChanges();
+				}
+
 				return true;
 			}
 			else
@@ -82,8 +99,11 @@ namespace SimpleShop.Services
 
 		public List<OrderProductUserVM> SearchByName(string query)
 		{
-			var orders =_applicationDb.Orders.ToList().FindAll(m => m.ApplicationUser.UserName.Contains(query));
-			return Mapper.Map<List<Order>,List<OrderProductUserVM>>(orders);
+			using (ApplicationDbContext ctx = new ApplicationDbContext())
+			{
+				var orders = ctx.Orders.ToList().FindAll(m => m.ApplicationUser.UserName.Contains(query));
+				return Mapper.Map<List<Order>, List<OrderProductUserVM>>(orders);
+			}
 		}
 	}
 }

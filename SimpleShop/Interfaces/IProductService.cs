@@ -13,7 +13,7 @@ namespace SimpleShop.Interfaces
 		List<ProductVM> GetByCategory(int id);
 		ProductVM GetById(int id);
 		void AddNew(ProductVM product);
-		bool Update(int id, ProductVM product);
+		void Update(int id, ProductVM product);
 		void Remove(int id);
 		string UploadImage(HttpPostedFileBase file);
 		void ChangeQuantity(int id,int quantity);

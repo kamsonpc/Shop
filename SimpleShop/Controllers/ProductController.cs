@@ -23,7 +23,6 @@ namespace SimpleShop.Controllers
 			_product = product;
 			_order = order;
 			_category = category;
-			
 		}
 
 		// GET: Product
@@ -50,7 +49,7 @@ namespace SimpleShop.Controllers
 			{
 				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 			}
-		
+
 			var product = _product.GetById(id.Value);
 
 			if (product == null)
@@ -137,16 +136,9 @@ namespace SimpleShop.Controllers
 				return View(productVm);
 
 			}
-			if (_product.Update(id.Value, productVm))
-			{
-				return RedirectToAction("Index");
 
-			}
-			else
-			{
-				return View(productVm);
-			}
-
+			_product.Update(id.Value, productVm);
+			return RedirectToAction("Index");
 		}
 
 		[AuthorizeCustom(Roles = "Administrator")]

@@ -13,7 +13,7 @@ namespace SimpleShop.Interfaces
 		List<Category> GetAll();
 		Category GetById(int id);
 		void AddNew(Category category);
-		bool Update(int id, Category category);
+		void Update(int id, Category category);
 		void Remove(int id);
 		IEnumerable<SelectListItem> GetSelectList();
 	}

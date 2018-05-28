@@ -9,15 +9,13 @@ namespace SimpleShop.Services
 
 	public class CategoryService : ICategoryService
 	{
-		private readonly IApplicationDbContex _applicationDb;
-		public CategoryService(IApplicationDbContex applicationDb)
-		{
-			_applicationDb = applicationDb;
-		}
 
 		public List<Category> GetAll()
 		{
-			return _applicationDb.Categories.ToList();
+			using (var ctx = new ApplicationDbContext())
+			{
+				return  ctx.Categories.ToList();
+			}
 		}
 
 		public IEnumerable<SelectListItem> GetSelectList()
@@ -31,21 +29,29 @@ namespace SimpleShop.Services
 
 		public Category GetById(int id)
 		{
-			return _applicationDb.Categories.SingleOrDefault(c => c.CategoryId == id);
+			using (var ctx = new ApplicationDbContext())
+			{
+				return ctx.Categories.SingleOrDefault(c => c.CategoryId == id);
+			}
 		}
 
 		public void AddNew(Category category)
 		{
-			_applicationDb.Categories.Add(category);
-			_applicationDb.SaveChanges();
+			using (var ctx = new ApplicationDbContext())
+			{
+				ctx.Categories.Add(category);
+				ctx.SaveChanges();
+			}
 		}
 
-		public bool Update(int id, Category category)
+		public void Update(int id, Category category)
 		{
-			var categoryInDb = GetById(id);
-			categoryInDb.Name = category.Name;
-			_applicationDb.SaveChanges();
-			return true;
+			using (var ctx = new ApplicationDbContext())
+			{
+				var categoryInDb = GetById(id);
+				categoryInDb.Name = category.Name;
+				ctx.SaveChanges();
+			}
 		}
 
 		public void Remove(int id)
@@ -53,7 +59,10 @@ namespace SimpleShop.Services
 			var categoryInDb = GetById(id);
 			if (categoryInDb != null)
 			{
-				_applicationDb.Categories.Remove(categoryInDb);
+				using (var ctx = new ApplicationDbContext())
+				{
+					ctx.Categories.Remove(categoryInDb);
+				}
 			}
 		}
 	}
