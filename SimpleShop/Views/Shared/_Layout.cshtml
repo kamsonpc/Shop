@@ -31,6 +31,7 @@
 					}
 					@if (Request.IsAuthenticated && !User.IsInRole("Administrator"))
 					{
+						<li>@Html.ActionLink("Koszyk", "Index", "Cart")</li>
 						<li>@Html.ActionLink("Moje Produkty", "Index", "Orders")</li>
 
 					}

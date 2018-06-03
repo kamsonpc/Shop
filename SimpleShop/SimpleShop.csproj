@@ -226,6 +226,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="App_Start\IocUnityConfig.cs" />
@@ -357,9 +358,10 @@
     <Content Include="Views\Categories\Edit.cshtml" />
     <Content Include="Views\Categories\Index.cshtml" />
     <Content Include="Views\Payment\Index.cshtml" />
-    <Content Include="Views\Product\BuySuccess.cshtml" />
-    <Content Include="Views\Product\Buy.cshtml" />
+    <Content Include="Views\Cart\BuySuccess.cshtml" />
+    <Content Include="Views\Cart\Buy.cshtml" />
     <Content Include="Views\Payment\Shipping.cshtml" />
+    <Content Include="Views\Cart\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

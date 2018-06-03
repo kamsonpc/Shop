@@ -395,6 +395,7 @@ namespace SimpleShop.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+			Session["Cart"] = null;
             return RedirectToAction("Index", "Home");
         }
 

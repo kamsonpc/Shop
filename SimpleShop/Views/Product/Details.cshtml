@@ -14,10 +14,10 @@
 		<div class="col-md-3">
 			<div class="panel panel-default">
 				<div class="panel-body">
-					@Html.DisplayNameFor(model => model.Price) : <b>@Html.DisplayFor(model => model.Price)</b><br/>
+					@Html.DisplayNameFor(model => model.Price) : <b>@Html.DisplayFor(model => model.Price)</b><br />
 					@Html.DisplayNameFor(model => model.Quantity) : <b>@Html.DisplayFor(model => model.Quantity)</b>
 					<hr />
-					<a class="btn btn-lg btn-danger" href="@Url.Action("Buy", "Product", new {id = Model.ProductId})">Kup <i class="glyphicon glyphicon-shopping-cart"></i></a>
+					<a class="btn btn-lg btn-warning" href="@Url.Action("Add", "Cart", new {id = Model.ProductId})">Dodaj do Koszyka <i class="glyphicon glyphicon-shopping-cart"></i></a>
 				</div>
 			</div>
 		</div>

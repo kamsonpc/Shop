@@ -9,7 +9,7 @@
 	<div class="row">
 		<div class="col-md-6"><h2>Produkty</h2></div>
 		<div class="col-md-6">
-			@using (Html.BeginForm("Search", "Product", FormMethod.Post))
+			@using (Html.BeginForm("Search", "Product", FormMethod.Get))
 			{
 				@Html.AntiForgeryToken()
 				<div class="input-group search-container">
@@ -30,6 +30,20 @@
 					<li class="list-group-item"><a href="@Url.Action("Category", "Product", new {id = item.CategoryId})">@item.Name</a></li>
 				}
 			</ul>
+			<hr />
+			<h4>Ze względu na cenę</h4>
+			@using (Html.BeginForm("SearchByPrice", "Product", FormMethod.Get))
+			{
+				@Html.AntiForgeryToken()
+				<div class="form-group-sm">
+					<input type="number" name="min" placeholder="Minimalna" class="form-control ">
+					<br />
+					<input type="number" name="max" placeholder="Maksymalna" class="form-control">
+					<br />
+					<button type="submit" class="btn btn-sm btn-primary">Potwierdź</button>
+				</div>
+			}
+
 		</div>
 		<div class="col-md-10">
 			<div id="products" class="row list-group">
@@ -59,7 +73,7 @@
 											</p>
 										</div>
 										<div class="col-xs-12 col-md-5">
-											<a class="btn btn-danger" href="@Url.Action("Buy", "Product", new {id = item.ProductId})">Kup <i class="glyphicon glyphicon-shopping-cart"></i></a>
+											<a class="btn btn-danger" href="@Url.Action("Add", "Cart", new {id = item.ProductId})">Koszyk <i class="glyphicon glyphicon-shopping-cart"></i></a>
 										</div>
 										@if (Request.IsAuthenticated && User.IsInRole("Administrator"))
 										{

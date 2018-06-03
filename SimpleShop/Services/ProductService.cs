@@ -21,7 +21,16 @@ namespace SimpleShop.Services
 			}
 		}
 
-		public List<ProductVM>GetByCategory(int id)
+		public List<ProductVM> GetByPrice(int minPrice,int maxPrice)
+		{
+			using (ApplicationDbContext ctx = new ApplicationDbContext())
+			{
+				var products = ctx.Products.OrderBy(m => m.AddDate).Where(p => p.Price <= maxPrice).Where(p => p.Price >= minPrice).ToList();
+				return Mapper.Map<List<Product>, List<ProductVM>>(products);
+			}
+		}
+
+		public List<ProductVM> GetByCategory(int id)
 		{
 			using (ApplicationDbContext ctx = new ApplicationDbContext())
 			{
@@ -38,7 +47,6 @@ namespace SimpleShop.Services
 				return Mapper.Map<Product, ProductVM>(product);
 			}
 		}
-
 
 		public void AddNew(ProductVM productVM)
 		{
@@ -76,17 +84,9 @@ namespace SimpleShop.Services
 				var productInDb = ctx.Products.SingleOrDefault(p => p.ProductId == id);
 				if (productInDb != null)
 				{
-					try
-					{
-						RemoveImage(productInDb.Img);
-						ctx.Products.Remove(productInDb);
-						ctx.SaveChanges();
-					}
-					catch (Exception e)
-					{
-						Console.WriteLine(e);
-						throw new Exception("File not removed");
-					}
+					RemoveImage(productInDb.Img);
+					ctx.Products.Remove(productInDb);
+					ctx.SaveChanges();
 				}
 			}
 		}
@@ -102,7 +102,15 @@ namespace SimpleShop.Services
 		public void RemoveImage(string fileName)
 		{
 			string path = Path.Combine(HttpContext.Current.Server.MapPath("~/UploadedFiles"), fileName);
-			File.Delete(path);
+			try
+			{
+				File.Delete(path);
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
+				throw new Exception("File not removed");
+			}
 		}
 
 		public void ChangeQuantity(int id, int quantity)
@@ -116,7 +124,6 @@ namespace SimpleShop.Services
 					ctx.SaveChanges();
 				}
 			}
-
 		}
 	}
 }

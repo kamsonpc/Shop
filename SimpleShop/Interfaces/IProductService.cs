@@ -11,6 +11,8 @@ namespace SimpleShop.Interfaces
 	{
 		List<ProductVM> GetAll();
 		List<ProductVM> GetByCategory(int id);
+		List<ProductVM> GetByPrice(int minPrice, int maxPrice);
+
 		ProductVM GetById(int id);
 		void AddNew(ProductVM product);
 		void Update(int id, ProductVM product);

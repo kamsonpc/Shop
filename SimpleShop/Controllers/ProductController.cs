@@ -90,7 +90,6 @@ namespace SimpleShop.Controllers
 					_product.AddNew(productVm);
 
 					return RedirectToAction("Index");
-
 				}
 				catch
 				{
@@ -152,69 +151,6 @@ namespace SimpleShop.Controllers
 			return RedirectToAction("Index");
 		}
 
-		[Authorize]
-		public ActionResult Buy(int? id)
-		{
-			if (id == null)
-			{
-				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-			}
-			var shipping = _product.GetById(id.Value);
-			if (shipping == null)
-			{
-				return new HttpStatusCodeResult(HttpStatusCode.NotFound);
-			}
-			ShippingVM shippingVm = new ShippingVM
-			{
-				ProductId = shipping.ProductId
-			};
-
-			return View(shippingVm);
-
-		}
-
-		[Authorize]
-		[HttpPost]
-		public ActionResult Buy(int? id, ShippingVM shippingData)
-		{
-			if (id == null)
-			{
-				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-			}
-
-			var product = _product.GetById(id.Value);
-			var user = User.Identity.GetUserId();
-			if (product == null)
-			{
-				return new HttpStatusCodeResult(HttpStatusCode.NotFound);
-			}
-
-			if (ModelState.IsValid)
-			{
-				_product.ChangeQuantity(id.Value, 1);
-
-				Order order = new Order
-				{
-					ApplicationUserId = user,
-					ProductId = product.ProductId,
-					Date = DateTime.Now,
-					Price = product.Price,
-					Quantity = 1,
-					Payment = false,
-					NameAndSurname = shippingData.NameAndSurname,
-					PhoneNumber = shippingData.PhoneNumber,
-					Address = shippingData.Address,
-					CityCode = shippingData.CityCode,
-					Country = shippingData.Country
-				};
-
-
-				_order.AddNew(order);
-				return View("BuySuccess", product);
-
-			}
-			return RedirectToAction("Index");
-		}
 
 		[AllowAnonymous]
 		public ActionResult Category(int? id)
@@ -237,7 +173,7 @@ namespace SimpleShop.Controllers
 		}
 
 		[AllowAnonymous]
-		[HttpPost]
+		[HttpGet]
 		[ValidateAntiForgeryToken]
 		public ActionResult Search(string name)
 		{
@@ -249,6 +185,34 @@ namespace SimpleShop.Controllers
 				products = products.FindAll(m => m.Name.Contains(name));
 			}
 
+			CategoryProductVM categoryProducts = new CategoryProductVM
+			{
+				product = products,
+				categories = categories
+			};
+			return View("Index", categoryProducts);
+		}
+
+		[AllowAnonymous]
+		[HttpGet]
+		[ValidateAntiForgeryToken]
+		public ActionResult SearchByPrice(string min,string max)
+		{
+			int minimumPrice;
+			int maximumPrice;
+			try
+			{
+				maximumPrice = Int32.Parse(max);
+				minimumPrice = Int32.Parse(min);
+			}
+			catch (FormatException e)
+			{
+				maximumPrice = 0;
+				minimumPrice = 0;
+			}
+			var products = _product.GetByPrice(minimumPrice,maximumPrice);
+			var categories = _category.GetAll();
+			
 			CategoryProductVM categoryProducts = new CategoryProductVM
 			{
 				product = products,

@@ -9,12 +9,11 @@ namespace SimpleShop.Services
 
 	public class CategoryService : ICategoryService
 	{
-
 		public List<Category> GetAll()
 		{
 			using (var ctx = new ApplicationDbContext())
 			{
-				return  ctx.Categories.ToList();
+				return ctx.Categories.ToList();
 			}
 		}
 
@@ -56,12 +55,14 @@ namespace SimpleShop.Services
 
 		public void Remove(int id)
 		{
-			var categoryInDb = GetById(id);
-			if (categoryInDb != null)
+			using (var ctx = new ApplicationDbContext())
 			{
-				using (var ctx = new ApplicationDbContext())
+				var categoryInDb = ctx.Categories.Where(c => c.CategoryId == id).SingleOrDefault();
+				if (categoryInDb != null)
 				{
 					ctx.Categories.Remove(categoryInDb);
+					ctx.SaveChanges();
+
 				}
 			}
 		}

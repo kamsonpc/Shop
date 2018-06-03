@@ -18,7 +18,6 @@ namespace SimpleShop.Services
 				var orders = ctx.Orders.Include(m => m.Product).ToList();
 				return Mapper.Map<List<Order>, List<OrderVM>>(orders);
 			}
-			
 		}
 
 		public void AddNew(Order order)
@@ -39,6 +38,7 @@ namespace SimpleShop.Services
 				return orderVm;
 			}
 		}
+
 		public ShippingVM GetShippingById(int id)
 		{
 			using (ApplicationDbContext ctx = new ApplicationDbContext())
@@ -72,28 +72,27 @@ namespace SimpleShop.Services
 
 		public bool ChangePayment(int id)
 		{
-			var order = GetById(id);
-			if (order != null)
+			using (ApplicationDbContext ctx = new ApplicationDbContext())
 			{
-				if (order.Payment)
+				var order = ctx.Orders.Where( o => o.OrderId == id).SingleOrDefault();
+				if (order != null)
 				{
-					order.Payment = false;
+					if (order.Payment)
+					{
+						order.Payment = false;
+					}
+					else
+					{
+						order.Payment = true;
+					}
+
+					ctx.SaveChanges();
+					return true;
 				}
 				else
 				{
-					order.Payment = true;
-				}
-
-				using (ApplicationDbContext ctx = new ApplicationDbContext())
-				{
-					ctx.SaveChanges();
-				}
-
-				return true;
-			}
-			else
-			{
-				return false;
+					return false;
+				}				
 			}
 		}
 

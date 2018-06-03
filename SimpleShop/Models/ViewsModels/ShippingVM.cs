@@ -8,8 +8,8 @@ namespace SimpleShop.Models.ViewsModels
 {
 	public class ShippingVM
 	{
-		[Key]
-		public int ProductId { get; set; }
+		
+		
 		[Required]
 		[Display(Name = "Imię i Nazwisko")]
 		public string NameAndSurname { get; set; }
