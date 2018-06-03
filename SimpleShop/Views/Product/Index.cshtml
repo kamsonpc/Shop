@@ -11,7 +11,6 @@
 		<div class="col-md-6">
 			@using (Html.BeginForm("Search", "Product", FormMethod.Get))
 			{
-				@Html.AntiForgeryToken()
 				<div class="input-group search-container">
 					<span class="input-group-btn">
 						<button class="btn btn-primary" type="submit"><i class="glyphicon glyphicon-search"></i></button>
@@ -34,7 +33,6 @@
 			<h4>Ze względu na cenę</h4>
 			@using (Html.BeginForm("SearchByPrice", "Product", FormMethod.Get))
 			{
-				@Html.AntiForgeryToken()
 				<div class="form-group-sm">
 					<input type="number" name="min" placeholder="Minimalna" class="form-control ">
 					<br />

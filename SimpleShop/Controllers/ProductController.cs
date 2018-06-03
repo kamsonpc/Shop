@@ -174,7 +174,6 @@ namespace SimpleShop.Controllers
 
 		[AllowAnonymous]
 		[HttpGet]
-		[ValidateAntiForgeryToken]
 		public ActionResult Search(string name)
 		{
 			var products = _product.GetAll();
@@ -195,7 +194,6 @@ namespace SimpleShop.Controllers
 
 		[AllowAnonymous]
 		[HttpGet]
-		[ValidateAntiForgeryToken]
 		public ActionResult SearchByPrice(string min,string max)
 		{
 			int minimumPrice;
