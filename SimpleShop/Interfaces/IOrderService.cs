@@ -10,7 +10,7 @@ namespace SimpleShop.Interfaces
 {
 	public interface IOrderService
 	{
-		void AddNew(Order order);
+		bool AddNew(ProductVM choosedProduct,ShippingVM shippingData,string UserId);
 		List<OrderProductUserVM> GetOrdersByUser(string id);
 		List<OrderProductUserVM> GetAllOrders();
 		OrderVM  GetById(int id);

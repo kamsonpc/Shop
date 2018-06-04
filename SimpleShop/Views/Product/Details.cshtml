@@ -5,7 +5,7 @@
 }
 <h2>@Html.DisplayFor(model => model.Name)</h2>
 <a class="btn btn-primary" href="@Url.Action("Index", "Product")"><i class="glyphicon glyphicon-arrow-left"></i> Powrót </a>
-<hr/>
+<hr />
 <div class="container">
 	<div class="row">
 		<div class="col-md-9">
@@ -17,7 +17,16 @@
 					@Html.DisplayNameFor(model => model.Price) : <b>@Html.DisplayFor(model => model.Price)</b><br />
 					@Html.DisplayNameFor(model => model.Quantity) : <b>@Html.DisplayFor(model => model.Quantity)</b>
 					<hr />
-					<a class="btn btn-lg btn-warning" href="@Url.Action("Add", "Cart", new {id = Model.ProductId})">Dodaj do Koszyka <i class="glyphicon glyphicon-shopping-cart"></i></a>
+					@using (Html.BeginForm("Add", "Cart", FormMethod.Get))
+					{
+					<div class="form-group-sm">
+						@Html.HiddenFor(model => model.ProductId)
+						<label for="quantity">Ilość Sztuk</label>
+						<input type="number" id="quantity" name="quantity" value="1" class="form-control">
+					</div>
+						<br />
+						<button type="submit" class="btn btn-lg btn-danger" >Dodaj do Koszyka <i class="glyphicon glyphicon-shopping-cart"></i></button>
+					}
 				</div>
 			</div>
 		</div>
@@ -33,4 +42,3 @@
 	</div>
 </div>
 
-	

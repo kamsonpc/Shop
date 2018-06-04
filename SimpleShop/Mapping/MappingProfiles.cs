@@ -28,7 +28,6 @@ namespace SimpleShop.Mapping
 			CreateMap<ShippingVM, Product>();
 			CreateMap<Product, ShippingVM>();
 
-
 		}
 	}
 }

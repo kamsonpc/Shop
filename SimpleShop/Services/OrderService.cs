@@ -11,6 +11,12 @@ namespace SimpleShop.Services
 {
 	public class OrderService : IOrderService
 	{
+		private readonly IProductService _product;
+		public OrderService(IProductService product)
+		{
+			_product = product;
+		}
+
 		public List<OrderVM> GetAll()
 		{
 			using (ApplicationDbContext ctx = new ApplicationDbContext())
@@ -20,13 +26,36 @@ namespace SimpleShop.Services
 			}
 		}
 
-		public void AddNew(Order order)
+		public bool AddNew(ProductVM choosedProduct, ShippingVM shippingData, string userId)
 		{
+
+			var product = _product.GetById(choosedProduct.ProductId);
+
+			if (product == null)
+			{
+				return false;
+			}
+
+			Order order = new Order
+			{
+				ApplicationUserId = userId,
+				ProductId = product.ProductId,
+				Date = DateTime.Now,
+				Price = product.Price * choosedProduct.CustomerQuantity,
+				Quantity = choosedProduct.CustomerQuantity,
+				Payment = false,
+				NameAndSurname = shippingData.NameAndSurname,
+				PhoneNumber = shippingData.PhoneNumber,
+				Address = shippingData.Address,
+				CityCode = shippingData.CityCode,
+				Country = shippingData.Country
+			};
 			using (ApplicationDbContext ctx = new ApplicationDbContext())
 			{
 				ctx.Orders.Add(order);
 				ctx.SaveChanges();
 			}
+			return true;
 		}
 
 		public OrderVM GetById(int id)
@@ -104,5 +133,6 @@ namespace SimpleShop.Services
 				return Mapper.Map<List<Order>, List<OrderProductUserVM>>(orders);
 			}
 		}
+
 	}
 }

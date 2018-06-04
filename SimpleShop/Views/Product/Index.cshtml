@@ -65,13 +65,10 @@
 									</p>
 									<hr>
 									<div class="row mt-small">
-										<div class="col-xs-12 col-md-7">
+										<div class="col-xs-12 col-md-12">
 											<p class="lead">
 												<b>@Html.DisplayFor(modelItem => item.Price)</b>
 											</p>
-										</div>
-										<div class="col-xs-12 col-md-5">
-											<a class="btn btn-danger" href="@Url.Action("Add", "Cart", new {id = item.ProductId})">Koszyk <i class="glyphicon glyphicon-shopping-cart"></i></a>
 										</div>
 										@if (Request.IsAuthenticated && User.IsInRole("Administrator"))
 										{

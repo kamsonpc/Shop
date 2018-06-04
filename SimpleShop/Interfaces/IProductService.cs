@@ -18,6 +18,7 @@ namespace SimpleShop.Interfaces
 		void Update(int id, ProductVM product);
 		void Remove(int id);
 		string UploadImage(HttpPostedFileBase file);
+		int Quantity(int id);
 		void ChangeQuantity(int id,int quantity);
 	}
 }

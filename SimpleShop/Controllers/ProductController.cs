@@ -25,7 +25,6 @@ namespace SimpleShop.Controllers
 			_category = category;
 		}
 
-		// GET: Product
 		[AllowAnonymous]
 		public ActionResult Index()
 		{
@@ -41,7 +40,6 @@ namespace SimpleShop.Controllers
 			return View(categoryProducts);
 		}
 
-		// GET: Product/Details/5
 		[AllowAnonymous]
 		public ActionResult Details(int? id)
 		{
@@ -70,7 +68,6 @@ namespace SimpleShop.Controllers
 			return View(productVm);
 		}
 
-		// POST: Product/Create
 		[HttpPost]
 		[ValidateAntiForgeryToken]
 		[AuthorizeCustom(Roles = "Administrator")]
@@ -205,6 +202,7 @@ namespace SimpleShop.Controllers
 			}
 			catch (FormatException e)
 			{
+				Console.WriteLine(e);
 				maximumPrice = 0;
 				minimumPrice = 0;
 			}

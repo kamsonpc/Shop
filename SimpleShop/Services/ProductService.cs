@@ -125,5 +125,14 @@ namespace SimpleShop.Services
 				}
 			}
 		}
+
+		public int Quantity(int id)
+		{
+			using (ApplicationDbContext ctx = new ApplicationDbContext())
+			{
+				var product = ctx.Products.SingleOrDefault(p => p.ProductId == id);
+				return product.Quantity;
+			}
+		}
 	}
 }

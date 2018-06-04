@@ -30,6 +30,9 @@ namespace SimpleShop.Models.ViewsModels
 		[Display(Name = "Ilość Sztuk")]
 		public int Quantity { get; set; }
 
+		[Display(Name = "Ilość")]
+		public int CustomerQuantity { get; set; }
+
 		public IEnumerable<SelectListItem> Categories { get; set; }
 		[Required]
 		public int CategoryId { get; set; }

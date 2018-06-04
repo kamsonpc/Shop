@@ -21,8 +21,8 @@ namespace SimpleShop.Controllers
 			_product = product;
 			_order = order;
 		}
-        // GET: Cart
-        public ActionResult Index()
+
+		public ActionResult Index()
         {
 			if (Session["Cart"] != null)
 			{
@@ -43,79 +43,30 @@ namespace SimpleShop.Controllers
 		{
 			if (Session["Cart"] != null)
 			{
+				if(!ModelState.IsValid)
+				{
+					return RedirectToAction("Index");
+				}
+
 				var productToBuyList = (List<ProductVM>)Session["Cart"];
+				string UserId = User.Identity.GetUserId();
+
 				foreach (var product in productToBuyList) 
 				{
-					Buy(product.ProductId, shippingData);
+					if(_product.Quantity(product.ProductId) - product.CustomerQuantity > 0)
+					{
+						_order.AddNew(product, shippingData, UserId);
+					}
 				}
 				Session["Cart"] = null;
 			}
 			return RedirectToAction("Index", "Orders");
 		}
 
-		[Authorize]
-		public ActionResult Buy(int? id)
+		[HttpGet]
+		public ActionResult Add(int ProductId,int quantity)
 		{
-			if (id == null)
-			{
-				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-			}
-			var shipping = _product.GetById(id.Value);
-			if (shipping == null)
-			{
-				return new HttpStatusCodeResult(HttpStatusCode.NotFound);
-			}
-			return View();
-
-		}
-
-		[Authorize]
-		[HttpPost]
-		public ActionResult Buy(int? id, ShippingVM shippingData)
-		{
-			if (id == null)
-			{
-				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-			}
-
-			var product = _product.GetById(id.Value);
-			var user = User.Identity.GetUserId();
-
-			if (product == null)
-			{
-				return new HttpStatusCodeResult(HttpStatusCode.NotFound);
-			}
-
-			if (!ModelState.IsValid)
-			{
-
-				return RedirectToAction("Index");
-			}
-
-			_product.ChangeQuantity(id.Value, 1);
-
-			Order order = new Order
-			{
-				ApplicationUserId = user,
-				ProductId = product.ProductId,
-				Date = DateTime.Now,
-				Price = product.Price,
-				Quantity = 1,
-				Payment = false,
-				NameAndSurname = shippingData.NameAndSurname,
-				PhoneNumber = shippingData.PhoneNumber,
-				Address = shippingData.Address,
-				CityCode = shippingData.CityCode,
-				Country = shippingData.Country
-			};
-
-			_order.AddNew(order);
-			return View("BuySuccess");
-		}
-
-		public ActionResult Add(int id)
-		{
-			var product = _product.GetById(id);
+			var product = _product.GetById(ProductId);
 			if (product == null)
 			{
 				return new HttpStatusCodeResult(HttpStatusCode.NotFound);
@@ -125,6 +76,8 @@ namespace SimpleShop.Controllers
 			{
 				Session["Cart"] = new List<ProductVM>();
 			}
+
+			product.CustomerQuantity = quantity;
 
 			var cart = (List<ProductVM>)Session["Cart"];
 			cart.Add(product);
