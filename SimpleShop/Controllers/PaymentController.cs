@@ -2,6 +2,7 @@
 using System.Net;
 using System.Web.Mvc;
 using AutoMapper;
+using PagedList;
 using SimpleShop.Filters;
 using SimpleShop.Interfaces;
 using SimpleShop.Models;
@@ -10,28 +11,29 @@ using SimpleShop.Models.ViewsModels;
 namespace SimpleShop.Controllers
 { 
 	[AuthorizeCustom(Roles = "Administrator")]
-	public class PaymentController : Controller
+	public class PaymentController :BaseController
     {
 	    private readonly IOrderService _order;
+
+		private int pageSize = 10;
+
 		public PaymentController(IOrderService order)
 		{
 			_order = order;
 		}
  
-	    public ActionResult Index()
+	    public ActionResult Index(string search,int? page)
 	    {
-		    return View(_order.GetAllOrders());
-	    }
-		[HttpPost]
-	    public ActionResult Search(string name)
-	    {
-		    var orders = _order.GetAllOrders();
-		    if (name != "")
-		    {
-			    orders = _order.SearchByName(name);
-		    }
-
-		    return View("Index", orders);
+			var pageNumber = page ?? 1;
+			var orders = _order.GetAllOrders();
+			if(!string.IsNullOrEmpty(search))
+			{
+				orders = orders.FindAll(s => (s.ApplicationUser.Email.Contains(search)) || (s.Product.Name.Contains(search)));
+			}
+			
+			ViewBag.Search = search;
+			
+			return View(orders.ToPagedList(pageNumber, pageSize));
 	    }
 
 	    public ActionResult Change(int? id)
@@ -45,7 +47,6 @@ namespace SimpleShop.Controllers
 				return RedirectToAction("Index");
 			}
 			return new HttpStatusCodeResult(HttpStatusCode.NotFound);
-
 		}
 
 	    public ActionResult Shipping(int? id)

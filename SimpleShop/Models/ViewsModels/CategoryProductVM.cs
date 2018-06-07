@@ -1,4 +1,6 @@
-﻿using System;
+﻿using PagedList;
+using SimpleShop.Models.SearchModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,7 +10,8 @@ namespace SimpleShop.Models.ViewsModels
 {
 	public class CategoryProductVM
 	{
-		public List<ProductVM> product { get; set; }
-		public ICollection<Category> categories  { get; set; }
+		public IPagedList<ProductVM> Product { get; set; }
+		public IEnumerable<SelectListItem> Categories  { get; set; }
+		public ProductSH Search { get; set; }
 	}
 }

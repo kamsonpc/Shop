@@ -1,57 +1,64 @@
 ﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+	padding-top: 50px;
+	padding-bottom: 20px;
 }
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+	padding-left: 15px;
+	padding-right: 15px;
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
    will truncate terms that are too long to fit in the left column 
 */
 .dl-horizontal dt {
-    white-space: normal;
+	white-space: normal;
 }
 
 /* Set width on the form input elements since they're 100% wide by default */
 input,
 select,
 textarea {
-    max-width: 280px;
+	max-width: 280px;
 }
+
 .index-product-img {
 	height: 200px;
 	margin: 0 auto;
 	display: block;
 }
+
 .mt-small {
 	padding-top: 10px;
 }
+
 .img-details {
 	max-width: 320px;
 	margin: 0 auto;
 }
+
 .caption .list-group-item-text {
 	height: 80px;
 	color: #4c4c4c;
 	overflow: hidden;
 }
+
 .btn {
 	border-radius: 4px;
 	transition: background-color 0.3s;
 }
+
 .search-container {
 
-	margin-left: auto;
-	width: 280px;
-	padding: 20px 0;
+	padding: 50px 0;
 }
-.panel-product{
+
+
+.panel-product {
 	transition: all 0.3s;
 }
-.panel-product:hover {
-	box-shadow: 0 0 20px -4px rgba(99,96,99,1);
-}
+
+	.panel-product:hover {
+		box-shadow: 0 0 20px -4px rgba(99,96,99,1);
+	}

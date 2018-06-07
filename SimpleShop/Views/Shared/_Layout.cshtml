@@ -31,7 +31,6 @@
 					}
 					@if (Request.IsAuthenticated && !User.IsInRole("Administrator"))
 					{
-						<li>@Html.ActionLink("Koszyk", "Index", "Cart")</li>
 						<li>@Html.ActionLink("Moje Produkty", "Index", "Orders")</li>
 
 					}
@@ -43,6 +42,7 @@
 	</div>
 	<div class="container body-content">
 		@RenderBody()
+		@Html.Partial("_Notyfication")
 		<hr />
 		<footer>
 			<p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>

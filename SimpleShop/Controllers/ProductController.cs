@@ -1,44 +1,77 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using AutoMapper;
 using Microsoft.AspNet.Identity;
+using PagedList;
 using SimpleShop.Filters;
 using SimpleShop.Interfaces;
 using SimpleShop.Models;
+using SimpleShop.Models.SearchModels;
 using SimpleShop.Models.ViewsModels;
+using static SimpleShop.Views.Shared.Alerts.Alert;
 
 namespace SimpleShop.Controllers
 {
 	[Authorize]
-	public class ProductController : Controller
+	public class ProductController : BaseController
 	{
 		private readonly IOrderService _order;
 		private readonly IProductService _product;
 		private readonly ICategoryService _category;
+
+		private int pageSize = 3;
+
 		public ProductController(IProductService product, IOrderService order, ICategoryService category)
 		{
 			_product = product;
 			_order = order;
 			_category = category;
 		}
+		
+		private List<ProductVM> Filter(ProductSH search,List<ProductVM> products)
+		{
+			if (search.CategoryId != null)
+			{
+				products = products.FindAll(p => p.CategoryId == search.CategoryId);
+			}
+
+			if (!String.IsNullOrEmpty(search.Name))
+			{
+				products = products.FindAll(m => m.Name.Contains(search.Name));
+			}
+			if (search.PriceFrom != null && search.PriceTo != null)
+			{
+				products = products.FindAll(m => m.Price >= search.PriceFrom).FindAll(p => p.Price <= search.PriceTo);
+			}
+
+			return products;
+		}
 
 		[AllowAnonymous]
-		public ActionResult Index()
+		public ActionResult Index(ProductSH search, int? page)
 		{
-			var products = _product.GetAll();
-			var categories = _category.GetAll();
+			var pageNumber = page ?? 1;
 
+			ViewBag.Search = search;
+
+			var categories = _category.GetSelectList();
+			var products = _product.GetAll();
+
+			
 			CategoryProductVM categoryProducts = new CategoryProductVM
 			{
-				product = products,
-				categories = categories
+				Product = Filter(search,products).ToPagedList(pageNumber,pageSize),
+				Categories = categories,
+				Search = search
 			};
 
 			return View(categoryProducts);
 		}
+
 
 		[AllowAnonymous]
 		public ActionResult Details(int? id)
@@ -85,17 +118,18 @@ namespace SimpleShop.Controllers
 				{
 					productVm.Img = _product.UploadImage(file);
 					_product.AddNew(productVm);
+					Alert("Dodano produkt" + productVm.Name, NotificationType.success);
 
 					return RedirectToAction("Index");
 				}
 				catch
 				{
-					ViewBag.Message = "File upload failed!!";
+					Alert("Wysyłanie pliku nie powiodło się", NotificationType.danger);
 					return View();
 				}
 			}
 
-			ViewBag.Message = "File bad file type";
+			Alert("Plik jest nie prawidłowy", NotificationType.danger);
 			productVm.Categories = _category.GetSelectList();
 			return View(productVm);
 		}
@@ -130,7 +164,6 @@ namespace SimpleShop.Controllers
 				productVm.Categories = _category.GetSelectList();
 
 				return View(productVm);
-
 			}
 
 			_product.Update(id.Value, productVm);
@@ -147,75 +180,5 @@ namespace SimpleShop.Controllers
 			_product.Remove(id.Value);
 			return RedirectToAction("Index");
 		}
-
-
-		[AllowAnonymous]
-		public ActionResult Category(int? id)
-		{
-			if (id == null)
-			{
-				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-			}
-
-			var products = _product.GetByCategory(id.Value);
-			var categories = _category.GetAll();
-
-			CategoryProductVM categoryProducts = new CategoryProductVM
-			{
-				product = products,
-				categories = categories
-			};
-
-			return View("Index", categoryProducts);
-		}
-
-		[AllowAnonymous]
-		[HttpGet]
-		public ActionResult Search(string name)
-		{
-			var products = _product.GetAll();
-			var categories = _category.GetAll();
-
-			if (name != "")
-			{
-				products = products.FindAll(m => m.Name.Contains(name));
-			}
-
-			CategoryProductVM categoryProducts = new CategoryProductVM
-			{
-				product = products,
-				categories = categories
-			};
-			return View("Index", categoryProducts);
-		}
-
-		[AllowAnonymous]
-		[HttpGet]
-		public ActionResult SearchByPrice(string min,string max)
-		{
-			int minimumPrice;
-			int maximumPrice;
-			try
-			{
-				maximumPrice = Int32.Parse(max);
-				minimumPrice = Int32.Parse(min);
-			}
-			catch (FormatException e)
-			{
-				Console.WriteLine(e);
-				maximumPrice = 0;
-				minimumPrice = 0;
-			}
-			var products = _product.GetByPrice(minimumPrice,maximumPrice);
-			var categories = _category.GetAll();
-			
-			CategoryProductVM categoryProducts = new CategoryProductVM
-			{
-				product = products,
-				categories = categories
-			};
-			return View("Index", categoryProducts);
-		}
-
 	}
 }

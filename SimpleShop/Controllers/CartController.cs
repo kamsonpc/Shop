@@ -8,11 +8,12 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using static SimpleShop.Views.Shared.Alerts.Alert;
 
 namespace SimpleShop.Controllers
 {
 	[Authorize]
-    public class CartController : Controller
+    public class CartController : BaseController
     {
 		private readonly IProductService _product;
 		private readonly IOrderService _order;
@@ -34,6 +35,16 @@ namespace SimpleShop.Controllers
 
 		public ActionResult Confirm()
 		{
+			if (Session["Cart"] != null)
+			{
+				var cart = (List<ProductVM>)Session["Cart"];
+				if(cart.Count <= 0)
+				{
+					Alert("Koszyk nie masz żadnych przedmiotów w koszyku",NotificationType.warning);
+					return RedirectToAction("Index", "Product");
+				}
+			}
+
 			return View("Buy");
 		}
 
@@ -43,13 +54,13 @@ namespace SimpleShop.Controllers
 		{
 			if (Session["Cart"] != null)
 			{
-				if(!ModelState.IsValid)
-				{
-					return RedirectToAction("Index");
-				}
-
 				var productToBuyList = (List<ProductVM>)Session["Cart"];
 				string UserId = User.Identity.GetUserId();
+
+				if (!ModelState.IsValid)
+				{
+					return View("Buy");
+				}
 
 				foreach (var product in productToBuyList) 
 				{
@@ -59,6 +70,7 @@ namespace SimpleShop.Controllers
 					}
 				}
 				Session["Cart"] = null;
+				Alert("Udało się zakupić przedmioty", NotificationType.success);
 			}
 			return RedirectToAction("Index", "Orders");
 		}

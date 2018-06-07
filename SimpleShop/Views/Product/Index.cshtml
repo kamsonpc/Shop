@@ -1,51 +1,43 @@
 ﻿@model SimpleShop.Models.ViewsModels.CategoryProductVM
+@using PagedList.Mvc;
 
 @{
 	ViewBag.Title = "Index";
 }
 
-
 <div class="container">
 	<div class="row">
-		<div class="col-md-6"><h2>Produkty</h2></div>
-		<div class="col-md-6">
-			@using (Html.BeginForm("Search", "Product", FormMethod.Get))
-			{
-				<div class="input-group search-container">
-					<span class="input-group-btn">
-						<button class="btn btn-primary" type="submit"><i class="glyphicon glyphicon-search"></i></button>
-					</span>
-					<input type="text" name="name" class="form-control" placeholder="Wyszukaj ...">
+		@using (Html.BeginForm("Index", "Product", FormMethod.Get))
+		{
+			<div class="input-group search-container">
+				<span class="input-group-btn">
+					<button class="btn btn-lg btn-primary" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+				</span>
+				@Html.TextBoxFor(model => model.Search.Name, new { @class = "form-control input-lg search-bar", placeholder = "Jakiego produktu szukasz ?" })
+			</div>
+
+			<div class="col-md-2">
+				<h4>Kategorie</h4>
+				<div class="form-group">
+
+					@Html.DropDownListFor(model => model.Search.CategoryId, Model.Categories, new { @class = "form-control", onchange = "this.form.submit()" })
 				</div>
-			}
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-md-2">
-			<h4>Kategorie</h4>
-			<ul class="list-group">
-				@foreach (var item in Model.categories)
-				{
-					<li class="list-group-item"><a href="@Url.Action("Category", "Product", new {id = item.CategoryId})">@item.Name</a></li>
-				}
-			</ul>
-			<hr />
-			<h4>Ze względu na cenę</h4>
-			@using (Html.BeginForm("SearchByPrice", "Product", FormMethod.Get))
-			{
+				<hr />
+				<h4>Ze względu na cenę</h4>
+
 				<div class="form-group-sm">
-					<input type="number" name="min" placeholder="Minimalna" class="form-control ">
+					@Html.TextBoxFor(model => model.Search.PriceFrom, new { @class = "form-control", placeholder = "Cena Od" })
 					<br />
-					<input type="number" name="max" placeholder="Maksymalna" class="form-control">
+					@Html.TextBoxFor(model => model.Search.PriceTo, new { @class = "form-control", placeholder = "Cena Do" })
 					<br />
 					<button type="submit" class="btn btn-sm btn-primary">Potwierdź</button>
 				</div>
-			}
 
-		</div>
+			</div>
+		}
 		<div class="col-md-10">
 			<div id="products" class="row list-group">
-				@foreach (var item in Model.product)
+				@foreach (var item in Model.Product)
 				{
 					<div class="item  col-xs-4 col-lg-4">
 						<div class="panel panel-primary panel-product">
@@ -72,7 +64,6 @@
 										</div>
 										@if (Request.IsAuthenticated && User.IsInRole("Administrator"))
 										{
-
 											<div class="col-xs-12 col-md-12">
 												<hr>
 												<a class="btn btn-warning" href="@Url.Action("Edit", "Product", new {id = item.ProductId})"><i class="glyphicon glyphicon-pencil"></i></a>
@@ -91,6 +82,10 @@
 				<a class="btn btn-success" href="@Url.Action("Create", "Product")"> <i class="glyphicon glyphicon-plus"></i> Dodaj</a>
 
 			}
+			<br />
+			Strona @(Model.Product.PageCount < Model.Product.PageNumber ? 0 : Model.Product.PageNumber) z @Model.Product.PageCount
+
+			@Html.PagedListPager(Model.Product, page => Url.Action("Index", new { page, categoryId = ViewBag.Search.CategoryId, name = ViewBag.Search.Name, pricefrom = ViewBag.Search.PriceFrom, priceto = ViewBag.Search.PriceTo }))
 		</div>
 	</div>
 </div>

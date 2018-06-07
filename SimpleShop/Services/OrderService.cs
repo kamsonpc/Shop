@@ -92,7 +92,7 @@ namespace SimpleShop.Services
 		{
 			using (ApplicationDbContext ctx = new ApplicationDbContext())
 			{
-				var orders = ctx.Orders.Include(m => m.Product).Include(x => x.ApplicationUser).OrderBy(d => d.Date)
+				var orders = ctx.Orders.Include(m => m.Product).Include(x => x.ApplicationUser).OrderBy(d => d.Payment).ThenBy(x => x.Date)
 					.ToList();
 				var ordersVm = Mapper.Map<List<Order>, List<OrderProductUserVM>>(orders);
 				return ordersVm;

@@ -16,7 +16,7 @@ namespace SimpleShop.Services
 		{
 			using (ApplicationDbContext ctx = new ApplicationDbContext())
 			{
-				var products = ctx.Products.OrderBy(m => m.AddDate).ToList();
+				var products = ctx.Products.OrderByDescending(m => m.AddDate).ToList();
 				return Mapper.Map<List<Product>, List<ProductVM>>(products);
 			}
 		}
@@ -25,7 +25,7 @@ namespace SimpleShop.Services
 		{
 			using (ApplicationDbContext ctx = new ApplicationDbContext())
 			{
-				var products = ctx.Products.OrderBy(m => m.AddDate).Where(p => p.Price <= maxPrice).Where(p => p.Price >= minPrice).ToList();
+				var products = ctx.Products.OrderByDescending(m => m.AddDate).Where(p => p.Price <= maxPrice).Where(p => p.Price >= minPrice).ToList();
 				return Mapper.Map<List<Product>, List<ProductVM>>(products);
 			}
 		}

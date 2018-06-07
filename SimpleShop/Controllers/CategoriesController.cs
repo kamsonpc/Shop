@@ -7,7 +7,7 @@ using SimpleShop.Models;
 namespace SimpleShop.Controllers
 {
 	[AuthorizeCustom(Roles = "Administrator")]
-	public class CategoriesController : Controller
+	public class CategoriesController : BaseController
     {
 
 		private readonly ICategoryService _categoryService;
