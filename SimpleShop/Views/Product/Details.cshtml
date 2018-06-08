@@ -22,7 +22,7 @@
 					<div class="form-group-sm">
 						@Html.HiddenFor(model => model.ProductId)
 						<label for="quantity">Ilość Sztuk</label>
-						<input type="number" id="quantity" name="quantity" value="1" class="form-control">
+						<input type="number" id="quantity" name="quantity" min="0" max="@Model.Quantity" value="1" class="form-control">
 					</div>
 						<br />
 						<button type="submit" class="btn btn-lg btn-danger" >Dodaj do Koszyka <i class="glyphicon glyphicon-shopping-cart"></i></button>

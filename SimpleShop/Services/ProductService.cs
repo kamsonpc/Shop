@@ -117,7 +117,7 @@ namespace SimpleShop.Services
 		{
 			using (ApplicationDbContext ctx = new ApplicationDbContext())
 			{
-				var productInDb = GetById(id);
+				var productInDb = ctx.Products.SingleOrDefault(p => p.ProductId == id);
 				if (productInDb != null)
 				{
 					productInDb.Quantity -= quantity;

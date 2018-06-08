@@ -11,7 +11,7 @@ namespace SimpleShop.Models.ViewsModels
 	public class CategoryProductVM
 	{
 		public IPagedList<ProductVM> Product { get; set; }
-		public IEnumerable<SelectListItem> Categories  { get; set; }
+		public IEnumerable<Category> Categories  { get; set; }
 		public ProductSH Search { get; set; }
 	}
 }

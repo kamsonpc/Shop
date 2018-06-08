@@ -9,44 +9,12 @@
 
 </head>
 <body>
-	<div class="navbar navbar-inverse navbar-fixed-top">
-		<div class="container">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-				@Html.ActionLink("SimpleShop", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-			</div>
-			<div class="navbar-collapse collapse">
-				<ul class="nav navbar-nav">
-					<li>@Html.ActionLink("Home", "Index", "Home")</li>
-					<li>@Html.ActionLink("Sklep", "Index", "Product")</li>
-					@if (Request.IsAuthenticated && User.IsInRole("Administrator"))
-					{
-						<li>@Html.ActionLink("Kategorie", "Index", "Categories")</li>
-						<li>@Html.ActionLink("Płatności", "Index", "Payment")</li>
-
-					}
-					@if (Request.IsAuthenticated && !User.IsInRole("Administrator"))
-					{
-						<li>@Html.ActionLink("Moje Produkty", "Index", "Orders")</li>
-
-					}
-					<li>@Html.ActionLink("Kontakt", "Contact", "Home")</li>
-				</ul>
-				@Html.Partial("_LoginPartial")
-			</div>
-		</div>
-	</div>
+	@Html.Partial("_Navbar")
 	<div class="container body-content">
-		@RenderBody()
 		@Html.Partial("_Notyfication")
+		@RenderBody()
 		<hr />
-		<footer>
-			<p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-		</footer>
+		@Html.Partial("_Footer")
 	</div>
 
 	@Scripts.Render("~/bundles/jquery")

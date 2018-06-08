@@ -5,10 +5,12 @@
 	ViewBag.Title = "Index";
 }
 
-<div class="container">
-	<div class="row">
-		@using (Html.BeginForm("Index", "Product", FormMethod.Get))
-		{
+
+@using (Html.BeginForm("Index", "Product", FormMethod.Get))
+{
+	<div class="container">
+		<div class="row">
+			<input type="hidden" name="categoryId" value="@ViewBag.CategoryId" />
 			<div class="input-group search-container">
 				<span class="input-group-btn">
 					<button class="btn btn-lg btn-primary" type="submit"><i class="glyphicon glyphicon-search"></i></button>
@@ -19,8 +21,12 @@
 			<div class="col-md-2">
 				<h4>Kategorie</h4>
 				<div class="form-group">
-
-					@Html.DropDownListFor(model => model.Search.CategoryId, Model.Categories, new { @class = "form-control", onchange = "this.form.submit()" })
+					<ul class="list-group">
+						@foreach (var item in Model.Categories)
+						{
+							<li class="list-group-item"><a href="@Url.Action("Index", "Product", new {categoryId = item.CategoryId})">@item.Name</a></li>
+						}
+					</ul>
 				</div>
 				<hr />
 				<h4>Ze względu na cenę</h4>
@@ -34,64 +40,63 @@
 				</div>
 
 			</div>
-		}
-		<div class="col-md-10">
-			<div id="products" class="row list-group">
-				@foreach (var item in Model.Product)
-				{
-					<div class="item  col-xs-4 col-lg-4">
-						<div class="panel panel-primary panel-product">
-							<div class="panel-heading">@Html.DisplayFor(modelItem => item.Name)</div>
-							<div class="panel-body">
-								<a href="@Url.Action("Details", "Product", new {id = item.ProductId})">
-									<img class="group index-product-img" src="@Url.Content("~/UploadedFiles/" + @item.Img)" alt="" />
-								</a>
-								<hr />
-								<div class="caption">
-									<p class="group inner list-group-item-text">
-										@{
-											string excert = item.Description.Substring(0, 130) + "...";
-											@excert
-											;
-										}
-									</p>
-									<hr>
-									<div class="row mt-small">
-										<div class="col-xs-12 col-md-12">
-											<p class="lead">
-												<b>@Html.DisplayFor(modelItem => item.Price)</b>
-											</p>
-										</div>
-										@if (Request.IsAuthenticated && User.IsInRole("Administrator"))
-										{
+
+			<div class="col-md-10">
+				<div id="products" class="row list-group">
+					@foreach (var item in Model.Product)
+					{
+						<div class="item  col-xs-4 col-lg-4">
+							<div class="panel panel-primary panel-product">
+								<div class="panel-heading">@Html.DisplayFor(modelItem => item.Name)</div>
+								<div class="panel-body">
+									<a href="@Url.Action("Details", "Product", new {id = item.ProductId})">
+										<img class="group index-product-img" src="@Url.Content("~/UploadedFiles/" + @item.Img)" alt="" />
+									</a>
+									<hr />
+									<div class="caption">
+										<p class="group inner list-group-item-text">
+											@{
+												string excert = item.Description.Substring(0, 130) + "...";
+												@excert
+												;
+											}
+										</p>
+										<hr>
+										<div class="row mt-small">
 											<div class="col-xs-12 col-md-12">
-												<hr>
-												<a class="btn btn-warning" href="@Url.Action("Edit", "Product", new {id = item.ProductId})"><i class="glyphicon glyphicon-pencil"></i></a>
-												<a class="btn btn-danger" href="@Url.Action("Delete", "Product", new {id = item.ProductId})"><i class="glyphicon glyphicon-trash"></i></a>
+												<p class="lead">
+													<b>@Html.DisplayFor(modelItem => item.Price)</b>
+												</p>
 											</div>
-										}
+											@if (Request.IsAuthenticated && User.IsInRole("Administrator"))
+											{
+												<div class="col-xs-12 col-md-12">
+													<hr>
+													<a class="btn btn-warning" href="@Url.Action("Edit", "Product", new {id = item.ProductId})"><i class="glyphicon glyphicon-pencil"></i></a>
+													<a class="btn btn-danger" href="@Url.Action("Delete", "Product", new {id = item.ProductId})"><i class="glyphicon glyphicon-trash"></i></a>
+												</div>
+											}
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-					</div>
+					}
+				</div>
+				@if (Request.IsAuthenticated && User.IsInRole("Administrator"))
+				{
+					<a class="btn btn-success" href="@Url.Action("Create", "Product")"> <i class="glyphicon glyphicon-plus"></i> Dodaj</a>
+
 				}
+				<br />
+				Strona @(Model.Product.PageCount < Model.Product.PageNumber ? 0 : Model.Product.PageNumber) z @Model.Product.PageCount
+
+				@Html.PagedListPager(Model.Product, page => Url.Action("Index", new { page, categoryId = ViewBag.CategoryId, name = ViewBag.Search.Name, pricefrom = ViewBag.Search.PriceFrom, priceto = ViewBag.Search.PriceTo }))
 			</div>
-			@if (Request.IsAuthenticated && User.IsInRole("Administrator"))
-			{
-				<a class="btn btn-success" href="@Url.Action("Create", "Product")"> <i class="glyphicon glyphicon-plus"></i> Dodaj</a>
-
-			}
-			<br />
-			Strona @(Model.Product.PageCount < Model.Product.PageNumber ? 0 : Model.Product.PageNumber) z @Model.Product.PageCount
-
-			@Html.PagedListPager(Model.Product, page => Url.Action("Index", new { page, categoryId = ViewBag.Search.CategoryId, name = ViewBag.Search.Name, pricefrom = ViewBag.Search.PriceFrom, priceto = ViewBag.Search.PriceTo }))
 		</div>
 	</div>
-</div>
 
-
-
+}
 
 
 

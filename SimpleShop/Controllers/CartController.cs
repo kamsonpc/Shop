@@ -66,6 +66,7 @@ namespace SimpleShop.Controllers
 				{
 					if(_product.Quantity(product.ProductId) - product.CustomerQuantity > 0)
 					{
+						_product.ChangeQuantity(product.ProductId, product.CustomerQuantity);
 						_order.AddNew(product, shippingData, UserId);
 					}
 				}
@@ -82,6 +83,13 @@ namespace SimpleShop.Controllers
 			if (product == null)
 			{
 				return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+			}
+
+			if(quantity <= 0)
+			{
+				Alert("Błędna ilość produktu",NotificationType.danger);
+				return RedirectToAction("Index");
+
 			}
 
 			if (Session["Cart"] == null)

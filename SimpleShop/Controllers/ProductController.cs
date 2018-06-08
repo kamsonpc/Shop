@@ -23,7 +23,7 @@ namespace SimpleShop.Controllers
 		private readonly IProductService _product;
 		private readonly ICategoryService _category;
 
-		private int pageSize = 3;
+		private int pageSize = 9;
 
 		public ProductController(IProductService product, IOrderService order, ICategoryService category)
 		{
@@ -32,11 +32,11 @@ namespace SimpleShop.Controllers
 			_category = category;
 		}
 		
-		private List<ProductVM> Filter(ProductSH search,List<ProductVM> products)
+		private List<ProductVM> Filter(int? categoryId,ProductSH search,List<ProductVM> products)
 		{
-			if (search.CategoryId != null)
+			if (categoryId != null)
 			{
-				products = products.FindAll(p => p.CategoryId == search.CategoryId);
+				products = products.FindAll(p => p.CategoryId == categoryId);
 			}
 
 			if (!String.IsNullOrEmpty(search.Name))
@@ -52,19 +52,19 @@ namespace SimpleShop.Controllers
 		}
 
 		[AllowAnonymous]
-		public ActionResult Index(ProductSH search, int? page)
+		public ActionResult Index(int? categoryId,ProductSH search, int? page)
 		{
 			var pageNumber = page ?? 1;
 
 			ViewBag.Search = search;
-
-			var categories = _category.GetSelectList();
+			ViewBag.CategoryId = categoryId;
+			var categories = _category.GetAll();
 			var products = _product.GetAll();
 
 			
 			CategoryProductVM categoryProducts = new CategoryProductVM
 			{
-				Product = Filter(search,products).ToPagedList(pageNumber,pageSize),
+				Product = Filter(categoryId,search,products).ToPagedList(pageNumber,pageSize),
 				Categories = categories,
 				Search = search
 			};
