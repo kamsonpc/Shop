@@ -32,7 +32,7 @@ namespace SimpleShop.Controllers
 			_category = category;
 		}
 		
-		private List<ProductVM> Filter(int? categoryId,ProductSH search,List<ProductVM> products)
+		public List<ProductVM> Filter(int? categoryId,ProductSH search,List<ProductVM> products)
 		{
 			if (categoryId != null)
 			{
