@@ -15,9 +15,9 @@ namespace SimpleShop.Controllers
 	[Authorize]
     public class CartController : BaseController
     {
-		private readonly IProductService _product;
-		private readonly IOrderService _order;
-		public CartController(IProductService product,IOrderService order)
+		private readonly IProductRepository _product;
+		private readonly IOrderRepository _order;
+		public CartController(IProductRepository product,IOrderRepository order)
 		{		
 			_product = product;
 			_order = order;

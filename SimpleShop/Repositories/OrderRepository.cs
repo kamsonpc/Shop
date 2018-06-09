@@ -7,12 +7,12 @@ using SimpleShop.Interfaces;
 using SimpleShop.Models;
 using SimpleShop.Models.ViewsModels;
 
-namespace SimpleShop.Services
+namespace SimpleShop.Repositories
 {
-	public class OrderService : IOrderService
+	public class OrderRepository : IOrderRepository
 	{
-		private readonly IProductService _product;
-		public OrderService(IProductService product)
+		private readonly IProductRepository _product;
+		public OrderRepository(IProductRepository product)
 		{
 			_product = product;
 		}
@@ -78,23 +78,23 @@ namespace SimpleShop.Services
 			}
 		}
 
-		public List<OrderProductUserVM> GetOrdersByUser(string id)
+		public List<OrdersPageVM> GetOrdersByUser(string id)
 		{
 			using (ApplicationDbContext ctx = new ApplicationDbContext())
 			{
 				var orders = ctx.Orders.Where(b => b.ApplicationUserId == id).Include(m => m.Product).ToList();
-				var ordersVm = Mapper.Map<List<Order>, List<OrderProductUserVM>>(orders);
+				var ordersVm = Mapper.Map<List<Order>, List<OrdersPageVM>>(orders);
 				return ordersVm;
 			}
 		}
 
-		public List<OrderProductUserVM> GetAllOrders()
+		public List<OrdersPageVM> GetAllOrders()
 		{
 			using (ApplicationDbContext ctx = new ApplicationDbContext())
 			{
 				var orders = ctx.Orders.Include(m => m.Product).Include(x => x.ApplicationUser).OrderBy(d => d.Payment).ThenBy(x => x.Date)
 					.ToList();
-				var ordersVm = Mapper.Map<List<Order>, List<OrderProductUserVM>>(orders);
+				var ordersVm = Mapper.Map<List<Order>, List<OrdersPageVM>>(orders);
 				return ordersVm;
 			}
 		}
@@ -125,12 +125,12 @@ namespace SimpleShop.Services
 			}
 		}
 
-		public List<OrderProductUserVM> SearchByName(string query)
+		public List<OrdersPageVM> SearchByName(string query)
 		{
 			using (ApplicationDbContext ctx = new ApplicationDbContext())
 			{
 				var orders = ctx.Orders.ToList().FindAll(m => m.ApplicationUser.UserName.Contains(query));
-				return Mapper.Map<List<Order>, List<OrderProductUserVM>>(orders);
+				return Mapper.Map<List<Order>, List<OrdersPageVM>>(orders);
 			}
 		}
 

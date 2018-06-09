@@ -7,7 +7,7 @@ using SimpleShop.Models.ViewsModels;
 
 namespace SimpleShop.Interfaces
 {
-	public interface IProductService
+	public interface IProductRepository
 	{
 		List<ProductVM> GetAll();
 		List<ProductVM> GetByCategory(int id);

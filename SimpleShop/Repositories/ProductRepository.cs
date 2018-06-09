@@ -8,9 +8,9 @@ using SimpleShop.Interfaces;
 using SimpleShop.Models;
 using SimpleShop.Models.ViewsModels;
 
-namespace SimpleShop.Services
+namespace SimpleShop.Repositories
 {
-	public class ProductService : IProductService
+	public class ProductRepository : IProductRepository
 	{
 		public List<ProductVM> GetAll()
 		{

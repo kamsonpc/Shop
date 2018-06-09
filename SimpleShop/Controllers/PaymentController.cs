@@ -11,13 +11,13 @@ using SimpleShop.Models.ViewsModels;
 namespace SimpleShop.Controllers
 { 
 	[AuthorizeCustom(Roles = "Administrator")]
-	public class PaymentController :BaseController
+	public class PaymentController : BaseController
     {
-	    private readonly IOrderService _order;
+	    private readonly IOrderRepository _order;
 
-		private int pageSize = 10;
+		private const int numberProductOnPage = 10;
 
-		public PaymentController(IOrderService order)
+		public PaymentController(IOrderRepository order)
 		{
 			_order = order;
 		}
@@ -33,7 +33,7 @@ namespace SimpleShop.Controllers
 			
 			ViewBag.Search = search;
 			
-			return View(orders.ToPagedList(pageNumber, pageSize));
+			return View(orders.ToPagedList(pageNumber, numberProductOnPage));
 	    }
 
 	    public ActionResult Change(int? id)

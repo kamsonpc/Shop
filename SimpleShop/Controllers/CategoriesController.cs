@@ -10,9 +10,9 @@ namespace SimpleShop.Controllers
 	public class CategoriesController : BaseController
     {
 
-		private readonly ICategoryService _categoryService;
+		private readonly ICategoryRepository _categoryService;
 
-	    public CategoriesController(ICategoryService categoryService)
+	    public CategoriesController(ICategoryRepository categoryService)
 	    {
 		    _categoryService = categoryService;
 	    }

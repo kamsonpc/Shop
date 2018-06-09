@@ -245,9 +245,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Interfaces\IApplicationDbContex.cs" />
-    <Compile Include="Interfaces\ICategoryService.cs" />
-    <Compile Include="Interfaces\IOrderService.cs" />
+    <Compile Include="Interfaces\ICategoryRepository.cs" />
+    <Compile Include="Interfaces\IOrderRepository.cs" />
     <Compile Include="Interfaces\IProductService.cs" />
     <Compile Include="Mapping\MappingProfiles.cs" />
     <Compile Include="Migrations\201804302127511_InitDb.cs" />
@@ -278,6 +277,10 @@
     <Compile Include="Migrations\201805230738258_Add phone number to order Model.Designer.cs">
       <DependentUpon>201805230738258_Add phone number to order Model.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201806090820533_Add DataAdnotatiotion.cs" />
+    <Compile Include="Migrations\201806090820533_Add DataAdnotatiotion.Designer.cs">
+      <DependentUpon>201806090820533_Add DataAdnotatiotion.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
@@ -287,15 +290,15 @@
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\SearchModels\ProductSH.cs" />
     <Compile Include="Models\Status.cs" />
-    <Compile Include="Models\ViewsModels\CategoryProductVM.cs" />
-    <Compile Include="Models\ViewsModels\OrderProductUserVM.cs" />
+    <Compile Include="Models\ViewsModels\ProductPageVM.cs" />
+    <Compile Include="Models\ViewsModels\OrdersPageVM.cs" />
     <Compile Include="Models\ViewsModels\OrderVM.cs" />
     <Compile Include="Models\ViewsModels\ProductVM.cs" />
     <Compile Include="Models\ViewsModels\ShippingVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\CategoryService.cs" />
-    <Compile Include="Services\OrderService.cs" />
-    <Compile Include="Services\ProductService.cs" />
+    <Compile Include="Repositories\CategoryRepository.cs" />
+    <Compile Include="Repositories\OrderRepository.cs" />
+    <Compile Include="Repositories\ProductRepository.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Views\Shared\Alerts\Alert.cs" />
   </ItemGroup>
@@ -415,6 +418,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805230738258_Add phone number to order Model.resx">
       <DependentUpon>201805230738258_Add phone number to order Model.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806090820533_Add DataAdnotatiotion.resx">
+      <DependentUpon>201806090820533_Add DataAdnotatiotion.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

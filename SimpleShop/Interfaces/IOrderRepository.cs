@@ -8,15 +8,15 @@ using SimpleShop.Models.ViewsModels;
 
 namespace SimpleShop.Interfaces
 {
-	public interface IOrderService
+	public interface IOrderRepository
 	{
 		bool AddNew(ProductVM choosedProduct,ShippingVM shippingData,string UserId);
-		List<OrderProductUserVM> GetOrdersByUser(string id);
-		List<OrderProductUserVM> GetAllOrders();
+		List<OrdersPageVM> GetOrdersByUser(string id);
+		List<OrdersPageVM> GetAllOrders();
 		OrderVM  GetById(int id);
 		ShippingVM GetShippingById(int id);
 		bool ChangePayment(int id);
-		List<OrderProductUserVM> SearchByName(string query);
+		List<OrdersPageVM> SearchByName(string query);
 
 
 	}

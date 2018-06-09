@@ -18,7 +18,7 @@ namespace SimpleShop.Tests
 		[Fact]
 		public void HomeController_ReturnsAViewBag()
 		{
-			var mockService = Substitute.For<IProductService>();
+			var mockService = Substitute.For<IProductRepository>();
 			var homeController = new HomeController(mockService);
 
 			var homeAction = homeController.Contact() as ViewResult;

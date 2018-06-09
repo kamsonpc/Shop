@@ -4,10 +4,10 @@ using System.Web.Mvc;
 using SimpleShop.Interfaces;
 using SimpleShop.Models;
 
-namespace SimpleShop.Services
+namespace SimpleShop.Repositories
 {
 
-	public class CategoryService : ICategoryService
+	public class CategoryRepository : ICategoryRepository
 	{
 		public List<Category> GetAll()
 		{

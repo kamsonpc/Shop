@@ -19,9 +19,9 @@ namespace SimpleShop.Tests
 	{
 		public ProductController Controller()
 		{
-			var mockProduct = Substitute.For<IProductService>();
-			var mockOrder = Substitute.For<IOrderService>();
-			var mockCategory = Substitute.For<ICategoryService>();
+			var mockProduct = Substitute.For<IProductRepository>();
+			var mockOrder = Substitute.For<IOrderRepository>();
+			var mockCategory = Substitute.For<ICategoryRepository>();
 
 
 			return new ProductController(mockProduct, mockOrder, mockCategory);
@@ -50,7 +50,7 @@ namespace SimpleShop.Tests
 			var controller = Controller();
 
 			int? categoryId = null;
-			var ProductSH = new ProductSH
+			var ProductSH = new ProductSearchModel
 			{
 				Name = "",
 				PriceFrom = null,
@@ -75,7 +75,7 @@ namespace SimpleShop.Tests
 			var controller = Controller();
 
 			int? categoryId = 1;
-			var ProductSH = new ProductSH
+			var ProductSH = new ProductSearchModel
 			{
 				Name = "",
 				PriceFrom = null,
@@ -109,7 +109,7 @@ namespace SimpleShop.Tests
 			var controller = Controller();
 
 			int? categoryId = null;
-			var ProductSH = new ProductSH
+			var ProductSH = new ProductSearchModel
 			{
 				Name = "",
 				PriceFrom = 100,
@@ -148,7 +148,7 @@ namespace SimpleShop.Tests
 			var controller = Controller();
 
 			int? categoryId = null;
-			var ProductSH = new ProductSH
+			var ProductSH = new ProductSearchModel
 			{
 				Name = "Samsung",
 				PriceFrom = null,
@@ -180,7 +180,7 @@ namespace SimpleShop.Tests
 			var controller = Controller();
 
 			int? categoryId = 1;
-			var ProductSH = new ProductSH
+			var ProductSH = new ProductSearchModel
 			{
 				Name = "Samsung",
 				PriceFrom = 100,

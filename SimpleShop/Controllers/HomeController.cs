@@ -5,9 +5,9 @@ namespace SimpleShop.Controllers
 {
 	public class HomeController : Controller
 	{
-		private readonly IProductService _product;
+		private readonly IProductRepository _product;
 
-		public HomeController(IProductService product)
+		public HomeController(IProductRepository product)
 		{
 			_product = product;
 		}

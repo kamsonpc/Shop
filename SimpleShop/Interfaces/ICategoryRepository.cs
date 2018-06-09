@@ -8,7 +8,7 @@ using SimpleShop.Models;
 
 namespace SimpleShop.Interfaces
 {
-	public interface ICategoryService
+	public interface ICategoryRepository
 	{
 		List<Category> GetAll();
 		Category GetById(int id);

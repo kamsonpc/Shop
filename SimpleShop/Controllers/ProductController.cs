@@ -19,20 +19,20 @@ namespace SimpleShop.Controllers
 	[Authorize]
 	public class ProductController : BaseController
 	{
-		private readonly IOrderService _order;
-		private readonly IProductService _product;
-		private readonly ICategoryService _category;
+		private readonly IOrderRepository _order;
+		private readonly IProductRepository _product;
+		private readonly ICategoryRepository _category;
 
-		private int pageSize = 9;
+		private const int numberProductOnPage = 9;
 
-		public ProductController(IProductService product, IOrderService order, ICategoryService category)
+		public ProductController(IProductRepository product, IOrderRepository order, ICategoryRepository category)
 		{
 			_product = product;
 			_order = order;
 			_category = category;
 		}
 		
-		public List<ProductVM> Filter(int? categoryId,ProductSH search,List<ProductVM> products)
+		public List<ProductVM> Filter(int? categoryId,ProductSearchModel search,List<ProductVM> products)
 		{
 			if (categoryId != null)
 			{
@@ -52,7 +52,7 @@ namespace SimpleShop.Controllers
 		}
 
 		[AllowAnonymous]
-		public ActionResult Index(int? categoryId,ProductSH search, int? page)
+		public ActionResult Index(int? categoryId,ProductSearchModel search, int? page)
 		{
 			var pageNumber = page ?? 1;
 
@@ -62,14 +62,14 @@ namespace SimpleShop.Controllers
 			var products = _product.GetAll();
 
 			
-			CategoryProductVM categoryProducts = new CategoryProductVM
+			ProductPageVM productPageVM = new ProductPageVM
 			{
-				Product = Filter(categoryId,search,products).ToPagedList(pageNumber,pageSize),
+				Product = Filter(categoryId,search,products).ToPagedList(pageNumber,numberProductOnPage),
 				Categories = categories,
 				Search = search
 			};
 
-			return View(categoryProducts);
+			return View(productPageVM);
 		}
 
 
@@ -167,6 +167,7 @@ namespace SimpleShop.Controllers
 			}
 
 			_product.Update(id.Value, productVm);
+
 			return RedirectToAction("Index");
 		}
 
@@ -177,7 +178,9 @@ namespace SimpleShop.Controllers
 			{
 				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 			}
+
 			_product.Remove(id.Value);
+
 			return RedirectToAction("Index");
 		}
 	}

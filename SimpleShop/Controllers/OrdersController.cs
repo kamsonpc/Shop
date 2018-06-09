@@ -12,18 +12,18 @@ namespace SimpleShop.Controllers
 	[Authorize]
     public class OrdersController : BaseController
     {
-	    private readonly IOrderService _orderService;
+	    private readonly IOrderRepository _orderService;
 
-		private int pageSize = 10;
+		private const int numberProductOnPage = 10;
 
-	    public OrdersController(IOrderService orderService)
+	    public OrdersController(IOrderRepository orderService)
 	    {
 		    _orderService = orderService;
 	    }
 	    public ActionResult Index(int? page)
 		{
 			var pageNumber = page ?? 1;
-			var orders = _orderService.GetOrdersByUser(User.Identity.GetUserId()).ToPagedList(pageNumber,pageSize);
+			var orders = _orderService.GetOrdersByUser(User.Identity.GetUserId()).ToPagedList(pageNumber, numberProductOnPage);
 			return View(orders);
 		}
 	}

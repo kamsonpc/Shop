@@ -5,7 +5,7 @@ using System.Web;
 
 namespace SimpleShop.Models.SearchModels
 {
-	public class ProductSH
+	public class ProductSearchModel
 	{
 		public int? PriceFrom { get; set; }
 		public int? PriceTo { get; set; }
