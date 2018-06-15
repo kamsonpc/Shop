@@ -1,11 +1,7 @@
-﻿using System;
-using System.Net;
-using System.Web.Mvc;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System.Web.Mvc;
 using NSubstitute;
 using SimpleShop.Controllers;
-using SimpleShop.Interfaces;
-using SimpleShop.Models;
+using SimpleShop.Interfaces.Repositories;
 using Xunit;
 using Assert = Xunit.Assert;
 
@@ -18,8 +14,7 @@ namespace SimpleShop.Tests
 		[Fact]
 		public void HomeController_ReturnsAViewBag()
 		{
-			var mockService = Substitute.For<IProductRepository>();
-			var homeController = new HomeController(mockService);
+			var homeController = new HomeController();
 
 			var homeAction = homeController.Contact() as ViewResult;
 			var result = homeAction.ViewBag.Message;

@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Web;
 
 namespace SimpleShop.Models
 {
@@ -38,5 +35,8 @@ namespace SimpleShop.Models
 		[Required]
 		public int CategoryId { get; set; }
 		public virtual ICollection<Order> Orders { get; set; }	
+
+		[Required]
+		public ICollection<Cart> Cart { get; set; }
 	}
 }

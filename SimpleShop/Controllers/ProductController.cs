@@ -1,15 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using AutoMapper;
-using Microsoft.AspNet.Identity;
 using PagedList;
 using SimpleShop.Filters;
-using SimpleShop.Interfaces;
-using SimpleShop.Models;
+using SimpleShop.Interfaces.Services;
 using SimpleShop.Models.SearchModels;
 using SimpleShop.Models.ViewsModels;
 using static SimpleShop.Views.Shared.Alerts.Alert;
@@ -19,24 +15,25 @@ namespace SimpleShop.Controllers
 	[Authorize]
 	public class ProductController : BaseController
 	{
-		private readonly IOrderRepository _order;
-		private readonly IProductRepository _product;
-		private readonly ICategoryRepository _category;
-
+		private readonly IProductService _product;
+		private readonly ICategoryService _category;
 		private const int numberProductOnPage = 9;
 
-		public ProductController(IProductRepository product, IOrderRepository order, ICategoryRepository category)
+		public ProductController(IProductService productService,ICategoryService categoryService)
 		{
-			_product = product;
-			_order = order;
-			_category = category;
+			_product = productService;
+			_category = categoryService;
 		}
 		
 		public List<ProductVM> Filter(int? categoryId,ProductSearchModel search,List<ProductVM> products)
 		{
 			if (categoryId != null)
 			{
-				products = products.FindAll(p => p.CategoryId == categoryId);
+				_product.GetByCategory(categoryId.Value);
+			}
+			else
+			{
+				_product.GetAll();
 			}
 
 			if (!String.IsNullOrEmpty(search.Name))
@@ -58,18 +55,18 @@ namespace SimpleShop.Controllers
 
 			ViewBag.Search = search;
 			ViewBag.CategoryId = categoryId;
+
 			var categories = _category.GetAll();
 			var products = _product.GetAll();
 
-			
-			ProductPageVM productPageVM = new ProductPageVM
+			var productPageVm = new ProductPageVM
 			{
 				Product = Filter(categoryId,search,products).ToPagedList(pageNumber,numberProductOnPage),
 				Categories = categories,
 				Search = search
 			};
 
-			return View(productPageVM);
+			return View(productPageVm);
 		}
 
 

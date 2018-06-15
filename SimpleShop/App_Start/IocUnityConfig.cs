@@ -1,14 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using Microsoft.Ajax.Utilities;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
-using SimpleShop.Interfaces;
-using SimpleShop.Models;
-using SimpleShop.Repositories;
+﻿using System.Web.Mvc;
+using SimpleShop.Interfaces.Services;
+using SimpleShop.Services;
 using Unity;
 using Unity.Injection;
 using Unity.Mvc5;
@@ -21,9 +13,13 @@ namespace SimpleShop.Controllers
 		{
 			var container = new UnityContainer();
 
-			container.RegisterType<IProductRepository, ProductRepository>();
-			container.RegisterType<IOrderRepository, OrderRepository>();
-			container.RegisterType<ICategoryRepository, CategoryRepository>();
+			//container.RegisterType<IProductRepository, ProductRepository>();
+			//container.RegisterType<IOrderRepository, OrderRepository>();
+			//container.RegisterType<ICategoryRepository, CategoryRepository>();
+			container.RegisterType<IProductService, ProductService>();
+			container.RegisterType<IOrderService, OrderService>();
+			container.RegisterType<ICategoryService, CategoryService>();
+
 
 			container.RegisterType<ApplicationSignInManager>();
 			container.RegisterType<ApplicationUserManager>();

@@ -34,7 +34,9 @@
 				</a>
 			</td>
 			<td>
-				@Html.DisplayFor(modelItem => item.Name)
+				<a href="@Url.Action("Details", "Product", new {id = item.ProductId})">
+					@Html.DisplayFor(modelItem => item.Name)
+					</a>
 			</td>
 			<td>
 				@Html.DisplayFor(modelItem => item.Price)
@@ -48,7 +50,7 @@
 		</tr>
 	}
 </table>
-<h3>Całkowity Koszt : <b>@fullPrice zł</b></h3>
+<h3>Całkowity Koszt : <b>@string.Format("{0:C}", fullPrice)</b></h3>
 <hr />
 
 <a class="btn btn-lg btn-success" href="@Url.Action("Confirm", "Cart")">Zamów Przedmioty <i class="glyphicon glyphicon-ok"></i></a>

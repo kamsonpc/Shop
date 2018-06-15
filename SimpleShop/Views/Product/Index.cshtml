@@ -22,10 +22,11 @@
 				<h4>Kategorie</h4>
 				<div class="form-group">
 					<ul class="list-group">
+						<li class="list-group-item"><a href="@Url.Action("Index", "Product")">Wszystko</a></li>
 						@foreach (var item in Model.Categories)
-						{
-							<li class="list-group-item"><a href="@Url.Action("Index", "Product", new {categoryId = item.CategoryId})">@item.Name</a></li>
-						}
+	{
+					<li class="list-group-item"><a href="@Url.Action("Index", "Product", new {categoryId = item.CategoryId})">@item.Name</a></li>
+}
 					</ul>
 				</div>
 				<hr />

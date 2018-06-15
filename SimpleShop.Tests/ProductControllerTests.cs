@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using NSubstitute;
 using SimpleShop.Controllers;
-using SimpleShop.Interfaces;
-using SimpleShop.Models;
+using SimpleShop.Interfaces.Services;
 using SimpleShop.Models.ViewsModels;
 using SimpleShop.Models.SearchModels;
 using Xunit;
@@ -19,12 +13,12 @@ namespace SimpleShop.Tests
 	{
 		public ProductController Controller()
 		{
-			var mockProduct = Substitute.For<IProductRepository>();
-			var mockOrder = Substitute.For<IOrderRepository>();
-			var mockCategory = Substitute.For<ICategoryRepository>();
+			var mockProduct = Substitute.For<IProductService>();
+			var mockOrder = Substitute.For<IOrderService>();
+			var mockCategory = Substitute.For<ICategoryService>();
 
 
-			return new ProductController(mockProduct, mockOrder, mockCategory);
+			return new ProductController(mockProduct, mockCategory);
 		}
 		[Fact]
 		public void Details_when_id_equal_null_returns_status_code_400()

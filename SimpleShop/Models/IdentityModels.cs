@@ -1,13 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
-using System.Data.Entity.ModelConfiguration.Conventions;
-using System.Security.AccessControl;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.Owin.Security.DataHandler;
-using SimpleShop.Interfaces;
 
 namespace SimpleShop.Models
 {
@@ -23,6 +19,8 @@ namespace SimpleShop.Models
 		}
 
 		public virtual ICollection<Order> Orders { get; set; }
+		public virtual ICollection<Cart> Cart { get; set; }
+
 	}
 
 	public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
@@ -35,6 +33,7 @@ namespace SimpleShop.Models
 
 		public DbSet<Product> Products { get; set; }
 		public DbSet<Order> Orders { get; set; }
+		public DbSet<Cart> CartItems { get; set; }
 		public DbSet<Category> Categories { get; set; }
 
 		public static ApplicationDbContext Create()

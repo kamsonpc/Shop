@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
+﻿using System.Linq;
 using System.Net;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using SimpleShop.Interfaces;
 using SimpleShop.Models;
-using SimpleShop.Models.ViewsModels;
 
 namespace SimpleShop.Controllers
 {

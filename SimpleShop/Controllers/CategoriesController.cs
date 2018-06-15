@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using System.Web.Mvc;
 using SimpleShop.Filters;
-using SimpleShop.Interfaces;
+using SimpleShop.Interfaces.Services;
 using SimpleShop.Models;
 
 namespace SimpleShop.Controllers
@@ -10,9 +10,9 @@ namespace SimpleShop.Controllers
 	public class CategoriesController : BaseController
     {
 
-		private readonly ICategoryRepository _categoryService;
+		private readonly ICategoryService _categoryService;
 
-	    public CategoriesController(ICategoryRepository categoryService)
+	    public CategoriesController(ICategoryService categoryService)
 	    {
 		    _categoryService = categoryService;
 	    }
@@ -64,7 +64,7 @@ namespace SimpleShop.Controllers
 	        }
             if (ModelState.IsValid)
             {
-	            _categoryService.Update(id.Value, category);
+	            //_categoryService.Update(id.Value, category);
                 return RedirectToAction("Index");
             }
             return View(category);

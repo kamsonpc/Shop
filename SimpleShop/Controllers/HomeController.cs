@@ -1,16 +1,10 @@
 ﻿using System.Web.Mvc;
-using SimpleShop.Interfaces;
+using SimpleShop.Interfaces.Repositories;
 
 namespace SimpleShop.Controllers
 {
 	public class HomeController : Controller
 	{
-		private readonly IProductRepository _product;
-
-		public HomeController(IProductRepository product)
-		{
-			_product = product;
-		}
 
 		public ActionResult Index()
 		{

@@ -1,24 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Web;
-using SimpleShop.Models;
 using SimpleShop.Models.ViewsModels;
 
-namespace SimpleShop.Interfaces
+namespace SimpleShop.Interfaces.Services
 {
-	public interface IProductRepository
+	public interface IProductService
 	{
 		List<ProductVM> GetAll();
+		List<ProductVM> GetByPrice(int min, int max);
 		List<ProductVM> GetByCategory(int id);
-		List<ProductVM> GetByPrice(int minPrice, int maxPrice);
 
 		ProductVM GetById(int id);
 		void AddNew(ProductVM product);
 		void Update(int id, ProductVM product);
+
 		void Remove(int id);
+
 		string UploadImage(HttpPostedFileBase file);
-		int Quantity(int id);
-		void ChangeQuantity(int id,int quantity);
+		void RemoveImage(string fileName);
 	}
 }

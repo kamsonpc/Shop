@@ -66,6 +66,9 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -73,6 +76,12 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -231,6 +240,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CartController.cs" />
@@ -245,9 +255,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Interfaces\ICategoryRepository.cs" />
-    <Compile Include="Interfaces\IOrderRepository.cs" />
-    <Compile Include="Interfaces\IProductService.cs" />
+    <Compile Include="Interfaces\Repositories\ICategoryRepository.cs" />
+    <Compile Include="Interfaces\Repositories\IOrderRepository.cs" />
+    <Compile Include="Interfaces\Services\IOrderService.cs" />
+    <Compile Include="Interfaces\Repositories\IProductRepository.cs" />
+    <Compile Include="Interfaces\Services\IProductService.cs" />
+    <Compile Include="Interfaces\IRepository.cs" />
+    <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Mapping\MappingProfiles.cs" />
     <Compile Include="Migrations\201804302127511_InitDb.cs" />
     <Compile Include="Migrations\201804302127511_InitDb.Designer.cs">
@@ -281,15 +295,21 @@
     <Compile Include="Migrations\201806090820533_Add DataAdnotatiotion.Designer.cs">
       <DependentUpon>201806090820533_Add DataAdnotatiotion.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201806151254525_Add Cart.cs" />
+    <Compile Include="Migrations\201806151254525_Add Cart.Designer.cs">
+      <DependentUpon>201806151254525_Add Cart.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Cart.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\Product.cs" />
-    <Compile Include="Models\SearchModels\ProductSH.cs" />
+    <Compile Include="Models\SearchModels\ProductSearchModel.cs" />
     <Compile Include="Models\Status.cs" />
+    <Compile Include="Models\UnitOfWork.cs" />
     <Compile Include="Models\ViewsModels\ProductPageVM.cs" />
     <Compile Include="Models\ViewsModels\OrdersPageVM.cs" />
     <Compile Include="Models\ViewsModels\OrderVM.cs" />
@@ -299,6 +319,11 @@
     <Compile Include="Repositories\CategoryRepository.cs" />
     <Compile Include="Repositories\OrderRepository.cs" />
     <Compile Include="Repositories\ProductRepository.cs" />
+    <Compile Include="Repositories\Repository.cs" />
+    <Compile Include="Services\CategoryService.cs" />
+    <Compile Include="Interfaces\Services\ICategoryService.cs" />
+    <Compile Include="Services\OrderService.cs" />
+    <Compile Include="Services\ProductService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Views\Shared\Alerts\Alert.cs" />
   </ItemGroup>
@@ -421,6 +446,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201806090820533_Add DataAdnotatiotion.resx">
       <DependentUpon>201806090820533_Add DataAdnotatiotion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806151254525_Add Cart.resx">
+      <DependentUpon>201806151254525_Add Cart.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
