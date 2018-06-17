@@ -4,10 +4,24 @@
 	using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
 	{
 		@Html.AntiForgeryToken()
+		<script>
+			$( document ).ready(function() {
+				$.ajax({
+					type: "GET",
+					url: "Cart/Counter",
+					contentType: "application/json;charset=utf-8",
+					dataType: "json",
+					success: function (result) {
+						$("#cart-counter").val = result;
+					},
+				});
+			});
 
+		</script>
+		 
 		<ul class="nav navbar-nav navbar-right">
 			<li>
-				<a href="@Url.Action("Index", "Cart")">Koszyk</a>
+				<a href="@Url.Action("Index", "Cart")"><span id ="cart-counter" ></span> Koszyk</a>
 			</li>
 
 			<li>

@@ -1,57 +1,47 @@
-﻿@model IEnumerable<SimpleShop.Models.ViewsModels.ProductVM>
+﻿@model IEnumerable<SimpleShop.Models.ViewsModels.CartVM>
 
 @{
-	ViewBag.Title = "Index";
-	decimal fullPrice = 0;
+	decimal price = 0;
+}
+<table class="table table-bordered table-condensed">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Product.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OrderedQuantity)
+        </th>
+	    <th>
+		    @Html.DisplayNameFor(model => model.Product.Price)
+	    </th>
+		<th></th>
+    </tr>
+
+@foreach (var item in Model) {
+	
+
+		price += item.Product.Price * item.OrderedQuantity;
+		<tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Product.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OrderedQuantity)
+        </td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Product.Price)
+			</td>
+			<td><a href="@Url.Action("Remove", new {id = item.CartItemId})"><i class="glyphicon glyphicon-remove-circle"></i></a></td>
+    </tr>
 }
 
-<h2>Koszyk</h2>
-
-<table class="table table-hover table-bordered">
-	<tr>
-		<th></th>
-		<th>
-			@Html.DisplayNameFor(model => model.Name)
-		</th>
-		<th>
-			@Html.DisplayNameFor(model => model.Price)
-		</th>
-		<th>
-			@Html.DisplayNameFor(model => model.CustomerQuantity)
-		</th>
-		<th>
-
-		</th>
-	</tr>
-
-	@foreach (var item in Model)
-	{
-		fullPrice += item.Price * item.CustomerQuantity;
-		<tr>
-			<td>
-				<a href="@Url.Action("Details", "Product", new {id = item.ProductId})">
-					<img class="group index-product-img" src="@Url.Content("~/UploadedFiles/" + @item.Img)" alt="" />
-				</a>
-			</td>
-			<td>
-				<a href="@Url.Action("Details", "Product", new {id = item.ProductId})">
-					@Html.DisplayFor(modelItem => item.Name)
-					</a>
-			</td>
-			<td>
-				@Html.DisplayFor(modelItem => item.Price)
-			</td>
-			<td>
-				@Html.DisplayFor(modelItem => item.CustomerQuantity)
-			</td>
-			<td>
-				<a class="btn btn-danger" href="@Url.Action("Remove", "Cart",new { id = item.ProductId})"><i class="glyphicon glyphicon-remove "></i></a>
-			</td>
-		</tr>
-	}
 </table>
-<h3>Całkowity Koszt : <b>@string.Format("{0:C}", fullPrice)</b></h3>
-<hr />
+<hr/>
+Suma : @price
+<hr/>
 
-<a class="btn btn-lg btn-success" href="@Url.Action("Confirm", "Cart")">Zamów Przedmioty <i class="glyphicon glyphicon-ok"></i></a>
-<a class="btn btn-lg btn-primary" href="@Url.Action("Index", "Product")">Kontynuj zakupy <i class="glyphicon glyphicon-arrow-right"></i></a>
+@if (Model.Any())
+{
+	<a class="btn btn-success" href="@Url.Action("Complete")">Zamawiam</a>
+}
+<a class="btn btn-primary" href="@Url.Action("Index","Product")">Kontynuje zakupy</a>

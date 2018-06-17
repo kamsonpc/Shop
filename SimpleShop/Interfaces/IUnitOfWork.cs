@@ -7,6 +7,9 @@ namespace SimpleShop.Interfaces
 	{
 		ICategoryRepository Categories { get; }
 		IOrderRepository Orders { get; }
+		IProductRepository Products { get; }
+		ICartRepository CartItems { get; }
+
 		int Complete();
 	}
 }

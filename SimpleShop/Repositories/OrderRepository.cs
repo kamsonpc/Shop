@@ -11,15 +11,15 @@ namespace SimpleShop.Repositories
 		public OrderRepository(DbContext context) : base(context)
 		{
 		}
-		
+
 		public IEnumerable<Order> GetOrdersByProductName(string name)
 		{
-			return GetAll("ApplicationUser,Product").Where( p => p.Product.Name == name);
+			return GetAll().Where( p => p.Product.Name == name);
 		}
 
 		public IEnumerable<Order> GetOrdersByUserId(string userId)
 		{
-			return GetAll("ApplicationUser,Product").Where(p => p.ApplicationUser.Id == userId);
+			return GetAll().Where(p => p.ApplicationUser.Id == userId);
 		}
 
 		public ApplicationDbContext ApplicationDbContext

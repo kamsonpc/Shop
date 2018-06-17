@@ -7,9 +7,9 @@ using SimpleShop.Models;
 namespace SimpleShop.Repositories
 {
 
-	public class CategoryRepository : Repository<Category>,ICategoryRepository
+	public class CategoryRepository : Repository<Category>, ICategoryRepository
 	{
-		public CategoryRepository(ApplicationDbContext context) : base (context)
+		public CategoryRepository(ApplicationDbContext context) : base(context)
 		{
 		}
 
@@ -22,9 +22,19 @@ namespace SimpleShop.Repositories
 			}).ToList();
 		}
 
-		public ApplicationDbContext ApplicationDbContext		{
+		public bool Update(Category category, int id)
+		{
+			var categoryInDb = Get(id);
+			if (categoryInDb == null) return false;
+			categoryInDb.Name = category.Name;
+			return true;
+
+		}
+
+		public ApplicationDbContext ApplicationDbContext
+		{
 			get { return Contex as ApplicationDbContext; }
 		}
-		
+
 	}
 }

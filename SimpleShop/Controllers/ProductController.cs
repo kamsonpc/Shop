@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using PagedList;
 using SimpleShop.Filters;
+using SimpleShop.Interfaces;
 using SimpleShop.Interfaces.Services;
 using SimpleShop.Models.SearchModels;
 using SimpleShop.Models.ViewsModels;
@@ -15,38 +15,17 @@ namespace SimpleShop.Controllers
 	[Authorize]
 	public class ProductController : BaseController
 	{
-		private readonly IProductService _product;
-		private readonly ICategoryService _category;
-		private const int numberProductOnPage = 9;
+		private readonly IProductService _productService;
+		private readonly IUnitOfWork _unitOfWork;
+		private const int NumberProductOnPage = 9;
 
-		public ProductController(IProductService productService,ICategoryService categoryService)
+		public ProductController(IProductService productServiceService,IUnitOfWork unitOfWork)
 		{
-			_product = productService;
-			_category = categoryService;
+			_productService = productServiceService;
+			_unitOfWork = unitOfWork;
 		}
 		
-		public List<ProductVM> Filter(int? categoryId,ProductSearchModel search,List<ProductVM> products)
-		{
-			if (categoryId != null)
-			{
-				_product.GetByCategory(categoryId.Value);
-			}
-			else
-			{
-				_product.GetAll();
-			}
-
-			if (!String.IsNullOrEmpty(search.Name))
-			{
-				products = products.FindAll(m => m.Name.Contains(search.Name));
-			}
-			if (search.PriceFrom != null && search.PriceTo != null)
-			{
-				products = products.FindAll(m => m.Price >= search.PriceFrom).FindAll(p => p.Price <= search.PriceTo);
-			}
-
-			return products;
-		}
+	
 
 		[AllowAnonymous]
 		public ActionResult Index(int? categoryId,ProductSearchModel search, int? page)
@@ -56,12 +35,12 @@ namespace SimpleShop.Controllers
 			ViewBag.Search = search;
 			ViewBag.CategoryId = categoryId;
 
-			var categories = _category.GetAll();
-			var products = _product.GetAll();
+			var categories = _unitOfWork.Categories.GetAll().ToList();
+			var products = _productService.GetAll();
 
 			var productPageVm = new ProductPageVM
 			{
-				Product = Filter(categoryId,search,products).ToPagedList(pageNumber,numberProductOnPage),
+				Product = _productService.Search(search,categoryId).ToPagedList(pageNumber,NumberProductOnPage),
 				Categories = categories,
 				Search = search
 			};
@@ -78,7 +57,7 @@ namespace SimpleShop.Controllers
 				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 			}
 
-			var product = _product.GetById(id.Value);
+			var product = _productService.GetById(id.Value);
 
 			if (product == null)
 			{
@@ -92,7 +71,7 @@ namespace SimpleShop.Controllers
 		{
 			ProductVM productVm = new ProductVM
 			{
-				Categories = _category.GetSelectList()
+				Categories = _unitOfWork.Categories.GetSelectList()
 			};
 
 			return View(productVm);
@@ -105,7 +84,7 @@ namespace SimpleShop.Controllers
 		{
 			if (!ModelState.IsValid)
 			{
-				productVm.Categories = _category.GetSelectList();
+				productVm.Categories = _unitOfWork.Categories.GetSelectList();
 				return View(productVm);
 			}
 
@@ -113,8 +92,8 @@ namespace SimpleShop.Controllers
 			{
 				try
 				{
-					productVm.Img = _product.UploadImage(file);
-					_product.AddNew(productVm);
+					productVm.Img = _productService.UploadImage(file);
+					_productService.AddNew(productVm);
 					Alert("Dodano produkt" + productVm.Name, NotificationType.success);
 
 					return RedirectToAction("Index");
@@ -127,7 +106,7 @@ namespace SimpleShop.Controllers
 			}
 
 			Alert("Plik jest nie prawidłowy", NotificationType.danger);
-			productVm.Categories = _category.GetSelectList();
+			productVm.Categories = _unitOfWork.Categories.GetSelectList();
 			return View(productVm);
 		}
 
@@ -138,12 +117,12 @@ namespace SimpleShop.Controllers
 			{
 				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 			}
-			var product = _product.GetById(id.Value);
+			var product = _productService.GetById(id.Value);
 			if (product == null)
 			{
 				return new HttpStatusCodeResult(HttpStatusCode.NotFound);
 			}
-			product.Categories = _category.GetSelectList();
+			product.Categories = _unitOfWork.Categories.GetSelectList();
 			return View(product);
 		}
 
@@ -158,12 +137,12 @@ namespace SimpleShop.Controllers
 			}
 			if (!ModelState.IsValid)
 			{
-				productVm.Categories = _category.GetSelectList();
+				productVm.Categories = _unitOfWork.Categories.GetSelectList();
 
 				return View(productVm);
 			}
 
-			_product.Update(id.Value, productVm);
+			_productService.Update(id.Value, productVm);
 
 			return RedirectToAction("Index");
 		}
@@ -176,7 +155,7 @@ namespace SimpleShop.Controllers
 				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 			}
 
-			_product.Remove(id.Value);
+			_productService.Remove(id.Value);
 
 			return RedirectToAction("Index");
 		}

@@ -1,30 +1,26 @@
-﻿using System.Collections.Generic;
-using System.Web.Mvc;
-using AutoMapper;
+﻿using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using PagedList;
-using SimpleShop.Interfaces;
-using SimpleShop.Interfaces.Repositories;
-using SimpleShop.Models;
-using SimpleShop.Models.ViewsModels;
+using SimpleShop.Interfaces.Services;
 
 namespace SimpleShop.Controllers
 {
 	[Authorize]
 	public class OrdersController : BaseController
 	{
-		private readonly IOrderRepository _orderService;
+		private readonly IOrderService _orderService;
 
 		private const int numberProductOnPage = 10;
 
-		public OrdersController(IOrderRepository orderService)
+		public OrdersController(IOrderService orderService)
 		{
 			_orderService = orderService;
 		}
 		public ActionResult Index(int? page)
 		{
 			var pageNumber = page ?? 1;
-			var orders = _orderService.GetOrdersByUserId(User.Identity.GetUserId()).ToPagedList(pageNumber, numberProductOnPage);
+			var orders = _orderService.GetByUserId(User.Identity.GetUserId()).ToPagedList(pageNumber, numberProductOnPage);
+
 			return View(orders);
 		}
 	}

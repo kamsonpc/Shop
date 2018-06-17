@@ -18,6 +18,9 @@
 <table class="table table-bordered table-hover">
 	<tr>
 		<th>
+			@Html.DisplayNameFor(model => model.First().OrderId)
+		</th>
+		<th>
 			@Html.DisplayNameFor(model => model.First().ApplicationUser.Email)
 		</th>
 		<th>
@@ -30,10 +33,10 @@
 			@Html.DisplayNameFor(model => model.First().Quantity)
 		</th>
 		<th>
-			@Html.DisplayNameFor(model => model.First().Payment)
+			@Html.DisplayNameFor(model => model.First().Date)
 		</th>
 		<th>
-			@Html.DisplayNameFor(model => model.First().Date)
+			@Html.DisplayNameFor(model => model.First().Payment)
 		</th>
 		<th>
 			Operacje
@@ -43,6 +46,9 @@
 	@foreach (var item in Model)
 	{
 		<tr>
+			<td>
+				@Html.DisplayFor(modelItem => item.OrderId)
+			</td>
 			<td>
 				@Html.DisplayFor(modelItem => item.ApplicationUser.Email)
 			</td>
@@ -56,23 +62,31 @@
 				@Html.DisplayFor(modelItem => item.Quantity)
 			</td>
 			<td>
-				@if (item.Payment)
-				{
-					<b>Tak</b>
-				}
-				else
-				{
-					<b>Nie</b>
-				}
-			</td>
-			<td>
 				@Html.DisplayFor(modelItem => item.Date)
 			</td>
-			<td>
-				<a class="btn btn-warning" href="@Url.Action("Change",new {id = item.OrderId})">Zmień Status Płatności</a>
-				<a class="btn btn-primary" href="@Url.Action("Shipping",new {id = item.OrderId})">Dane Wysyłki</a>
 
-			</td>
+			@if (!item.Payment)
+			{
+				<td>
+					<span class="text-warning">Nie</span>
+				</td>
+				<td>
+					<a class="btn btn-warning" href="@Url.Action("Pay", new {id = item.OrderId})">Zaksięgowanie</a>
+					<a class="btn btn-primary" href="@Url.Action("Shipping", new {id = item.OrderId})">Dane Wysyłki</a>
+
+				</td>
+			}
+			else
+			{
+				<td>
+					<span class="text-success">Tak</span>
+				</td>
+				<td>
+					<a class="btn btn-primary" href="@Url.Action("Shipping", new {id = item.OrderId})">Dane Wysyłki</a>
+
+				</td>
+			}
+
 		</tr>
 	}
 

@@ -6,6 +6,7 @@ using System.Web;
 using AutoMapper;
 using SimpleShop.Interfaces.Services;
 using SimpleShop.Models;
+using SimpleShop.Models.SearchModels;
 using SimpleShop.Models.ViewsModels;
 
 namespace SimpleShop.Services
@@ -39,6 +40,12 @@ namespace SimpleShop.Services
 			return Mapper.Map<Product,ProductVM>(_unitOfWork.Products.Get(id));
 		}
 
+		public List<ProductVM> Search(ProductSearchModel searchModel,int? categoryId)
+		{
+			return Mapper.Map<List<Product>, List<ProductVM>>(_unitOfWork.Products.Search(categoryId,searchModel).ToList());
+		}
+
+
 		public void AddNew(ProductVM product)
 		{
 			_unitOfWork.Products.Add(Mapper.Map<ProductVM,Product>(product));
@@ -48,16 +55,14 @@ namespace SimpleShop.Services
 		public void Remove(int id)
 		{
 			var productToRemove = _unitOfWork.Products.Get(id);
-			if (productToRemove != null)
-			{
-				_unitOfWork.Products.Remove(productToRemove);
-				_unitOfWork.Complete();
-			}
+			if (productToRemove == null) return;
+			_unitOfWork.Products.Remove(productToRemove);
+			_unitOfWork.Complete();
 		}
 
 		public string UploadImage(HttpPostedFileBase file)
 		{
-			string path = Path.Combine(HttpContext.Current.Server.MapPath("~/UploadedFiles"), Path.GetFileName(file.FileName) ?? throw new InvalidOperationException());
+			var path = Path.Combine(HttpContext.Current.Server.MapPath("~/UploadedFiles"), Path.GetFileName(file.FileName) ?? throw new InvalidOperationException());
 			file.SaveAs(path);
 
 			return file.FileName;
@@ -65,7 +70,7 @@ namespace SimpleShop.Services
 
 		public void RemoveImage(string fileName)
 		{
-			string path = Path.Combine(HttpContext.Current.Server.MapPath("~/UploadedFiles"), fileName);
+			var path = Path.Combine(HttpContext.Current.Server.MapPath("~/UploadedFiles"), fileName);
 			try
 			{
 				File.Delete(path);
@@ -77,9 +82,11 @@ namespace SimpleShop.Services
 			}
 		}
 
-		public void Update(int id, ProductVM product)
+		public void Update(int id, ProductVM productVm)
 		{
-			throw new NotImplementedException();
+			var product = Mapper.Map<ProductVM, Product>(productVm);
+			_unitOfWork.Products.Update(id, product);
+			_unitOfWork.Complete();
 		}
 	}
 }

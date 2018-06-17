@@ -1,11 +1,16 @@
 ﻿using System.Web.Mvc;
+using SimpleShop.Controllers;
+using SimpleShop.Interfaces;
+using SimpleShop.Interfaces.Repositories;
 using SimpleShop.Interfaces.Services;
+using SimpleShop.Models;
+using SimpleShop.Repositories;
 using SimpleShop.Services;
 using Unity;
 using Unity.Injection;
 using Unity.Mvc5;
 
-namespace SimpleShop.Controllers
+namespace SimpleShop
 {
 	public class IocUnityConfig
 	{
@@ -13,12 +18,11 @@ namespace SimpleShop.Controllers
 		{
 			var container = new UnityContainer();
 
-			//container.RegisterType<IProductRepository, ProductRepository>();
-			//container.RegisterType<IOrderRepository, OrderRepository>();
-			//container.RegisterType<ICategoryRepository, CategoryRepository>();
+			container.RegisterType<ICategoryRepository, CategoryRepository>();
 			container.RegisterType<IProductService, ProductService>();
+			container.RegisterType<ICartService, CartService>();
 			container.RegisterType<IOrderService, OrderService>();
-			container.RegisterType<ICategoryService, CategoryService>();
+			container.RegisterType<IUnitOfWork, UnitOfWork>();
 
 
 			container.RegisterType<ApplicationSignInManager>();

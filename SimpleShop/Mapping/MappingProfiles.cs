@@ -8,21 +8,17 @@ namespace SimpleShop.Mapping
 	{
 		public MappingProfiles()
 		{
-			CreateMap<Product, ProductVM>();
-			CreateMap<ProductVM, Product>();
+			CreateMap<Product, ProductVM>().ReverseMap();
 
-			CreateMap<OrderVM, Order>();
-			CreateMap<Order, OrderVM>();
+			CreateMap<OrderVM, Order>().ReverseMap();
 
-			CreateMap<OrdersPageVM, Order>();
-			CreateMap<Order, OrdersPageVM>();
+			CreateMap<OrdersPageVM, Order>().ReverseMap();
 
-			CreateMap<ShippingVM, Order>();
-			CreateMap<Order, ShippingVM>();
+			CreateMap<ShippingVM, Order>().ReverseMap();
 
-			CreateMap<ShippingVM, Product>();
-			CreateMap<Product, ShippingVM>();
+			CreateMap<ShippingVM, Product>().ReverseMap();
 
+			CreateMap<CartVM, Cart>().ReverseMap();
 		}
 	}
 }

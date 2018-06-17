@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using NSubstitute;
 using SimpleShop.Controllers;
+using SimpleShop.Interfaces;
 using SimpleShop.Interfaces.Services;
 using SimpleShop.Models.ViewsModels;
 using SimpleShop.Models.SearchModels;
@@ -13,12 +14,10 @@ namespace SimpleShop.Tests
 	{
 		public ProductController Controller()
 		{
-			var mockProduct = Substitute.For<IProductService>();
-			var mockOrder = Substitute.For<IOrderService>();
-			var mockCategory = Substitute.For<ICategoryService>();
+			var mockUnitOfWork = Substitute.For<IUnitOfWork>();
+			var productServiceMoq = Substitute.For<IProductService>();
 
-
-			return new ProductController(mockProduct, mockCategory);
+			return new ProductController(productServiceMoq,mockUnitOfWork);
 		}
 		[Fact]
 		public void Details_when_id_equal_null_returns_status_code_400()

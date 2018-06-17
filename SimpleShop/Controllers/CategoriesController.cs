@@ -1,25 +1,25 @@
-﻿using System.Net;
+﻿using System.Linq;
+using System.Net;
 using System.Web.Mvc;
 using SimpleShop.Filters;
-using SimpleShop.Interfaces.Services;
+using SimpleShop.Interfaces;
 using SimpleShop.Models;
 
 namespace SimpleShop.Controllers
 {
 	[AuthorizeCustom(Roles = "Administrator")]
 	public class CategoriesController : BaseController
-    {
+	{
+		private readonly IUnitOfWork _unitOfWork;
 
-		private readonly ICategoryService _categoryService;
-
-	    public CategoriesController(ICategoryService categoryService)
-	    {
-		    _categoryService = categoryService;
-	    }
+		public CategoriesController(IUnitOfWork unitOfWork)
+		{
+			_unitOfWork = unitOfWork;
+		}
 
 	    public ActionResult Index()
         {
-            return View(_categoryService.GetAll());
+            return View(_unitOfWork.Categories.GetAll().ToList());
         }
 
         public ActionResult Create()
@@ -31,13 +31,11 @@ namespace SimpleShop.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Category category)
         {
-            if (ModelState.IsValid)
-            {
-                _categoryService.AddNew(category);
-                return RedirectToAction("Index");
-            }
+	        if (!ModelState.IsValid) return View(category);
+	        _unitOfWork.Categories.Add(category);
+	        _unitOfWork.Complete();
+	        return RedirectToAction("Index");
 
-            return View(category);
         }
 
         public ActionResult Edit(int? id)
@@ -46,7 +44,7 @@ namespace SimpleShop.Controllers
 	        {
 				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 	        }
-            Category category = _categoryService.GetById(id.Value);
+            var category = _unitOfWork.Categories.Get(id.Value);
             if (category == null)
             {
 				return new HttpStatusCodeResult(HttpStatusCode.NotFound);
@@ -62,12 +60,11 @@ namespace SimpleShop.Controllers
 	        {
 				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 	        }
-            if (ModelState.IsValid)
-            {
-	            //_categoryService.Update(id.Value, category);
-                return RedirectToAction("Index");
-            }
-            return View(category);
+
+	        if (!ModelState.IsValid) return View(category);
+	        _unitOfWork.Categories.Update(category,id.Value);
+	        _unitOfWork.Complete();
+	        return RedirectToAction("Index");
         }
 
         public ActionResult Delete(int? id)
@@ -77,7 +74,9 @@ namespace SimpleShop.Controllers
 		        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 	        }
 
-			_categoryService.Remove(id.Value);
+	        var categoryToRemove = _unitOfWork.Categories.Get(id.Value);
+			_unitOfWork.Categories.Remove(categoryToRemove);
+	        _unitOfWork.Complete();
 	        return RedirectToAction("Index");
 		}
     }

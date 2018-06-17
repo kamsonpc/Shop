@@ -3,7 +3,6 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using AutoMapper;
-using SimpleShop.Controllers;
 using SimpleShop.Mapping;
 
 namespace SimpleShop

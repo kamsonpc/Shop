@@ -1,5 +1,4 @@
 ﻿using System.Web.Mvc;
-using SimpleShop.Interfaces.Repositories;
 
 namespace SimpleShop.Controllers
 {

@@ -1,7 +1,5 @@
 ﻿using System.Web.Mvc;
-using NSubstitute;
 using SimpleShop.Controllers;
-using SimpleShop.Interfaces.Repositories;
 using Xunit;
 using Assert = Xunit.Assert;
 

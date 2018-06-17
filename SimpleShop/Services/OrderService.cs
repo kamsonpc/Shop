@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using SimpleShop.Interfaces.Services;
@@ -17,40 +16,32 @@ namespace SimpleShop.Services
 			_unitOfWork = unitOfWork;
 		}
 
-		public void Complete(int choosedProductId, string userId, ShippingVM shippingData)
+		public List<OrdersPageVM> GetAll()
 		{
-			var choosedProduct = _unitOfWork.Products.Get(choosedProductId);
-			var order = new Order
-			{
-				ApplicationUserId = userId,
-				Address = shippingData.Address,
-				CityCode = shippingData.CityCode,
-				Country = shippingData.Country,
-				PhoneNumber = shippingData.PhoneNumber,
-				NameAndSurname = shippingData.NameAndSurname,
-				Date = DateTime.Now,
-				Payment =  false,
-				Quantity = choosedProduct.Quantity,
-				ProductId = choosedProduct.ProductId,
-				Price = choosedProduct.Price
-			};
-			_unitOfWork.Orders.Add(order);
-
+			return Mapper.Map<List<Order>, List<OrdersPageVM>>(_unitOfWork.Orders.GetAll("ApplicationUser,Product").ToList());
 		}
 
-		public List<OrderVM> GetAll()
+		public List<OrdersPageVM> Find(string search)
 		{
-			return Mapper.Map<List<Order>, List<OrderVM>>(_unitOfWork.Orders.GetAll().ToList());
+			return Mapper.Map<List<Order>, List<OrdersPageVM>>(_unitOfWork.Orders.Find(s => (s.ApplicationUser.Email.Contains(search)) || (s.Product.Name.Contains(search)), "ApplicationUser,Product").ToList());
 		}
 
-		public List<OrderVM> GetByUserId(string id)
+		public List<OrdersPageVM> GetByUserId(string id)
 		{
-			return Mapper.Map<List<Order>, List<OrderVM>>(_unitOfWork.Orders.GetOrdersByUserId(id).ToList());
+			return Mapper.Map<List<Order>, List<OrdersPageVM>>(_unitOfWork.Orders.Find(o => o.ApplicationUserId == id, "ApplicationUser,Product").ToList());
 		}
 
 		public ShippingVM GetShippinDataById(int id)
 		{
 			return Mapper.Map<Order, ShippingVM>(_unitOfWork.Orders.Find(o => o.OrderId == id).SingleOrDefault());
+		}
+
+		public void Pay(int orderId)
+		{
+			var orderInDb = _unitOfWork.Orders.Get(orderId);
+			if(orderInDb == null) return;
+			orderInDb.Payment = true;
+			_unitOfWork.Complete();
 		}
 
 	}

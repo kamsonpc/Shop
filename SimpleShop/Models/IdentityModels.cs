@@ -36,10 +36,10 @@ namespace SimpleShop.Models
 		public DbSet<Cart> CartItems { get; set; }
 		public DbSet<Category> Categories { get; set; }
 
+
 		public static ApplicationDbContext Create()
 		{
 			return new ApplicationDbContext();
 		}
-
 	}
 }

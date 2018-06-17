@@ -8,7 +8,7 @@ namespace SimpleShop.Interfaces
 	{
 		TEntity Get(int id);
 		IEnumerable<TEntity> GetAll(string includeProperties = "");
-		IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate);
+		IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate, string includeProperties = "");
 
 		void Add(TEntity entity);
 		void AddRange(IEnumerable<TEntity> entities);

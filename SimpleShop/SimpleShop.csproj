@@ -255,8 +255,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Interfaces\Repositories\ICartRepository.cs" />
     <Compile Include="Interfaces\Repositories\ICategoryRepository.cs" />
     <Compile Include="Interfaces\Repositories\IOrderRepository.cs" />
+    <Compile Include="Interfaces\Services\ICartService.cs" />
     <Compile Include="Interfaces\Services\IOrderService.cs" />
     <Compile Include="Interfaces\Repositories\IProductRepository.cs" />
     <Compile Include="Interfaces\Services\IProductService.cs" />
@@ -299,6 +301,10 @@
     <Compile Include="Migrations\201806151254525_Add Cart.Designer.cs">
       <DependentUpon>201806151254525_Add Cart.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201806160832284_Fix null error.cs" />
+    <Compile Include="Migrations\201806160832284_Fix null error.Designer.cs">
+      <DependentUpon>201806160832284_Fix null error.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Cart.cs" />
@@ -310,18 +316,19 @@
     <Compile Include="Models\SearchModels\ProductSearchModel.cs" />
     <Compile Include="Models\Status.cs" />
     <Compile Include="Models\UnitOfWork.cs" />
+    <Compile Include="Models\ViewsModels\CartVM.cs" />
     <Compile Include="Models\ViewsModels\ProductPageVM.cs" />
     <Compile Include="Models\ViewsModels\OrdersPageVM.cs" />
     <Compile Include="Models\ViewsModels\OrderVM.cs" />
     <Compile Include="Models\ViewsModels\ProductVM.cs" />
     <Compile Include="Models\ViewsModels\ShippingVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\CartRepository.cs" />
     <Compile Include="Repositories\CategoryRepository.cs" />
     <Compile Include="Repositories\OrderRepository.cs" />
     <Compile Include="Repositories\ProductRepository.cs" />
     <Compile Include="Repositories\Repository.cs" />
-    <Compile Include="Services\CategoryService.cs" />
-    <Compile Include="Interfaces\Services\ICategoryService.cs" />
+    <Compile Include="Services\CartService.cs" />
     <Compile Include="Services\OrderService.cs" />
     <Compile Include="Services\ProductService.cs" />
     <Compile Include="Startup.cs" />
@@ -396,14 +403,14 @@
     <Content Include="Views\Categories\Edit.cshtml" />
     <Content Include="Views\Categories\Index.cshtml" />
     <Content Include="Views\Payment\Index.cshtml" />
-    <Content Include="Views\Cart\Buy.cshtml" />
     <Content Include="Views\Payment\Shipping.cshtml" />
-    <Content Include="Views\Cart\Index.cshtml" />
     <Content Include="Views\Shared\_Notyfication.cshtml" />
     <Content Include="Views\Shared\_Search.cshtml" />
     <Content Include="Views\Shared\_Navbar.cshtml" />
     <Content Include="Views\Shared\_Footer.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Cart\Index.cshtml" />
+    <Content Include="Views\Cart\Complete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -449,6 +456,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201806151254525_Add Cart.resx">
       <DependentUpon>201806151254525_Add Cart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806160832284_Fix null error.resx">
+      <DependentUpon>201806160832284_Fix null error.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

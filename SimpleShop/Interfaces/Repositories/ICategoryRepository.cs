@@ -7,5 +7,6 @@ namespace SimpleShop.Interfaces.Repositories
 	public interface ICategoryRepository : IRepository<Category>
 	{
 		List<SelectListItem> GetSelectList();
+		bool Update(Category category,int id);
 	}
 }

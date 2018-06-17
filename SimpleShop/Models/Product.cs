@@ -36,7 +36,6 @@ namespace SimpleShop.Models
 		public int CategoryId { get; set; }
 		public virtual ICollection<Order> Orders { get; set; }	
 
-		[Required]
 		public ICollection<Cart> Cart { get; set; }
 	}
 }
