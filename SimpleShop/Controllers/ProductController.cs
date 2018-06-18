@@ -36,8 +36,6 @@ namespace SimpleShop.Controllers
 			ViewBag.CategoryId = categoryId;
 
 			var categories = _unitOfWork.Categories.GetAll().ToList();
-			var products = _productService.GetAll();
-
 			var productPageVm = new ProductPageVM
 			{
 				Product = _productService.Search(search,categoryId).ToPagedList(pageNumber,NumberProductOnPage),
@@ -156,7 +154,6 @@ namespace SimpleShop.Controllers
 			}
 
 			_productService.Remove(id.Value);
-
 			return RedirectToAction("Index");
 		}
 	}

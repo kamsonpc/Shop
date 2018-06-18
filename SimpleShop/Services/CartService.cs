@@ -31,7 +31,7 @@ namespace SimpleShop.Services
 
 		public List<CartVM> GetAll(string userId)
 		{
-			return Mapper.Map<List<Cart>, List<CartVM>>(_unitOfWork.CartItems.Find(c => c.ApplicationUserId == userId,"Product").ToList());
+			return Mapper.Map<List<Cart>, List<CartVM>>(_unitOfWork.CartItems.GetAll(userId).ToList());
 		}
 
 		public void Remove(int id)
@@ -45,7 +45,7 @@ namespace SimpleShop.Services
 
 		public void Complete(string userId, ShippingVM shippingData)
 		{
-			var items = _unitOfWork.CartItems.Find(c => c.ApplicationUserId == userId, "Product").ToList();
+			var items = _unitOfWork.CartItems.Find(c => c.ApplicationUserId == userId).ToList();
 			foreach (var item in items)
 			{
 				var order = new Order

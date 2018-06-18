@@ -12,8 +12,8 @@
 					contentType: "application/json;charset=utf-8",
 					dataType: "json",
 					success: function (result) {
-						$("#cart-counter").val = result;
-					},
+						$("#cart-counter").html(result);
+					}
 				});
 			});
 
@@ -21,7 +21,7 @@
 		 
 		<ul class="nav navbar-nav navbar-right">
 			<li>
-				<a href="@Url.Action("Index", "Cart")"><span id ="cart-counter" ></span> Koszyk</a>
+				<a href="@Url.Action("Index", "Cart")"><span id ="cart-counter" ></span> <i class="glyphicon glyphicon-shopping-cart"></i></a>
 			</li>
 
 			<li>

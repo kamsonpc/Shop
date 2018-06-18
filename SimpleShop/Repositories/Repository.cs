@@ -16,21 +16,9 @@ namespace SimpleShop.Repositories
 			Contex = context;
 		}
 
-		public IQueryable<TEntity> Include(IQueryable<TEntity> query, string includeProperties)
+		public IEnumerable<TEntity> GetAll()
 		{
-			foreach (var includeProperty in includeProperties.Split
-				(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
-			{
-				query = query.Include(includeProperty);
-			}
-
-			return query;
-		}
-
-		public IEnumerable<TEntity> GetAll(string includeProperties = "")
-		{
-			IQueryable<TEntity> query = Contex.Set<TEntity>();
-			return Include(query, includeProperties);
+			return Contex.Set<TEntity>();
 		}
 
 		public TEntity Get(int id)
@@ -38,10 +26,9 @@ namespace SimpleShop.Repositories
 			return Contex.Set<TEntity>().Find(id);
 		}
 
-		public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate, string includeProperties = "")
+		public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
 		{
-			IQueryable<TEntity> query = Contex.Set<TEntity>().Where(predicate);
-			return Include(query, includeProperties);
+			return Contex.Set<TEntity>().Where(predicate);
 		}
 
 		public void Add(TEntity entity)

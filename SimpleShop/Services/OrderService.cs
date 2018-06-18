@@ -18,17 +18,17 @@ namespace SimpleShop.Services
 
 		public List<OrdersPageVM> GetAll()
 		{
-			return Mapper.Map<List<Order>, List<OrdersPageVM>>(_unitOfWork.Orders.GetAll("ApplicationUser,Product").ToList());
+			return Mapper.Map<List<Order>, List<OrdersPageVM>>(_unitOfWork.Orders.GetAll().ToList());
 		}
 
 		public List<OrdersPageVM> Find(string search)
 		{
-			return Mapper.Map<List<Order>, List<OrdersPageVM>>(_unitOfWork.Orders.Find(s => (s.ApplicationUser.Email.Contains(search)) || (s.Product.Name.Contains(search)), "ApplicationUser,Product").ToList());
+			return Mapper.Map<List<Order>, List<OrdersPageVM>>(_unitOfWork.Orders.Find(s => (s.ApplicationUser.Email.Contains(search)) || s.Product.Name.Contains(search)).ToList());
 		}
 
 		public List<OrdersPageVM> GetByUserId(string id)
 		{
-			return Mapper.Map<List<Order>, List<OrdersPageVM>>(_unitOfWork.Orders.Find(o => o.ApplicationUserId == id, "ApplicationUser,Product").ToList());
+			return Mapper.Map<List<Order>, List<OrdersPageVM>>(_unitOfWork.Orders.GetOrdersByUserId(id).ToList());
 		}
 
 		public ShippingVM GetShippinDataById(int id)

@@ -24,9 +24,9 @@
 					<ul class="list-group">
 						<li class="list-group-item"><a href="@Url.Action("Index", "Product")">Wszystko</a></li>
 						@foreach (var item in Model.Categories)
-	{
-					<li class="list-group-item"><a href="@Url.Action("Index", "Product", new {categoryId = item.CategoryId})">@item.Name</a></li>
-}
+						{
+							<li class="list-group-item"><a href="@Url.Action("Index", "Product", new {categoryId = item.CategoryId})">@item.Name</a></li>
+						}
 					</ul>
 				</div>
 				<hr />
@@ -64,10 +64,21 @@
 										</p>
 										<hr>
 										<div class="row mt-small">
-											<div class="col-xs-12 col-md-12">
+											<div class="col-xs-12 col-md-9">
 												<p class="lead">
 													<b>@Html.DisplayFor(modelItem => item.Price)</b>
 												</p>
+											</div>
+											<div class="col-xs-12 col-md-3">
+
+												@using (Html.BeginForm("Add", "Cart", FormMethod.Get))
+												{
+
+													<input type="hidden" name="productId" value="@item.ProductId" />
+													<input type="hidden" value="1" id="orderQuantity" name="orderQuantity">
+
+													<button type="submit" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-shopping-cart"></i></button>
+												}
 											</div>
 											@if (Request.IsAuthenticated && User.IsInRole("Administrator"))
 											{

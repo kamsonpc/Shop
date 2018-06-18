@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 using SimpleShop.Interfaces.Repositories;
 using SimpleShop.Models;
 
@@ -12,14 +14,19 @@ namespace SimpleShop.Repositories
 		{
 		}
 
-		public IEnumerable<Order> GetOrdersByProductName(string name)
+		public new IEnumerable<Order> Find(Expression<Func<Order, bool>> predicate)
 		{
-			return GetAll().Where( p => p.Product.Name == name);
+			return ApplicationDbContext.Orders.Include(p => p.Product).Include(a => a.ApplicationUser).Where(predicate);
 		}
 
 		public IEnumerable<Order> GetOrdersByUserId(string userId)
 		{
-			return GetAll().Where(p => p.ApplicationUser.Id == userId);
+			return ApplicationDbContext.Orders.Include(p => p.Product).Where(p => p.ApplicationUser.Id == userId);
+		}
+
+		public new IEnumerable<Order> GetAll()
+		{
+			return ApplicationDbContext.Orders.Include(p => p.Product).Include(a => a.ApplicationUser);
 		}
 
 		public ApplicationDbContext ApplicationDbContext

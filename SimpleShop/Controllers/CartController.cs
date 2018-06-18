@@ -11,9 +11,9 @@ namespace SimpleShop.Controllers
     {
 	    private readonly ICartService _cartService;
 
-	    public CartController(ICartService _cartService)
+	    public CartController(ICartService cartService)
 	    {
-		    this._cartService = _cartService;
+		    _cartService = cartService;
 	    }
         public ActionResult Index()
         {
@@ -73,7 +73,7 @@ namespace SimpleShop.Controllers
 	    {
 		    var userId = User.Identity.GetUserId();
 		    var cartItemsCount = _cartService.Counter(userId);
-		    return Json(cartItemsCount);
+		    return Json(cartItemsCount,JsonRequestBehavior.AllowGet);
 	    }
 	}
 }

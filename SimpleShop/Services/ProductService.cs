@@ -56,6 +56,7 @@ namespace SimpleShop.Services
 		{
 			var productToRemove = _unitOfWork.Products.Get(id);
 			if (productToRemove == null) return;
+			RemoveImage(productToRemove.Img);
 			_unitOfWork.Products.Remove(productToRemove);
 			_unitOfWork.Complete();
 		}
