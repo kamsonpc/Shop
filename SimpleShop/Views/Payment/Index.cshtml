@@ -53,8 +53,7 @@
 				@Html.DisplayFor(modelItem => item.ApplicationUser.Email)
 			</td>
 			<td>
-				@Html.DisplayFor(modelItem => item.Product.Name)
-			</td>
+				<a href="@Url.Action("Details","Product" ,new {id = item.Product.ProductId})">@Html.DisplayFor(modelItem => item.Product.Name)</a>
 			<td>
 				@Html.DisplayFor(modelItem => item.Price)
 			</td>
@@ -71,8 +70,8 @@
 					<span class="text-warning">Nie</span>
 				</td>
 				<td>
-					<a class="btn btn-warning" href="@Url.Action("Pay", new {id = item.OrderId})">Zaksięgowanie</a>
-					<a class="btn btn-primary" href="@Url.Action("Shipping", new {id = item.OrderId})">Dane Wysyłki</a>
+					<a class="btn btn-sm btn-warning" href="@Url.Action("Pay", new {id = item.OrderId})">Zaksięgowanie</a>
+					<a class="btn btn-sm btn-primary" href="@Url.Action("Shipping", new {id = item.OrderId})">Dane Wysyłki</a>
 
 				</td>
 			}

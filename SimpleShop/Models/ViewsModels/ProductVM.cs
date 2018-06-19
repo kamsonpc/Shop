@@ -21,7 +21,7 @@ namespace SimpleShop.Models.ViewsModels
 		public decimal Price { get; set; }
 
 		[Display(Name = "Opis")]
-		[MinLength(156)]
+		[MinLength(135)]
 		[Required]
 		public string Description { get; set; }
 
@@ -36,6 +36,7 @@ namespace SimpleShop.Models.ViewsModels
 		[Display(Name = "Zamówiona Ilość Sztuk")]
 		public int CustomerQuantity { get; set; }
 
+		[Display(Name = "Kategoria")]
 		public IEnumerable<SelectListItem> Categories { get; set; }
 
 		[Display(Name = "Kategoria")]

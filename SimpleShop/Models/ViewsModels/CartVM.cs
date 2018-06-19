@@ -10,8 +10,10 @@ namespace SimpleShop.Models.ViewsModels
 		[Required]
 		public string ApplicationUserId { get; set; }
 		[Required]
+		[Display(Name = "Nazwa")]
 		public int ProductId { get; set; }
 		[Required]
+		[Display( Name = "Zamówiona ilość Sztuk")]
 		public int OrderedQuantity { get; set; }
 	}
 }

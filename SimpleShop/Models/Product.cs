@@ -18,13 +18,13 @@ namespace SimpleShop.Models
 		public decimal Price { get; set; }
 
 		[Required]
-		[MinLength(5)]
+		[MinLength(135)]
 		public string Description { get; set; }
 
 		public string Img { get; set; }
 
 		[Required]
-		[Range(1, 100000)]
+		[Range(0, 100000)]
 		public int Quantity { get; set; }
 
 		[Required]
@@ -36,6 +36,6 @@ namespace SimpleShop.Models
 		public int CategoryId { get; set; }
 		public virtual ICollection<Order> Orders { get; set; }	
 
-		public ICollection<Cart> Cart { get; set; }
+		public virtual ICollection<Cart> Cart { get; set; }
 	}
 }

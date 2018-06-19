@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using AutoMapper;
+using SimpleShop.Interfaces;
 using SimpleShop.Interfaces.Services;
 using SimpleShop.Models;
 using SimpleShop.Models.SearchModels;
@@ -13,9 +14,10 @@ namespace SimpleShop.Services
 {
 	public class ProductService : IProductService
 	{
-		private readonly UnitOfWork _unitOfWork;
+		private readonly IUnitOfWork _unitOfWork;
+		private const string UploadFolderPath = "~/UploadedFiles";
 
-		public ProductService(UnitOfWork unitOfWork)
+		public ProductService(IUnitOfWork unitOfWork)
 		{
 			_unitOfWork = unitOfWork;
 		}
@@ -46,9 +48,11 @@ namespace SimpleShop.Services
 		}
 
 
-		public void AddNew(ProductVM product)
+		public void AddNew(ProductVM productVm)
 		{
-			_unitOfWork.Products.Add(Mapper.Map<ProductVM,Product>(product));
+			var product = Mapper.Map<ProductVM, Product>(productVm);
+			product.AddDate = DateTime.Now;
+			_unitOfWork.Products.Add(product);
 			_unitOfWork.Complete();
 		}
 
@@ -63,7 +67,7 @@ namespace SimpleShop.Services
 
 		public string UploadImage(HttpPostedFileBase file)
 		{
-			var path = Path.Combine(HttpContext.Current.Server.MapPath("~/UploadedFiles"), Path.GetFileName(file.FileName) ?? throw new InvalidOperationException());
+			var path = Path.Combine(HttpContext.Current.Server.MapPath(UploadFolderPath), Path.GetFileName(file.FileName) ?? throw new InvalidOperationException());
 			file.SaveAs(path);
 
 			return file.FileName;
@@ -71,7 +75,7 @@ namespace SimpleShop.Services
 
 		public void RemoveImage(string fileName)
 		{
-			var path = Path.Combine(HttpContext.Current.Server.MapPath("~/UploadedFiles"), fileName);
+			var path = Path.Combine(HttpContext.Current.Server.MapPath(UploadFolderPath), fileName);
 			try
 			{
 				File.Delete(path);
@@ -79,7 +83,7 @@ namespace SimpleShop.Services
 			catch (Exception e)
 			{
 				Console.WriteLine(e);
-				throw new Exception("File not removed");
+				throw new IOException();
 			}
 		}
 

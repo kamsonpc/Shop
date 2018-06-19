@@ -1,47 +1,59 @@
 ﻿@model IEnumerable<SimpleShop.Models.ViewsModels.CartVM>
 
 @{
-	decimal price = 0;
+	decimal fullPrice = 0;
+	decimal shippingPrice = 10;
+	fullPrice += shippingPrice;
 }
-<table class="table table-bordered table-condensed">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Product.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.OrderedQuantity)
-        </th>
-	    <th>
-		    @Html.DisplayNameFor(model => model.Product.Price)
-	    </th>
-		<th></th>
-    </tr>
-
-@foreach (var item in Model) {
-	
-
-		price += item.Product.Price * item.OrderedQuantity;
+<h2>Koszyk</h2>
+@if (!Model.Any())
+{
+	<p>W koszyku nie ma żandych przedmiotów</p>
+}
+else
+{
+	<table class="table table-bordered table-condensed">
 		<tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Product.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.OrderedQuantity)
-        </td>
-			<td>
-				@Html.DisplayFor(modelItem => item.Product.Price)
-			</td>
-			<td><a href="@Url.Action("Remove", new {id = item.CartItemId})"><i class="glyphicon glyphicon-remove-circle"></i></a></td>
-    </tr>
+			<th>
+				@Html.DisplayNameFor(model => model.Product.Name)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.OrderedQuantity)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Product.Price)
+			</th>
+			<th></th>
+		</tr>
+
+		@foreach (var item in Model)
+		{
+
+
+			fullPrice += item.Product.Price * item.OrderedQuantity;
+			<tr>
+				<td>
+					@Html.DisplayFor(modelItem => item.Product.Name)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.OrderedQuantity)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Product.Price)
+				</td>
+				<td><a class="btn btn-danger" href="@Url.Action("Remove", new {id = item.CartItemId})"><i class="glyphicon glyphicon-remove "></i></a></td>
+			</tr>
+		}
+
+	</table>
+	<hr />
+	<h3>Koszt przesyłki : $@shippingPrice</h3>
+	<h2>Suma : <b>$@fullPrice</b></h2>
+	<hr />
 }
-
-</table>
-<hr/>
-Suma : @price
-<hr/>
-
 @if (Model.Any())
 {
 	<a class="btn btn-success" href="@Url.Action("Complete")">Zamawiam</a>
 }
-<a class="btn btn-primary" href="@Url.Action("Index","Product")">Kontynuje zakupy</a>
+<a class="btn btn-primary" href="@Url.Action("Index","Product")">Przechodzę do zakupów</a>
+

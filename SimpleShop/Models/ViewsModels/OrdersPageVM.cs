@@ -6,6 +6,7 @@ namespace SimpleShop.Models.ViewsModels
 	public class OrdersPageVM
 	{
 		[Key]
+		[Display(Name = "Numer Zamówienia")]
 		public int OrderId { get; set; }
 		public int ProductId { get; set; }
 		public Product Product { get; set; }
@@ -19,10 +20,10 @@ namespace SimpleShop.Models.ViewsModels
 		public decimal Price { get; set; }
 
 		[Display(Name = "Ilość sztuk")]
-		[Range(1,100000)]
+		[Range(0,100000)]
 		public int Quantity { get; set; }
 
-		[Display(Name = "Płatność")]
+		[Display(Name = "Płatność Zaksięgowana")]
 		public bool Payment { get; set; }
 
 		[Display(Name = "Data Zakupu")]

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using SimpleShop.Interfaces.Repositories;
@@ -40,7 +41,7 @@ namespace SimpleShop.Repositories
 				query = query.Where(p => (p.Price >= searchModel.PriceFrom && p.Price <= searchModel.PriceTo));
 			}
 
-			return query.ToList();
+			return query.OrderByDescending(d => d.AddDate).ToList();
 		}
 
 		public void Update(int id, Product product)

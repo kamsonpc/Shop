@@ -239,7 +239,6 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
@@ -301,10 +300,6 @@
     <Compile Include="Migrations\201806151254525_Add Cart.Designer.cs">
       <DependentUpon>201806151254525_Add Cart.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201806160832284_Fix null error.cs" />
-    <Compile Include="Migrations\201806160832284_Fix null error.Designer.cs">
-      <DependentUpon>201806160832284_Fix null error.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Cart.cs" />
@@ -319,7 +314,6 @@
     <Compile Include="Models\ViewsModels\CartVM.cs" />
     <Compile Include="Models\ViewsModels\ProductPageVM.cs" />
     <Compile Include="Models\ViewsModels\OrdersPageVM.cs" />
-    <Compile Include="Models\ViewsModels\OrderVM.cs" />
     <Compile Include="Models\ViewsModels\ProductVM.cs" />
     <Compile Include="Models\ViewsModels\ShippingVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -456,9 +450,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201806151254525_Add Cart.resx">
       <DependentUpon>201806151254525_Add Cart.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201806160832284_Fix null error.resx">
-      <DependentUpon>201806160832284_Fix null error.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

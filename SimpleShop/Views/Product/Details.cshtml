@@ -17,15 +17,23 @@
 					@Html.DisplayNameFor(model => model.Price) : <b>@Html.DisplayFor(model => model.Price)</b><br />
 					@Html.DisplayNameFor(model => model.Quantity) : <b>@Html.DisplayFor(model => model.Quantity)</b>
 					<hr />
-					@using (Html.BeginForm("Add", "Cart", FormMethod.Get))
+					@if (Model.Quantity != 0)
 					{
-					<div class="form-group-sm">
-						@Html.HiddenFor(model => model.ProductId)
-						<label for="orderQuantity">Ilość Sztuk</label>
-						<input type="number" id="orderQuantity" name="orderQuantity" min="0" max="@Model.Quantity" value="1" class="form-control">
-					</div>
-						<br />
-						<button type="submit" class="btn btn-lg btn-danger" >Dodaj do Koszyka <i class="glyphicon glyphicon-shopping-cart"></i></button>
+						using (Html.BeginForm("Add", "Cart", FormMethod.Get))
+						{
+							<div class="form-group-sm">
+								@Html.HiddenFor(model => model.ProductId)
+								<label for="orderQuantity">Ilość Sztuk</label>
+								<input type="number" id="orderQuantity" name="orderQuantity" min="0" max="@Model.Quantity" value="1" class="form-control">
+							</div>
+							<br />
+							<button type="submit" class="btn btn-lg btn-danger">Dodaj do Koszyka <i class="glyphicon glyphicon-shopping-cart"></i></button>
+						}
+
+					}
+					else
+					{
+						<span class = "text-danger">Brak towaru</span>
 					}
 				</div>
 			</div>

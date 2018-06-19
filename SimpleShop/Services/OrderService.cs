@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
+using SimpleShop.Interfaces;
 using SimpleShop.Interfaces.Services;
 using SimpleShop.Models;
 using SimpleShop.Models.ViewsModels;
@@ -9,9 +10,9 @@ namespace SimpleShop.Services
 {
 	public class OrderService : IOrderService
 	{
-		private readonly UnitOfWork _unitOfWork;
+		private readonly IUnitOfWork _unitOfWork;
 
-		public OrderService(UnitOfWork unitOfWork)
+		public OrderService(IUnitOfWork unitOfWork)
 		{
 			_unitOfWork = unitOfWork;
 		}

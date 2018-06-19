@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 using SimpleShop.Interfaces.Repositories;
 using SimpleShop.Models;
 
@@ -14,6 +16,10 @@ namespace SimpleShop.Repositories
 			
 		}
 
+		public new IEnumerable<Cart> Find(Expression<Func<Cart, bool>> predicate)
+		{
+			return ApplicationDbContext.CartItems.Include(p => p.Product).Include(a => a.ApplicationUser).Where(predicate);
+		}
 
 		public new IEnumerable<Cart> GetAll()
 		{

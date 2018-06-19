@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
+using SimpleShop.Interfaces;
 using SimpleShop.Interfaces.Services;
 using SimpleShop.Models;
 using SimpleShop.Models.ViewsModels;
@@ -10,15 +11,18 @@ namespace SimpleShop.Services
 {
 	public class CartService : ICartService
 	{
-		private readonly UnitOfWork _unitOfWork;
+		private readonly IUnitOfWork _unitOfWork;
 
-		public CartService(UnitOfWork unitOfWork)
+		public CartService(IUnitOfWork unitOfWork)
 		{
 			_unitOfWork = unitOfWork;
 		}
 
 		public void Add(CartVM cartItemVm)
 		{
+			var productInDb = _unitOfWork.Products.Get(cartItemVm.ProductId);
+			if (cartItemVm.OrderedQuantity == 0 || productInDb.Quantity  - cartItemVm.OrderedQuantity < 0) return;
+
 			var cartItem = Mapper.Map<CartVM, Cart>(cartItemVm);
 			_unitOfWork.CartItems.Add(cartItem);
 			_unitOfWork.Complete();
@@ -61,6 +65,7 @@ namespace SimpleShop.Services
 					PhoneNumber = shippingData.PhoneNumber,
 					NameAndSurname = shippingData.NameAndSurname
 				};
+
 				var productInDb =_unitOfWork.Products.Get(item.ProductId);
 				productInDb.Quantity -= item.OrderedQuantity;
 

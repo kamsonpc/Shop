@@ -10,8 +10,6 @@ namespace SimpleShop.Mapping
 		{
 			CreateMap<Product, ProductVM>().ReverseMap();
 
-			CreateMap<OrderVM, Order>().ReverseMap();
-
 			CreateMap<OrdersPageVM, Order>().ReverseMap();
 
 			CreateMap<ShippingVM, Order>().ReverseMap();

@@ -19,16 +19,16 @@ namespace SimpleShop.Controllers
 		private readonly IUnitOfWork _unitOfWork;
 		private const int NumberProductOnPage = 9;
 
-		public ProductController(IProductService productServiceService,IUnitOfWork unitOfWork)
+		public ProductController(IProductService productService, IUnitOfWork unitOfWork)
 		{
-			_productService = productServiceService;
+			_productService = productService;
 			_unitOfWork = unitOfWork;
 		}
-		
-	
+
+
 
 		[AllowAnonymous]
-		public ActionResult Index(int? categoryId,ProductSearchModel search, int? page)
+		public ActionResult Index(int? categoryId, ProductSearchModel search, int? page)
 		{
 			var pageNumber = page ?? 1;
 
@@ -38,7 +38,7 @@ namespace SimpleShop.Controllers
 			var categories = _unitOfWork.Categories.GetAll().ToList();
 			var productPageVm = new ProductPageVM
 			{
-				Product = _productService.Search(search,categoryId).ToPagedList(pageNumber,NumberProductOnPage),
+				Product = _productService.Search(search, categoryId).ToPagedList(pageNumber, NumberProductOnPage),
 				Categories = categories,
 				Search = search
 			};
@@ -67,7 +67,7 @@ namespace SimpleShop.Controllers
 		[AuthorizeCustom(Roles = "Administrator")]
 		public ActionResult Create()
 		{
-			ProductVM productVm = new ProductVM
+			var productVm = new ProductVM
 			{
 				Categories = _unitOfWork.Categories.GetSelectList()
 			};
@@ -80,9 +80,11 @@ namespace SimpleShop.Controllers
 		[AuthorizeCustom(Roles = "Administrator")]
 		public ActionResult Create(ProductVM productVm, HttpPostedFileBase file)
 		{
+			productVm.Categories = _unitOfWork.Categories.GetSelectList();
+
 			if (!ModelState.IsValid)
 			{
-				productVm.Categories = _unitOfWork.Categories.GetSelectList();
+
 				return View(productVm);
 			}
 
@@ -92,19 +94,18 @@ namespace SimpleShop.Controllers
 				{
 					productVm.Img = _productService.UploadImage(file);
 					_productService.AddNew(productVm);
-					Alert("Dodano produkt" + productVm.Name, NotificationType.success);
+					Alert("Dodano produkt : " + productVm.Name, NotificationType.success);
 
 					return RedirectToAction("Index");
 				}
 				catch
 				{
 					Alert("Wysyłanie pliku nie powiodło się", NotificationType.danger);
-					return View();
+					return View(productVm);
 				}
 			}
 
 			Alert("Plik jest nie prawidłowy", NotificationType.danger);
-			productVm.Categories = _unitOfWork.Categories.GetSelectList();
 			return View(productVm);
 		}
 
