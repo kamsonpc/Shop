@@ -7,19 +7,34 @@
 	@Styles.Render("~/Content/css")
 	@Scripts.Render("~/bundles/modernizr")
 	@Scripts.Render("~/bundles/jquery")
+	@Scripts.Render("~/bundles/material")
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+
 
 </head>
 <body>
 	@Html.Partial("_Navbar")
-	<div class="container body-content">
-		@Html.Partial("_Notyfication")
-		@RenderBody()
-		<hr />
-		@Html.Partial("_Footer")
+
+<div class="hero-img">
+	<div class="text-overlay white-text shadow-text center-align">
+
+		<h4>Lorem ipsum dolor sit amet, consectetur adipiscing </h4>
+		<h5>Totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et</h5>
 	</div>
+</div>
+@Html.MvcSiteMap().SiteMapPath()
+
+<div class="container">
+
+	@Html.Partial("_Notyfication")
+	@RenderBody()
 
 
-	@Scripts.Render("~/bundles/bootstrap")
+</div>
+
+
+	@Html.Partial("_Footer")
 	@RenderSection("scripts", required: false)
 </body>
 </html>

@@ -1,0 +1,16 @@
+﻿@model MvcSiteMapProvider.Web.Html.Models.SiteMapPathHelperModel
+@using System.Web.Mvc.Html
+@using System.Linq
+@using MvcSiteMapProvider.Web.Html.Models
+<nav>
+	<div class="container">
+		<div class="nav-wrapper">
+			<div class="col s12">
+				@foreach (var node in Model)
+				{
+					<a href="@node.Url" class="breadcrumb">@node.Title</a>
+				}
+			</div>
+		</div>
+	</div>
+</nav>

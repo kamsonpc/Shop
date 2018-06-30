@@ -4,49 +4,51 @@
 	ViewBag.Title = "Details";
 }
 <h2>@Html.DisplayFor(model => model.Name)</h2>
-<a class="btn btn-primary" href="@Url.Action("Index", "Product")"><i class="glyphicon glyphicon-arrow-left"></i> Powrót </a>
-<hr />
-<div class="container">
-	<div class="row">
-		<div class="col-md-9">
-			<img class="img-details" src="@Url.Content("~/UploadedFiles/" + Model.Img)" alt="" />
-		</div>
-		<div class="col-md-3">
-			<div class="panel panel-default">
-				<div class="panel-body">
-					@Html.DisplayNameFor(model => model.Price) : <b>@Html.DisplayFor(model => model.Price)</b><br />
-					@Html.DisplayNameFor(model => model.Quantity) : <b>@Html.DisplayFor(model => model.Quantity)</b>
-					<hr />
-					@if (Model.Quantity != 0)
+
+<div class="row">
+	<div class="col m9">
+		<img class="img-details" src="@Url.Content("~/UploadedFiles/" + Model.Img)" alt="" />
+		<h4 class="text-center">
+			@Html.DisplayNameFor(model => model.Description)
+		</h4>
+		<p>@Html.DisplayFor(model => model.Description)</p>
+	</div>
+	<div class="col m3">
+		<div class="card">
+			<div class="card-content">
+
+				@Html.DisplayNameFor(model => model.Price) : <b>@Html.DisplayFor(model => model.Price)</b><br />
+				@Html.DisplayNameFor(model => model.Quantity) : <b>@Html.DisplayFor(model => model.Quantity)</b>
+				<hr />
+				@if (Model.Quantity != 0)
+				{
+					using (Html.BeginForm("Add", "Cart", FormMethod.Get))
 					{
-						using (Html.BeginForm("Add", "Cart", FormMethod.Get))
-						{
-							<div class="form-group-sm">
+						<div class="row">
+							<div class="input-field col s12">
 								@Html.HiddenFor(model => model.ProductId)
 								<label for="orderQuantity">Ilość Sztuk</label>
-								<input type="number" id="orderQuantity" name="orderQuantity" min="0" max="@Model.Quantity" value="1" class="form-control">
+								<input type="number" id="orderQuantity" name="orderQuantity" min="1" max="@Model.Quantity" value="1">
 							</div>
-							<br />
-							<button type="submit" class="btn btn-lg btn-danger">Dodaj do Koszyka <i class="glyphicon glyphicon-shopping-cart"></i></button>
-						}
+						</div>
+						<div class="row">
+							<button type="submit" class="btn waves-effect waves-light col m10 offset-m1">
+								<i class="material-icons right">
+									shopping_cart
+								</i> Dodaj do Koszyka
+							</button>
+						</div>
 
 					}
-					else
-					{
-						<span class = "text-danger">Brak towaru</span>
-					}
-				</div>
+				}
+				else
+				{
+					<span class="red-text">Brak towaru</span>
+				}
 			</div>
 		</div>
 	</div>
-	<hr />
-	<div class="row">
-		<div class="col-md-12">
-			<h3 class="text-center">
-				@Html.DisplayNameFor(model => model.Description)
-			</h3>
-			<p>@Html.DisplayFor(model => model.Description)</p>
-		</div>
-	</div>
+
 </div>
+
 

@@ -1,11 +1,12 @@
 ﻿@using Microsoft.AspNet.Identity
 @if (Request.IsAuthenticated)
 {
-	using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+	using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "right hide-on-med-and-down" }))
 	{
 		@Html.AntiForgeryToken()
+
 		<script>
-			$( document ).ready(function() {
+			$(document).ready(function () {
 				$.ajax({
 					type: "GET",
 					url: "Cart/Counter",
@@ -18,23 +19,44 @@
 			});
 
 		</script>
-		 
-		<ul class="nav navbar-nav navbar-right">
-			<li>
-				<a href="@Url.Action("Index", "Cart")"><span id ="cart-counter" ></span> <i class="glyphicon glyphicon-shopping-cart"></i></a>
-			</li>
 
-			<li>
-				@Html.ActionLink("Witaj " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
-			</li>
-			<li><a href="javascript:document.getElementById('logoutForm').submit()">Wyloguj</a></li>
-		</ul>
+		<li>
+			<a href="@Url.Action("Index", "Cart")">
+				<span id="cart-counter" class="new badge red" data-badge-caption="Cart"></span> 			
+			</a>
+		</li>
+
+
+		<li>
+			<a class='dropdown-trigger btn' href='#' data-target='dropdown1'><i class="material-icons left">person</i> Account</a>
+
+			<ul id='dropdown1' class='dropdown-content'>
+				<li>@User.Identity.Name</li>
+				<li><a href="@Url.Action( "Index", "Manage")">Menage</a></li>
+				<li>
+					<a href="javascript:document.getElementById('logoutForm').submit()">LogOut</a>
+				</li>
+			</ul>
+
+		</li>
+		<li>
+			<a href="javascript:document.getElementById('logoutForm').submit()"><i class="fa fa-sign-out-alt"></i></a>
+
+		</li>
 	}
 }
 else
 {
-	<ul class="nav navbar-nav navbar-right">
-		<li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-		<li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
-	</ul>
+
+	<li>
+		<a href="@Url.Action("Login", "Account")">
+			<i class="material-icons left">person</i> Login
+		</a>
+	</li>
+	<li>
+		<a href="@Url.Action( "Register", "Account")">
+			<i class="material-icons left">person_add</i> Register
+		</a>
+	</li>
+
 }
