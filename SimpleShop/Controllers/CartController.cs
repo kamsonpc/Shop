@@ -3,6 +3,8 @@ using Microsoft.AspNet.Identity;
 using SimpleShop.Filters;
 using SimpleShop.Interfaces.Services;
 using SimpleShop.Models.ViewsModels;
+using static SimpleShop.Views.Shared.Alerts.Alert;
+
 
 namespace SimpleShop.Controllers
 {
@@ -63,10 +65,11 @@ namespace SimpleShop.Controllers
 			var userId = User.Identity.GetUserId();
 
 			if (!ModelState.IsValid) return View(shippingData);
-			
 
-			_cartService.Complete(userId,shippingData);
-		    return RedirectToAction("Index","Orders");
+			var boughtItemsNumber = _cartService.Complete(userId,shippingData);
+
+			Alert("You bought "+ boughtItemsNumber + " Items",NotificationType.success);
+			return RedirectToAction("Index","Orders");
 	    }
 
 	    public ActionResult Counter()

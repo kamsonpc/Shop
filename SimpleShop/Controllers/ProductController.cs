@@ -25,8 +25,6 @@ namespace SimpleShop.Controllers
 			_unitOfWork = unitOfWork;
 		}
 
-
-
 		[AllowAnonymous]
 		public ActionResult Index(int? categoryId, ProductSearchModel search, int? page)
 		{
@@ -155,6 +153,8 @@ namespace SimpleShop.Controllers
 			}
 
 			_productService.Remove(id.Value);
+			Alert("Product Removed", NotificationType.success);
+
 			return RedirectToAction("Index");
 		}
 	}

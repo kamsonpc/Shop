@@ -3,6 +3,7 @@
 		<div class="nav-wrapper container">
 			<a href="#!" class="brand-logo">Logo</a>
 			<a href="#" data-target="mobile-nav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+
 			<ul class="right hide-on-med-and-down">
 				<li>@Html.ActionLink("Home", "Index", "Home")</li>
 				<li>@Html.ActionLink("Sklep", "Index", "Product")</li>
@@ -20,6 +21,7 @@
 				<li>@Html.ActionLink("Kontakt", "Contact", "Home")</li>
 		
 				@Html.Partial("_LoginPartial")
+
 
 			</ul>
 		</div>
@@ -40,7 +42,6 @@
 
 		}
 		<li>@Html.ActionLink("Kontakt", "Contact", "Home")</li>
-		@Html.Partial("_LoginPartial")
 
 	</ul>
 

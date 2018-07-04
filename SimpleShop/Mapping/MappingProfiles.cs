@@ -14,7 +14,9 @@ namespace SimpleShop.Mapping
 
 			CreateMap<ShippingVM, Order>().ReverseMap();
 
-			CreateMap<ShippingVM, Product>().ReverseMap();
+
+			CreateMap<UserAddress, UserAddressVM>();
+			CreateMap<UserAddressVM, UserAddress>().ForSourceMember(x => x.Id, y => y.Ignore());
 
 			CreateMap<CartVM, Cart>().ReverseMap();
 		}

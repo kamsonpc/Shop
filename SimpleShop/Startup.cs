@@ -17,31 +17,31 @@ namespace SimpleShop
 
 		private void CreateAdmin()
 		{
-			ApplicationDbContext context = new ApplicationDbContext();
+			var context = new ApplicationDbContext();
 
 			var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
-			var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+			var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
 
-			if (!roleManager.RoleExists("Administrator"))
+			if (roleManager.RoleExists("Administrator")) return;
+			var role = new IdentityRole
 			{
-				var role = new IdentityRole();
-				role.Name = "Administrator";
-				roleManager.Create(role);
+				Name = "Administrator"
+			};
+			roleManager.Create(role);
 
-				var user = new ApplicationUser
-				{
-					UserName = "admin@gmail.com",
-					Email = "admin@gmail.com"
-				};
+			var user = new ApplicationUser
+			{
+				UserName = "admin@gmail.com",
+				Email = "admin@gmail.com"
+			};
 
-				const string userPass = "zaq1@WSX";
+			const string userPass = "zaq1@WSX";
 
-				var chkUser = UserManager.Create(user, userPass);
-				if (chkUser.Succeeded)
-				{
-					UserManager.AddToRole(user.Id, "Administrator");
+			var chkUser = userManager.Create(user, userPass);
+			if (chkUser.Succeeded)
+			{
+				userManager.AddToRole(user.Id, "Administrator");
 
-				}
 			}
 		}
 	}

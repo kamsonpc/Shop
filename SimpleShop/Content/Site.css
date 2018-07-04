@@ -88,3 +88,11 @@ p.list-group-item-text
 .left-bar {
 	padding: 0 45px !important;
 }
+.img-avatar {
+	width: 35px;
+	height: 35px;
+	display: block;
+	margin-top: 15px;
+	margin-right:10px;
+	float: left;
+}

@@ -15,12 +15,15 @@ namespace SimpleShop.Models
 			Orders = new OrderRepository(_contex);
 			Products = new ProductRepository(_contex);
 			CartItems = new CartRepository(_contex);
+			UserAddress = new UserAddressRepository(_contex);
 		}
 
 		public ICategoryRepository Categories { get; private set; }
 		public IOrderRepository Orders { get; private set; }
 		public IProductRepository Products { get; private set; }
 		public ICartRepository CartItems { get; private set; }
+		public IUserAddress UserAddress { get; private set; }
+
 
 		public int Complete()
 		{

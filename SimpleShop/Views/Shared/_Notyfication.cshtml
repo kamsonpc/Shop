@@ -2,6 +2,9 @@
 @if (TempData["notification"] != null)
 {
 	<br />
-	@Html.Raw(TempData["notification"])
+	
+	<script>
+		M.toast({html: '@Html.Raw(TempData["notification"])'})
+	</script>
 }
 

@@ -21,7 +21,7 @@ namespace SimpleShop.Services
 		public void Add(CartVM cartItemVm)
 		{
 			var productInDb = _unitOfWork.Products.Get(cartItemVm.ProductId);
-			if (cartItemVm.OrderedQuantity == 0 || productInDb.Quantity  - cartItemVm.OrderedQuantity < 0) return;
+			if (cartItemVm.OrderedQuantity == 0 || productInDb.Quantity - cartItemVm.OrderedQuantity < 0) return;
 
 			var cartItem = Mapper.Map<CartVM, Cart>(cartItemVm);
 			_unitOfWork.CartItems.Add(cartItem);
@@ -47,13 +47,14 @@ namespace SimpleShop.Services
 			_unitOfWork.Complete();
 		}
 
-		public void Complete(string userId, ShippingVM shippingData)
+		public int Complete(string userId, ShippingVM shippingData)
 		{
+			var count = 0;
 			var items = _unitOfWork.CartItems.Find(c => c.ApplicationUserId == userId).ToList();
 			foreach (var item in items)
 			{
 				var order = new Order
-				{   
+				{
 					ApplicationUserId = userId,
 					ProductId = item.ProductId,
 					Date = DateTime.Now,
@@ -66,13 +67,17 @@ namespace SimpleShop.Services
 					NameAndSurname = shippingData.NameAndSurname
 				};
 
-				var productInDb =_unitOfWork.Products.Get(item.ProductId);
+				var productInDb = _unitOfWork.Products.Get(item.ProductId);
 				productInDb.Quantity -= item.OrderedQuantity;
+
 
 				_unitOfWork.Orders.Add(order);
 				_unitOfWork.CartItems.Remove(item);
+				count++;
+
 			}
 			_unitOfWork.Complete();
+			return count;
 		}
 	}
 }

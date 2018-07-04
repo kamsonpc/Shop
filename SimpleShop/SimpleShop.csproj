@@ -267,6 +267,7 @@
     <Compile Include="Interfaces\Repositories\ICartRepository.cs" />
     <Compile Include="Interfaces\Repositories\ICategoryRepository.cs" />
     <Compile Include="Interfaces\Repositories\IOrderRepository.cs" />
+    <Compile Include="Interfaces\Repositories\IUserAddress.cs" />
     <Compile Include="Interfaces\Services\ICartService.cs" />
     <Compile Include="Interfaces\Services\IOrderService.cs" />
     <Compile Include="Interfaces\Repositories\IProductRepository.cs" />
@@ -310,6 +311,14 @@
     <Compile Include="Migrations\201806151254525_Add Cart.Designer.cs">
       <DependentUpon>201806151254525_Add Cart.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201807020935176_one to one add adres .cs" />
+    <Compile Include="Migrations\201807020935176_one to one add adres .Designer.cs">
+      <DependentUpon>201807020935176_one to one add adres .cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807021653061_Fix Error.cs" />
+    <Compile Include="Migrations\201807021653061_Fix Error.Designer.cs">
+      <DependentUpon>201807021653061_Fix Error.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Cart.cs" />
@@ -321,17 +330,20 @@
     <Compile Include="Models\SearchModels\ProductSearchModel.cs" />
     <Compile Include="Models\Status.cs" />
     <Compile Include="Models\UnitOfWork.cs" />
+    <Compile Include="Models\UserAddress.cs" />
     <Compile Include="Models\ViewsModels\CartVM.cs" />
     <Compile Include="Models\ViewsModels\ProductPageVM.cs" />
     <Compile Include="Models\ViewsModels\OrdersPageVM.cs" />
     <Compile Include="Models\ViewsModels\ProductVM.cs" />
     <Compile Include="Models\ViewsModels\ShippingVM.cs" />
+    <Compile Include="Models\ViewsModels\UserAddressVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CartRepository.cs" />
     <Compile Include="Repositories\CategoryRepository.cs" />
     <Compile Include="Repositories\OrderRepository.cs" />
     <Compile Include="Repositories\ProductRepository.cs" />
     <Compile Include="Repositories\Repository.cs" />
+    <Compile Include="Repositories\UserAddressRepository.cs" />
     <Compile Include="Services\CartService.cs" />
     <Compile Include="Services\OrderService.cs" />
     <Compile Include="Services\ProductService.cs" />
@@ -433,6 +445,8 @@
     <Content Include="Views\Shared\DisplayTemplates\MetaRobotsHelperModel.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\MenuHelperModel.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\CanonicalHelperModel.cshtml" />
+    <Content Include="Views\Account\SetAddress.cshtml" />
+    <Content Include="Views\Account\Address.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -478,6 +492,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201806151254525_Add Cart.resx">
       <DependentUpon>201806151254525_Add Cart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807020935176_one to one add adres .resx">
+      <DependentUpon>201807020935176_one to one add adres .cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807021653061_Fix Error.resx">
+      <DependentUpon>201807021653061_Fix Error.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

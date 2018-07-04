@@ -10,7 +10,9 @@
       <mvcSiteMapNode title="New Product" controller="Product" action="Create"/>
       <mvcSiteMapNode title="Edit Product" controller="Product" action="Edit"/>
       <mvcSiteMapNode title="Product" controller="Product"  action="Details" dynamicNodeProvider="SimpleShop.BreadCrumbs.DynamicNodeGenerator,SimpleShop" />
-      <mvcSiteMapNode title="Cart" controller="Cart" action="Index"/>
+      <mvcSiteMapNode title="Cart" controller="Cart" action="Index">
+        <mvcSiteMapNode title="Finalize" controller="Cart" action="Complete"/>
+      </mvcSiteMapNode>
       <mvcSiteMapNode title="My Orders" controller="Orders" action="Index"/>
     </mvcSiteMapNode>
 

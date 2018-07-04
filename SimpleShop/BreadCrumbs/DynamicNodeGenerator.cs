@@ -16,8 +16,6 @@ namespace SimpleShop.BreadCrumbs
 			using (var ctx = new ApplicationDbContext())
 			{
 				var products = ctx.Products.ToList();
-
-
 				foreach (var product in products)
 				{
 					var dynamicNode = new DynamicNode("ProductID_" + product.ProductId, product.Name);

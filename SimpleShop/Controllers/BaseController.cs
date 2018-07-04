@@ -7,10 +7,7 @@ namespace SimpleShop.Controllers
 	{
 		public void Alert(string message, NotificationType notificationType)
 		{
-			var msg = "<div class='alert alert-" + notificationType + "' role='alert'>" +
-				message + "</div>";
-			TempData["notification"] = msg;
-
+			TempData["notification"] = message;
 		}
 	}
 }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -18,6 +19,7 @@ namespace SimpleShop.Models
 			return userIdentity;
 		}
 
+		public virtual UserAddress Address { get; set; }
 		public virtual ICollection<Order> Orders { get; set; }
 		public virtual ICollection<Cart> Cart { get; set; }
 
@@ -35,11 +37,19 @@ namespace SimpleShop.Models
 		public DbSet<Order> Orders { get; set; }
 		public DbSet<Cart> CartItems { get; set; }
 		public DbSet<Category> Categories { get; set; }
+		public DbSet<UserAddress> UserAddress { get; set; }
 
-
+		protected override void OnModelCreating(DbModelBuilder modelBuilder)
+		{
+			modelBuilder.Entity<ApplicationUser>()
+				.HasOptional(u => u.Address) 
+				.WithRequired(ud => ud.ApplicationUser); 
+			base.OnModelCreating(modelBuilder);
+		}
 		public static ApplicationDbContext Create()
 		{
 			return new ApplicationDbContext();
 		}
+
 	}
 }

@@ -32,6 +32,7 @@ namespace SimpleShop.Models
 
 		[Required]
 		public bool Payment { get; set; }
+
 		[Required]
 		[MaxLength(255)]
 		[MinLength(5)]
@@ -45,10 +46,11 @@ namespace SimpleShop.Models
 		[MaxLength(255)]
 		[MinLength(5)]
 		public string Address { get; set; }
+
 		[Required]
 		[DataType(DataType.PostalCode)]
-
 		public string CityCode { get; set; }
+
 		[Required]
 		public string Country { get; set; }
 

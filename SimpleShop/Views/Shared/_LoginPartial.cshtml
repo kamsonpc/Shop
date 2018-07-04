@@ -25,25 +25,23 @@
 				<span id="cart-counter" class="new badge red" data-badge-caption="Cart"></span> 			
 			</a>
 		</li>
+		<li><a class="dropdown-trigger" href="#!" data-target="dropdown1">
+				<img  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOvp8EmhgqtExf608WzkT15oNmWrIDgx-MlopQvncKZC3r8jML" alt="" class="circle img-avatar">
+				@User.Identity.Name<i class="material-icons right">arrow_drop_down</i>
 
-
-		<li>
-			<a class='dropdown-trigger btn' href='#' data-target='dropdown1'><i class="material-icons left">person</i> Account</a>
-
+			</a>
 			<ul id='dropdown1' class='dropdown-content'>
-				<li>@User.Identity.Name</li>
 				<li><a href="@Url.Action( "Index", "Manage")">Menage</a></li>
+				<li><a href="@Url.Action( "Address", "Account")">Address</a></li>
 				<li>
 					<a href="javascript:document.getElementById('logoutForm').submit()">LogOut</a>
 				</li>
 			</ul>
-
 		</li>
-		<li>
-			<a href="javascript:document.getElementById('logoutForm').submit()"><i class="fa fa-sign-out-alt"></i></a>
 
-		</li>
 	}
+
+
 }
 else
 {

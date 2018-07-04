@@ -1,7 +1,7 @@
 ﻿
-@model SimpleShop.Models.ViewsModels.ShippingVM
+@model SimpleShop.Models.ViewsModels.UserAddressVM
 @{
-	ViewBag.Title = "Buy";
+	ViewBag.Title = "SetAddress";
 }
 
 
@@ -11,7 +11,7 @@
 
 	<div class="row login-form">
 		<div class="col m8 offset-m2">
-		@Html.ValidationSummary(true, "", new { @class = "red-text" })
+			@Html.ValidationSummary(true, "", new { @class = "red-text" })
 
 			<h4 class="center-align">Dane do wysyłki</h4>
 
