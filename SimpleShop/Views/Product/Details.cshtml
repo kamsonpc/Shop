@@ -22,7 +22,7 @@
 				<hr />
 				@if (Model.Quantity != 0)
 				{
-					using (Html.BeginForm("Add", "Cart", FormMethod.Get))
+					using (Html.BeginForm(MVC.Cart.Add(), FormMethod.Get))
 					{
 						<div class="row">
 							<div class="input-field col s12">

@@ -9,74 +9,74 @@ using static SimpleShop.Views.Shared.Alerts.Alert;
 namespace SimpleShop.Controllers
 {
 	[AuthorizeCustom]
-	public class CartController : BaseController
-    {
-	    private readonly ICartService _cartService;
+	public partial class CartController : BaseController
+	{
+		private readonly ICartService _cartService;
 
-	    public CartController(ICartService cartService)
-	    {
-		    _cartService = cartService;
-	    }
-        public ActionResult Index()
-        {
-	        var userId = User.Identity.GetUserId();
-	        var items =_cartService.GetAll(userId);
-            return View(items);
-        }
+		public CartController(ICartService cartService)
+		{
+			_cartService = cartService;
+		}
+		public virtual ActionResult Index()
+		{
+			var userId = User.Identity.GetUserId();
+			var items = _cartService.GetAll(userId);
+			return View(items);
+		}
 
 		[HttpGet]
-	    public ActionResult Add(int productId,int orderQuantity)
-	    {
-		    var userId = User.Identity.GetUserId();
+		public virtual ActionResult Add(int productId, int orderQuantity)
+		{
+			var userId = User.Identity.GetUserId();
 
 			var cartItem = new CartVM
-		    {
+			{
 				ProductId = productId,
 				ApplicationUserId = userId,
 				OrderedQuantity = orderQuantity
-		    };
+			};
 
 			_cartService.Add(cartItem);
 
-		    return RedirectToAction("Index");
-	    }
+			return RedirectToAction(MVC.Product.Index());
+		}
 
-	    [HttpGet]
-	    public ActionResult Remove(int id)
-	    {
+		[HttpGet]
+		public virtual ActionResult Remove(int id)
+		{
 			_cartService.Remove(id);
 
-		    return RedirectToAction("Index");
-	    }
+			return RedirectToAction(MVC.Product.Index());
+		}
 
-	    public ActionResult Complete()
-	    {
-		    var userId = User.Identity.GetUserId();
-		    var cartItemCount = _cartService.Counter(userId);
+		public virtual ActionResult Complete()
+		{
+			var userId = User.Identity.GetUserId();
+			var cartItemCount = _cartService.Counter(userId);
 
-		    if (cartItemCount == 0) return RedirectToAction("Index", "Product");
+			if (cartItemCount == 0) return RedirectToAction(MVC.Product.Index());
 			return View();
-	    }
+		}
 
 		[HttpPost]
-	    public ActionResult Complete(ShippingVM shippingData)
+		public virtual ActionResult Complete(ShippingVM shippingData)
 		{
 
 			var userId = User.Identity.GetUserId();
 
 			if (!ModelState.IsValid) return View(shippingData);
 
-			var boughtItemsNumber = _cartService.Complete(userId,shippingData);
+			var boughtItemsNumber = _cartService.Complete(userId, shippingData);
 
-			Alert("You bought "+ boughtItemsNumber + " Items",NotificationType.success);
-			return RedirectToAction("Index","Orders");
-	    }
+			Alert("You bought " + boughtItemsNumber + " Items", NotificationType.success);
+			return RedirectToAction(MVC.Orders.Index());
+		}
 
-	    public ActionResult Counter()
-	    {
-		    var userId = User.Identity.GetUserId();
-		    var cartItemsCount = _cartService.Counter(userId);
-		    return Json(cartItemsCount,JsonRequestBehavior.AllowGet);
-	    }
+		public virtual ActionResult Counter()
+		{
+			var userId = User.Identity.GetUserId();
+			var cartItemsCount = _cartService.Counter(userId);
+			return Json(cartItemsCount, JsonRequestBehavior.AllowGet);
+		}
 	}
 }

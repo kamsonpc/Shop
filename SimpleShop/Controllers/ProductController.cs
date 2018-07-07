@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
@@ -13,7 +14,7 @@ using static SimpleShop.Views.Shared.Alerts.Alert;
 namespace SimpleShop.Controllers
 {
 	[Authorize]
-	public class ProductController : BaseController
+	public partial class ProductController : BaseController
 	{
 		private readonly IProductService _productService;
 		private readonly IUnitOfWork _unitOfWork;
@@ -26,7 +27,7 @@ namespace SimpleShop.Controllers
 		}
 
 		[AllowAnonymous]
-		public ActionResult Index(int? categoryId, ProductSearchModel search, int? page)
+		public virtual ActionResult Index(int? categoryId, ProductSearchModel search, int? page)
 		{
 			var pageNumber = page ?? 1;
 
@@ -46,7 +47,7 @@ namespace SimpleShop.Controllers
 
 
 		[AllowAnonymous]
-		public ActionResult Details(int? id)
+		public virtual ActionResult Details(int? id)
 		{
 			if (id == null)
 			{
@@ -63,7 +64,7 @@ namespace SimpleShop.Controllers
 		}
 
 		[AuthorizeCustom(Roles = "Administrator")]
-		public ActionResult Create()
+		public virtual ActionResult Create()
 		{
 			var productVm = new ProductVM
 			{
@@ -76,13 +77,12 @@ namespace SimpleShop.Controllers
 		[HttpPost]
 		[ValidateAntiForgeryToken]
 		[AuthorizeCustom(Roles = "Administrator")]
-		public ActionResult Create(ProductVM productVm, HttpPostedFileBase file)
+		public virtual ActionResult Create(ProductVM productVm, HttpPostedFileBase file)
 		{
 			productVm.Categories = _unitOfWork.Categories.GetSelectList();
 
 			if (!ModelState.IsValid)
 			{
-
 				return View(productVm);
 			}
 
@@ -93,22 +93,23 @@ namespace SimpleShop.Controllers
 					productVm.Img = _productService.UploadImage(file);
 					_productService.AddNew(productVm);
 					Alert("Dodano produkt : " + productVm.Name, NotificationType.success);
-
-					return RedirectToAction("Index");
+					return RedirectToAction(MVC.Product.Index());
 				}
-				catch
+				catch (Exception e)
 				{
-					Alert("Wysyłanie pliku nie powiodło się", NotificationType.danger);
+					Console.WriteLine(e);
+					Alert("Nie udało się dodać", NotificationType.danger);
 					return View(productVm);
 				}
 			}
 
-			Alert("Plik jest nie prawidłowy", NotificationType.danger);
+			Alert("Invalid Image", NotificationType.danger);
 			return View(productVm);
+
 		}
 
 		[AuthorizeCustom(Roles = "Administrator")]
-		public ActionResult Edit(int? id)
+		public virtual ActionResult Edit(int? id)
 		{
 			if (id == null)
 			{
@@ -126,7 +127,7 @@ namespace SimpleShop.Controllers
 		[AuthorizeCustom(Roles = "Administrator")]
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public ActionResult Edit(int? id, ProductVM productVm)
+		public virtual ActionResult Edit(int? id, ProductVM productVm)
 		{
 			if (id == null)
 			{
@@ -141,11 +142,11 @@ namespace SimpleShop.Controllers
 
 			_productService.Update(id.Value, productVm);
 
-			return RedirectToAction("Index");
+			return RedirectToAction(MVC.Product.Index());
 		}
 
 		[AuthorizeCustom(Roles = "Administrator")]
-		public ActionResult Delete(int? id)
+		public virtual ActionResult Delete(int? id)
 		{
 			if (id == null)
 			{
@@ -155,7 +156,7 @@ namespace SimpleShop.Controllers
 			_productService.Remove(id.Value);
 			Alert("Product Removed", NotificationType.success);
 
-			return RedirectToAction("Index");
+			return RedirectToAction(MVC.Product.Index());
 		}
 	}
 }

@@ -6,7 +6,7 @@ using SimpleShop.Interfaces.Services;
 namespace SimpleShop.Controllers
 {
 	[Authorize]
-	public class OrdersController : BaseController
+	public partial class OrdersController : BaseController
 	{
 		private readonly IOrderService _orderService;
 
@@ -16,7 +16,7 @@ namespace SimpleShop.Controllers
 		{
 			_orderService = orderService;
 		}
-		public ActionResult Index(int? page)
+		public virtual ActionResult Index(int? page)
 		{
 			var pageNumber = page ?? 1;
 			var orders = _orderService.GetByUserId(User.Identity.GetUserId()).ToPagedList(pageNumber, numberProductOnPage);

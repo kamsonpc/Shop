@@ -36,7 +36,7 @@ else
 				fullPrice += item.Product.Price * item.OrderedQuantity;
 				<tr>
 					<td>
-						<a href="@Url.Action("Details","Product",new {id = item.ProductId})">@Html.DisplayFor(modelItem => item.Product.Name)</a>
+						<a href="@Url.Action(MVC.Product.Details(item.CartItemId))">@Html.DisplayFor(modelItem => item.Product.Name)</a>
 					</td>
 					<td>
 						@Html.DisplayFor(modelItem => item.OrderedQuantity)
@@ -45,7 +45,7 @@ else
 						@Html.DisplayFor(modelItem => item.Product.Price)
 					</td>
 					<td>
-						<a class="waves-effect waves-light btn btn-small" href="@Url.Action("Remove", new {id = item.CartItemId})"><i class="material-icons">remove_shopping_cart</i></a>
+						<a class="waves-effect waves-light btn btn-small" href="@Url.Action(MVC.Cart.Remove(item.CartItemId))"><i class="material-icons">remove_shopping_cart</i></a>
 					</td>
 				</tr>
 			}
@@ -61,13 +61,13 @@ else
 
 	@if (Model.Any())
 	{
-		<a class="waves-effect waves-light btn btn-large" href="@Url.Action("Complete")">
+		<a class="waves-effect waves-light btn btn-large" href="@Url.Action(MVC.Cart.Complete())">
 			<i class="material-icons left">
 				account_balance_wallet
 			</i>Pay
 		</a>
 	}
-	<a class="waves-effect waves-light btn btn-large" href="@Url.Action("Index","Product")">
+	<a class="waves-effect waves-light btn btn-large" href="@Url.Action(MVC.Product.Index())">
 		<i class="material-icons right">
 			arrow_forward
 		</i> Continue

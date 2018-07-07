@@ -7,7 +7,7 @@
 <h2>Lista Kategorii Produktów</h2>
 
 
-<table class="table table-bordered table-hover">
+<table class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Name)
@@ -22,14 +22,14 @@
         <td>
             @Html.DisplayFor(modelItem => item.Name)
         </td>
-        <td>
-	        <a class="btn btn-warning" href="@Url.Action("Edit", "Categories", new {id = item.CategoryId})"><i class="glyphicon glyphicon-pencil"></i></a>
-	        <a class="btn btn-danger" href="@Url.Action("Delete", "Categories", new {id = item.CategoryId})"><i class="glyphicon glyphicon-trash"></i></a>
-        </td>
+	    <td>
+		    <a class="waves-effect waves-light btn-small" href="@Url.Action(MVC.Categories.Edit(item.CategoryId))"><i class="material-icons">edit</i></a>
+		    <a class="waves-effect waves-light btn-small" href="@Url.Action(MVC.Categories.Delete(item.CategoryId))"><i class="material-icons">delete</i></a>
+	    </td>
     </tr>
 }
 
 </table>
 <p>
-	<a class="btn btn-success" href="@Url.Action("Create", "Categories")"> <i class="glyphicon glyphicon-plus"></i> Dodaj</a>
+	<a class="btn-large waves-effect waves-light" href="@Url.Action(MVC.Categories.Create())"> <i class="material-icons right">add_box</i> Dodaj</a>
 </p>

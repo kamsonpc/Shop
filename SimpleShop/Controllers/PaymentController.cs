@@ -7,7 +7,7 @@ using SimpleShop.Interfaces.Services;
 namespace SimpleShop.Controllers
 {
 	[AuthorizeCustom(Roles = "Administrator")]
-	public class PaymentController : BaseController
+	public partial class PaymentController : BaseController
 	{
 		private readonly IOrderService _orderService;
 
@@ -18,7 +18,7 @@ namespace SimpleShop.Controllers
 			_orderService = orderService;
 		}
 
-		public ActionResult Index(string search, int? page)
+		public virtual ActionResult Index(string search, int? page)
 		{
 			var pageNumber = page ?? 1;
 			var orders = string.IsNullOrEmpty(search) ? _orderService.GetAll() : _orderService.Find(search);
@@ -28,15 +28,15 @@ namespace SimpleShop.Controllers
 			return View(orders.ToPagedList(pageNumber, numberProductOnPage));
 		}
 
-		public ActionResult Pay(int? id)
+		public virtual ActionResult Pay(int? id)
 		{
 			if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 			_orderService.Pay(id.Value);
-			return RedirectToAction("Index");
+			return RedirectToAction(MVC.Payment.Index());
 
 		}
 
-		public ActionResult Shipping(int? id)
+		public virtual ActionResult Shipping(int? id)
 		{
 			if (id == null)
 			{

@@ -1,71 +1,67 @@
-﻿@model SimpleShop.Models.ViewsModels.ProductVM
+﻿@using Links;
+@model SimpleShop.Models.ViewsModels.ProductVM
 
 @{
-	ViewBag.Title = "Edit";
+	ViewBag.Title = "Create";
 }
 
-<h2>Edytuj</h2>
 
 
-@using (Html.BeginForm())
-{
-	@Html.AntiForgeryToken()
+<div class="form-container z-depth-2">
+	@using (Html.BeginForm(MVC.Product.Edit(), FormMethod.Post))
+	{
 
-	<div class="form-horizontal">
-		<h4>Produkt</h4>
-		<hr />
+		@Html.AntiForgeryToken()
 		@Html.ValidationSummary(true, "", new { @class = "red-text" })
-		@Html.HiddenFor(model => model.ProductId)
+		<div class="row"><h3 class="center-align">Edytuj Produkt</h3></div>
+		<div class="row">
+			<div class="input-field col s6">
+				<i class="material-icons prefix">border_color</i>
+				@Html.LabelFor(m => m.Name)
+				@Html.TextBoxFor(m => m.Name)
+				@Html.ValidationMessageFor(m => m.Name, "", new { @class = "red-text" })
+			</div>
+			<div class="input-field col s3">
+				<i class="material-icons prefix">monetization_on</i>
+				@Html.LabelFor(m => m.Price)
+				@Html.TextBoxFor(m => m.Price)
+				@Html.ValidationMessageFor(m => m.Price, "", new { @class = "red-text" })
+			</div>
+			<div class="input-field col s3">
+				<i class="material-icons prefix">
+					import_export
 
-		<div class="form-group">
-			@Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-			<div class="col-md-10">
-				@Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-				@Html.ValidationMessageFor(model => model.Name, "", new { @class = "red-text" })
+				</i>
+				@Html.LabelFor(m => m.Quantity)
+				@Html.TextBoxFor(m => m.Quantity)
+				@Html.ValidationMessageFor(m => m.Quantity, "", new { @class = "red-text" })
 			</div>
 		</div>
 
-		<div class="form-group">
-			@Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
-			<div class="col-md-10">
-				@Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control", step = "0.01" } })
-				@Html.ValidationMessageFor(model => model.Price, "", new { @class = "red-text" })
+		<div class="row">
+			<div class="input-field col s12">
+				<i class="material-icons prefix">description</i>
+				@Html.LabelFor(m => m.Description)
+				@Html.TextAreaFor(m => m.Description, new { @class = "materialize-textarea" })
+				@Html.ValidationMessageFor(m => m.Description, "", new { @class = "red-text" })
 			</div>
 		</div>
-
-		<div class="form-group">
-			@Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
-			<div class="col-md-10">
-				@Html.TextAreaFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
-				@Html.ValidationMessageFor(model => model.Description, "", new { @class = "red-text" })
-			</div>
-		</div>
-		<div class="form-group">
-			@Html.LabelFor(model => model.Categories, htmlAttributes: new { @class = "control-label col-md-2" })
-			<div class="col-md-10">
+		<div class="row">
+			<div class="input-field col s12">
+				<i class="material-icons prefix">apps</i>
 				@Html.DropDownListFor(model => model.CategoryId, Model.Categories)
-				@Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "red-text" })
+				@Html.ValidationMessageFor(model => model.Categories, "", new { @class = "red-text" })
 			</div>
 		</div>
-		<div class="form-group">
-			@Html.LabelFor(model => model.Quantity, htmlAttributes: new { @class = "control-label col-md-2" })
-			<div class="col-md-10">
-				@Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control" } })
-				@Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "red-text" })
+		<div class="row">
+			<div class="input-field col s12">
+				<button class="waves-effect waves-light btn-large btn-submit" type="submit"><i class="material-icons right">save</i> Save</button>
 			</div>
 		</div>
-
-		<div class="form-group">
-			<div class="col-md-offset-2 col-md-10">
-				<input type="submit" value="Save" class="btn btn-warning" />
-			</div>
-		</div>
-	</div>
-}
-
-<div>
-	@Html.ActionLink("Back to List", "Index")
+	}
 </div>
+
+
 
 @section Scripts {
 	@Scripts.Render("~/bundles/jqueryval")
