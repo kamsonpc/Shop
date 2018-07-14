@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Web;
+using SimpleShop.Models;
 using SimpleShop.Models.SearchModels;
 using SimpleShop.Models.ViewsModels;
 
@@ -7,11 +8,11 @@ namespace SimpleShop.Interfaces.Services
 {
 	public interface IProductService
 	{
-		List<ProductVM> GetAll();
-		List<ProductVM> Search(ProductSearchModel searchModel, int? categoryId);
-		ProductVM GetById(int id);
-		void AddNew(ProductVM product);
-		void Update(int id, ProductVM product);
+		List<Product> GetAll();
+		List<Product> Search(ProductSearchModel searchModel, int? categoryId);
+		Product GetById(int id);
+		void AddNew(Product product);
+		void Update(int id, Product product);
 
 		void Remove(int id);
 

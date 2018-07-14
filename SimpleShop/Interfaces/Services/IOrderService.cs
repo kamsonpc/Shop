@@ -1,14 +1,15 @@
 ﻿using SimpleShop.Models.ViewsModels;
 using System.Collections.Generic;
+using SimpleShop.Models;
 
 namespace SimpleShop.Interfaces.Services
 {
 	public interface IOrderService
 	{
-		List<OrdersPageVM> GetAll();
-		List<OrdersPageVM> Find(string search);
-		List<OrdersPageVM> GetByUserId(string id);
-		ShippingVM GetShippinDataById(int id);
+		List<Order> GetAll();
+		List<Order> Find(string search);
+		List<Order> GetByUserId(string id);
+		Order GetShippinDataById(int id);
 		void Pay(int orderId);
 	}
 }

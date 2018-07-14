@@ -1,35 +1,37 @@
-﻿@model IEnumerable<SimpleShop.Models.Category>
+﻿@using SimpleShop.Helpers
+@model IEnumerable<SimpleShop.Models.Category>
 
 @{
-    ViewBag.Title = "Index";
+	ViewBag.Title = "Index";
 }
 
 <h2>Lista Kategorii Produktów</h2>
 
 
 <table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-	    <th>
+	<tr>
+		<th>
+			@Html.DisplayNameFor(model => model.Name)
+		</th>
+		<th>
 			Operacje
-	    </th>
-    </tr>
+		</th>
+	</tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-	    <td>
-		    <a class="waves-effect waves-light btn-small" href="@Url.Action(MVC.Categories.Edit(item.CategoryId))"><i class="material-icons">edit</i></a>
-		    <a class="waves-effect waves-light btn-small" href="@Url.Action(MVC.Categories.Delete(item.CategoryId))"><i class="material-icons">delete</i></a>
-	    </td>
-    </tr>
-}
+	@foreach (var item in Model)
+	{
+		<tr>
+			<td>
+				@Html.DisplayFor(modelItem => item.Name)
+			</td>
+			<td>
+				@Html.Button(MVC.Categories.Edit(item.CategoryId), "", "edit", ButtonSize.small);
+				@Html.Button(MVC.Categories.Delete(item.CategoryId), "", "delete", ButtonSize.small);
+			</td>
+		</tr>
+	}
 
 </table>
 <p>
-	<a class="btn-large waves-effect waves-light" href="@Url.Action(MVC.Categories.Create())"> <i class="material-icons right">add_box</i> Dodaj</a>
+	@Html.Button(MVC.Categories.Create(), "Dodaj", "add_box", ButtonSize.large);
 </p>

@@ -1,8 +1,11 @@
-﻿using System.Net;
+﻿using System.Collections.Generic;
+using System.Net;
 using System.Web.Mvc;
 using PagedList;
+using SimpleShop.Extensions;
 using SimpleShop.Filters;
 using SimpleShop.Interfaces.Services;
+using SimpleShop.Models.ViewsModels;
 
 namespace SimpleShop.Controllers
 {
@@ -10,8 +13,6 @@ namespace SimpleShop.Controllers
 	public partial class PaymentController : BaseController
 	{
 		private readonly IOrderService _orderService;
-
-		private const int numberProductOnPage = 10;
 
 		public PaymentController(IOrderService orderService)
 		{
@@ -23,9 +24,12 @@ namespace SimpleShop.Controllers
 			var pageNumber = page ?? 1;
 			var orders = string.IsNullOrEmpty(search) ? _orderService.GetAll() : _orderService.Find(search);
 
+			var result = orders.MapTo<List<OrdersPageVM>>()
+			   .ToPagedList(pageNumber, pageSize);
+
 			ViewBag.Search = search;
 
-			return View(orders.ToPagedList(pageNumber, numberProductOnPage));
+			return View(result);
 		}
 
 		public virtual ActionResult Pay(int? id)
@@ -43,7 +47,7 @@ namespace SimpleShop.Controllers
 				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 			}
 
-			var shippingData = _orderService.GetShippinDataById(id.Value);
+			var shippingData = _orderService.GetShippinDataById(id.Value).MapTo<ShippingVM>();
 			if (shippingData == null)
 			{
 				return new HttpStatusCodeResult(HttpStatusCode.NotFound);

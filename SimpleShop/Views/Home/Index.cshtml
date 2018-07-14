@@ -1,4 +1,5 @@
-﻿@model IEnumerable<SimpleShop.Models.ViewsModels.ProductVM>
+﻿@using SimpleShop.Helpers
+@model IEnumerable<SimpleShop.Models.ViewsModels.ProductVM>
 @{
 	ViewBag.Title = "Home Page";
 }
@@ -7,6 +8,6 @@
 	<div class="jumbotron">
 		<h1>Sklep</h1>
 		<p>Zobacz najnowsze produkty w naszym sklepie!</p>
-		<p><a class="btn btn-primary btn-lg" href="@Url.Action(MVC.Product.Index())">Produkty</a></p>
+		@Html.Button(MVC.Product.Index(),"Produkty",ButtonSize.large)
 	</div>
 </div>

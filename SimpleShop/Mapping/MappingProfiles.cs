@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using SimpleShop.Extensions;
 using SimpleShop.Models;
 using SimpleShop.Models.ViewsModels;
 
@@ -8,6 +9,7 @@ namespace SimpleShop.Mapping
 	{
 		public MappingProfiles()
 		{
+
 			CreateMap<Product, ProductVM>().ReverseMap();
 
 			CreateMap<OrdersPageVM, Order>().ReverseMap();

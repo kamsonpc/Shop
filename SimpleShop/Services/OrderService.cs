@@ -17,24 +17,24 @@ namespace SimpleShop.Services
 			_unitOfWork = unitOfWork;
 		}
 
-		public List<OrdersPageVM> GetAll()
+		public List<Order> GetAll()
 		{
-			return Mapper.Map<List<Order>, List<OrdersPageVM>>(_unitOfWork.Orders.GetAll().ToList());
+			return _unitOfWork.Orders.GetAll().ToList();
 		}
 
-		public List<OrdersPageVM> Find(string search)
+		public List<Order> Find(string search)
 		{
-			return Mapper.Map<List<Order>, List<OrdersPageVM>>(_unitOfWork.Orders.Find(s => (s.ApplicationUser.Email.Contains(search)) || s.Product.Name.Contains(search)).ToList());
+			return _unitOfWork.Orders.Find(s => (s.ApplicationUser.Email.Contains(search)) || s.Product.Name.Contains(search)).ToList();
 		}
 
-		public List<OrdersPageVM> GetByUserId(string id)
+		public List<Order> GetByUserId(string id)
 		{
-			return Mapper.Map<List<Order>, List<OrdersPageVM>>(_unitOfWork.Orders.GetOrdersByUserId(id).ToList());
+			return _unitOfWork.Orders.GetOrdersByUserId(id).ToList();
 		}
 
-		public ShippingVM GetShippinDataById(int id)
+		public Order GetShippinDataById(int id)
 		{
-			return Mapper.Map<Order, ShippingVM>(_unitOfWork.Orders.Find(o => o.OrderId == id).SingleOrDefault());
+			return _unitOfWork.Orders.Find(o => o.OrderId == id).SingleOrDefault();
 		}
 
 		public void Pay(int orderId)

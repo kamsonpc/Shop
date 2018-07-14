@@ -41,6 +41,5 @@ namespace SimpleShop.Repositories
 			get { return Contex as ApplicationDbContext; }
 		}
 
-
 	}
 }

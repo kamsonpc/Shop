@@ -1,7 +1,10 @@
-﻿using System.Web.Mvc;
+﻿using System.Collections.Generic;
+using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using PagedList;
+using SimpleShop.Extensions;
 using SimpleShop.Interfaces.Services;
+using SimpleShop.Models.ViewsModels;
 
 namespace SimpleShop.Controllers
 {
@@ -10,7 +13,6 @@ namespace SimpleShop.Controllers
 	{
 		private readonly IOrderService _orderService;
 
-		private const int numberProductOnPage = 10;
 
 		public OrdersController(IOrderService orderService)
 		{
@@ -19,7 +21,9 @@ namespace SimpleShop.Controllers
 		public virtual ActionResult Index(int? page)
 		{
 			var pageNumber = page ?? 1;
-			var orders = _orderService.GetByUserId(User.Identity.GetUserId()).ToPagedList(pageNumber, numberProductOnPage);
+			var orders = _orderService.GetByUserId(User.Identity.GetUserId())
+				.MapTo<IEnumerable<OrdersPageVM>>()
+				.ToPagedList(pageNumber, pageSize);
 
 			return View(orders);
 		}

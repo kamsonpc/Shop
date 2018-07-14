@@ -22,35 +22,34 @@ namespace SimpleShop.Services
 			_unitOfWork = unitOfWork;
 		}
 
-		public List<ProductVM> GetAll()
+		public List<Product> GetAll()
 		{
-			return Mapper.Map<List<Product>,List<ProductVM>>(_unitOfWork.Products.GetAll().ToList());
+			return _unitOfWork.Products.GetAll().ToList();
 		}
 
-		public List<ProductVM> GetByPrice(int min, int max)
+		public List<Product> GetByPrice(int min, int max)
 		{
-			return Mapper.Map<List<Product>, List<ProductVM>>(_unitOfWork.Products.GetByPrice(min,max).ToList());
+			return _unitOfWork.Products.GetByPrice(min,max).ToList();
 		}
 
-		public List<ProductVM> GetByCategory(int id)
+		public List<Product> GetByCategory(int id)
 		{
-			return Mapper.Map<List<Product>, List<ProductVM>>(_unitOfWork.Products.GetByCategory(id).ToList());
+			return _unitOfWork.Products.GetByCategory(id).ToList();
 		}
 
-		public ProductVM GetById(int id)
+		public Product GetById(int id)
 		{
-			return Mapper.Map<Product,ProductVM>(_unitOfWork.Products.Get(id));
+			return _unitOfWork.Products.Get(id);
 		}
 
-		public List<ProductVM> Search(ProductSearchModel searchModel,int? categoryId)
+		public List<Product> Search(ProductSearchModel searchModel,int? categoryId)
 		{
-			return Mapper.Map<List<Product>, List<ProductVM>>(_unitOfWork.Products.Search(categoryId,searchModel).ToList());
+			return _unitOfWork.Products.Search(categoryId,searchModel).ToList();
 		}
 
 
-		public void AddNew(ProductVM productVm)
+		public void AddNew(Product product)
 		{
-			var product = Mapper.Map<ProductVM, Product>(productVm);
 			product.AddDate = DateTime.Now;
 			_unitOfWork.Products.Add(product);
 			_unitOfWork.Complete();
@@ -87,9 +86,8 @@ namespace SimpleShop.Services
 			}
 		}
 
-		public void Update(int id, ProductVM productVm)
+		public void Update(int id, Product product)
 		{
-			var product = Mapper.Map<ProductVM, Product>(productVm);
 			_unitOfWork.Products.Update(id, product);
 			_unitOfWork.Complete();
 		}

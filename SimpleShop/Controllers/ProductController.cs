@@ -1,12 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using PagedList;
+using SimpleShop.Extensions;
 using SimpleShop.Filters;
 using SimpleShop.Interfaces;
 using SimpleShop.Interfaces.Services;
+using SimpleShop.Models;
 using SimpleShop.Models.SearchModels;
 using SimpleShop.Models.ViewsModels;
 using static SimpleShop.Views.Shared.Alerts.Alert;
@@ -18,7 +21,6 @@ namespace SimpleShop.Controllers
 	{
 		private readonly IProductService _productService;
 		private readonly IUnitOfWork _unitOfWork;
-		private const int NumberProductOnPage = 9;
 
 		public ProductController(IProductService productService, IUnitOfWork unitOfWork)
 		{
@@ -35,9 +37,11 @@ namespace SimpleShop.Controllers
 			ViewBag.CategoryId = categoryId;
 
 			var categories = _unitOfWork.Categories.GetAll().ToList();
+
 			var productPageVm = new ProductPageVM
 			{
-				Product = _productService.Search(search, categoryId).ToPagedList(pageNumber, NumberProductOnPage),
+				Product = _productService.Search(search, categoryId).MapTo<List<ProductVM>>()
+					.ToPagedList(pageNumber, pageSize),
 				Categories = categories,
 				Search = search
 			};
@@ -54,12 +58,13 @@ namespace SimpleShop.Controllers
 				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 			}
 
-			var product = _productService.GetById(id.Value);
+			var product = _productService.GetById(id.Value).MapTo<ProductVM>();
 
 			if (product == null)
 			{
 				return new HttpStatusCodeResult(HttpStatusCode.NotFound);
 			}
+
 			return View(product);
 		}
 
@@ -91,8 +96,9 @@ namespace SimpleShop.Controllers
 				try
 				{
 					productVm.Img = _productService.UploadImage(file);
-					_productService.AddNew(productVm);
-					Alert("Dodano produkt : " + productVm.Name, NotificationType.success);
+					var product = productVm.MapTo<Product>();
+					_productService.AddNew(product);
+					Alert("Dodano produkt : " + product.Name, NotificationType.success);
 					return RedirectToAction(MVC.Product.Index());
 				}
 				catch (Exception e)
@@ -115,13 +121,14 @@ namespace SimpleShop.Controllers
 			{
 				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 			}
-			var product = _productService.GetById(id.Value);
-			if (product == null)
+			var productVm = _productService.GetById(id.Value).MapTo<ProductVM>();
+			if (productVm == null)
 			{
 				return new HttpStatusCodeResult(HttpStatusCode.NotFound);
 			}
-			product.Categories = _unitOfWork.Categories.GetSelectList();
-			return View(product);
+
+			productVm.Categories = _unitOfWork.Categories.GetSelectList();
+			return View(productVm);
 		}
 
 		[AuthorizeCustom(Roles = "Administrator")]
@@ -140,7 +147,8 @@ namespace SimpleShop.Controllers
 				return View(productVm);
 			}
 
-			_productService.Update(id.Value, productVm);
+			var product = productVm.MapTo<Product>();
+			_productService.Update(id.Value, product);
 
 			return RedirectToAction(MVC.Product.Index());
 		}

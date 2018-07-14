@@ -1,4 +1,5 @@
 ﻿@using Links;
+@using Scripts = Links.Scripts
 @model SimpleShop.Models.ViewsModels.ProductVM
 
 @{
@@ -64,5 +65,4 @@
 
 
 @section Scripts {
-	@Scripts.Render("~/bundles/jqueryval")
-}
+	@Scripts.jquery_validate_js

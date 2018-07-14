@@ -1,4 +1,5 @@
-﻿@model IEnumerable<SimpleShop.Models.ViewsModels.CartVM>
+﻿@using SimpleShop.Helpers
+@model IEnumerable<SimpleShop.Models.ViewsModels.CartVM>
 
 @{
 	decimal fullPrice = 0;
@@ -45,7 +46,7 @@ else
 						@Html.DisplayFor(modelItem => item.Product.Price)
 					</td>
 					<td>
-						<a class="waves-effect waves-light btn btn-small" href="@Url.Action(MVC.Cart.Remove(item.CartItemId))"><i class="material-icons">remove_shopping_cart</i></a>
+						@Html.Button(MVC.Cart.Remove(item.CartItemId),"", "remove_shopping_cart",ButtonSize.small)
 					</td>
 				</tr>
 			}
@@ -58,18 +59,11 @@ else
 
 }
 <div class="row">
-
+	
 	@if (Model.Any())
 	{
-		<a class="waves-effect waves-light btn btn-large" href="@Url.Action(MVC.Cart.Complete())">
-			<i class="material-icons left">
-				account_balance_wallet
-			</i>Pay
-		</a>
+		@Html.Button(MVC.Cart.Complete(), "Pay",ButtonSize.large)
 	}
-	<a class="waves-effect waves-light btn btn-large" href="@Url.Action(MVC.Product.Index())">
-		<i class="material-icons right">
-			arrow_forward
-		</i> Continue
-	</a>
+	@Html.Button(MVC.Product.Index(),"Continue",ButtonSize.large)
+	
 </div>

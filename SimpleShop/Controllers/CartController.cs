@@ -1,7 +1,10 @@
-﻿using System.Web.Mvc;
+﻿using System.Collections.Generic;
+using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using SimpleShop.Extensions;
 using SimpleShop.Filters;
 using SimpleShop.Interfaces.Services;
+using SimpleShop.Models;
 using SimpleShop.Models.ViewsModels;
 using static SimpleShop.Views.Shared.Alerts.Alert;
 
@@ -20,7 +23,7 @@ namespace SimpleShop.Controllers
 		public virtual ActionResult Index()
 		{
 			var userId = User.Identity.GetUserId();
-			var items = _cartService.GetAll(userId);
+			var items = _cartService.GetAll(userId).MapTo<List<CartVM>>();
 			return View(items);
 		}
 
@@ -29,7 +32,7 @@ namespace SimpleShop.Controllers
 		{
 			var userId = User.Identity.GetUserId();
 
-			var cartItem = new CartVM
+			var cartItem = new Cart
 			{
 				ProductId = productId,
 				ApplicationUserId = userId,
@@ -38,7 +41,7 @@ namespace SimpleShop.Controllers
 
 			_cartService.Add(cartItem);
 
-			return RedirectToAction(MVC.Product.Index());
+			return RedirectToAction(MVC.Cart.Index());
 		}
 
 		[HttpGet]
@@ -46,7 +49,7 @@ namespace SimpleShop.Controllers
 		{
 			_cartService.Remove(id);
 
-			return RedirectToAction(MVC.Product.Index());
+			return RedirectToAction(MVC.Cart.Index());
 		}
 
 		public virtual ActionResult Complete()
