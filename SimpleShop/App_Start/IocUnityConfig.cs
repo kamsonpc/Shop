@@ -1,14 +1,15 @@
 ﻿using System.Web.Mvc;
-using SimpleShop.Controllers;
-using SimpleShop.Interfaces;
-using SimpleShop.Interfaces.Repositories;
-using SimpleShop.Interfaces.Services;
-using SimpleShop.Models;
-using SimpleShop.Repositories;
-using SimpleShop.Services;
+using SimpleShop.Areas.Client.Controllers;
+using SimpleShop.Data.Interfaces;
+using SimpleShop.Data.Interfaces.Repositories;
+using SimpleShop.Data.Interfaces.Services;
+using SimpleShop.Data.Models;
+using SimpleShop.Data.Repositories;
+using SimpleShop.Data.Services;
 using Unity;
 using Unity.Injection;
 using Unity.Mvc5;
+
 
 namespace SimpleShop
 {

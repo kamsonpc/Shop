@@ -2,7 +2,7 @@
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin;
 using Owin;
-using SimpleShop.Models;
+using SimpleShop.Data.Models;
 
 [assembly: OwinStartupAttribute(typeof(SimpleShop.Startup))]
 namespace SimpleShop

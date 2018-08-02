@@ -1,0 +1,64 @@
+﻿@model SimpleShop.Areas.Client.Views.Accounts.LoginViewModel
+@{
+	ViewBag.Title = "Log in";
+	Layout = "_LayoutLogin.cshtml";
+}
+		<div class="row">
+			<div class="col s12 m4 offset-m4">
+				<section id="loginForm" class="login-form z-depth-3">
+					<h4 class="center-align">Log In</h4>
+					@using (Html.BeginForm("Login", "Account", new {ReturnUrl = ViewBag.ReturnUrl}, FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
+					{
+						@Html.AntiForgeryToken()
+						@Html.ValidationSummary(true, "", new {@class = "red-text"})
+						<div class="row">
+							<div class="input-field col s12">
+								<i class="material-icons prefix">account_circle</i>
+								@Html.LabelFor(m => m.Email)
+								@Html.TextBoxFor(m => m.Email)
+								@Html.ValidationMessageFor(m => m.Email, "", new {@class = "red-text"})
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="input-field col s12">
+								<i class="material-icons prefix">lock</i>
+								@Html.LabelFor(m => m.Password)
+								@Html.PasswordFor(m => m.Password)
+								@Html.ValidationMessageFor(m => m.Password, "", new {@class = "red-text"})
+							</div>
+						</div>
+						<div class="row">
+							<div class="input-field col s12">
+								<p>
+									<label>
+										<input data-val="true" data-val-required="The Remember me? field is required." id="RememberMe" name="RememberMe" type="checkbox" value="true">
+										<span>Remember password</span>
+									</label>
+									<input name="RememberMe" type="hidden" value="false">
+
+								</p>
+							</div>
+						</div>
+						<div class="row">
+							<div class="input-field col offset-m4 s4">
+								<button class="btn btn-large waves-effect waves-light" type="submit" name="action">
+									Submit
+									<i class="material-icons right">send</i>
+								</button>
+							</div>
+						</div>
+						<p>
+							@Html.ActionLink("Register as a new user", "Register")
+						</p>
+						//Enable this once you have account confirmation enabled for password reset functionality
+						<p>
+							@Html.ActionLink("Forgot your password?", "ForgotPassword")
+						</p>
+					}
+				</section>
+			</div>
+		</div>
+@section Scripts {
+	@Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,8 @@
+﻿@using SimpleShop.Areas.Admin.Models.Products
+@model IEnumerable<ProductVM>
+
+@Html.Grid(Model).Columns(columns =>
+{
+	columns.Add(item => item.Name).Sortable(true);
+	columns.Add(item => item.Price).Sortable(true);
+}).WithPaging(20)

@@ -4,7 +4,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
-using SimpleShop.Models;
+using SimpleShop.Data.Models;
 
 namespace SimpleShop
 {

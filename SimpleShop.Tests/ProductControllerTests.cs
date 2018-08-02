@@ -1,16 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Web.Mvc;
-using NSubstitute;
-using SimpleShop.Controllers;
-using SimpleShop.Interfaces;
-using SimpleShop.Interfaces.Services;
-using SimpleShop.Models.ViewsModels;
-using SimpleShop.Models.SearchModels;
-using Xunit;
-using PagedList;
-
-
-namespace SimpleShop.Tests
+﻿namespace SimpleShop.Tests
 {
 	public class ProductControllerTests
 	{

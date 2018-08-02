@@ -1,0 +1,99 @@
+﻿@using PagedList.Mvc
+@model SimpleShop.Areas.Client.Models.Product.ProductPageVM
+
+
+@{
+	ViewBag.Title = "Index";
+}
+
+@using (Html.BeginForm(MVC.Client.Home.Index(), FormMethod.Get))
+{
+	<div class="row">
+		<div class="input-field col s4 offset-s4">
+			<i class="material-icons prefix">search</i>
+			<input id="search" type="text" name="Search.Name" class="validate">
+			<label for="search">Search</label>
+		</div>
+	</div>
+	<div class="row">
+		<input type="hidden" name="categoryId" value="@ViewBag.CategoryId" />
+		<br />
+		<br />
+		<div class="col s3 left-bar">
+			<div class="collection">
+				<a class="collection-item" href="@Url.Action(MVC.Client.Home.Index())">Wszystko</a>
+				@foreach (var item in Model.Categories)
+				{
+					<a class="collection-item" href="@Url.Action("Index", "Home", new {categoryId = item.CategoryId})">@item.Name</a>
+				}
+
+			</div>
+			<div class="row">
+				<div class="input-field col s12">
+					<i class="material-icons prefix">monetization_on</i>
+					@Html.TextBoxFor(model => model.Search.PriceFrom)
+					@Html.LabelFor(model => model.Search.PriceFrom)
+				</div>
+
+				<div class="input-field col s12">
+					<i class="material-icons prefix">monetization_on</i>
+					@Html.TextBoxFor(model => model.Search.PriceTo)
+					@Html.LabelFor(model => model.Search.PriceTo)
+				</div>
+			</div>
+			<div class="row">
+				<div>
+					<a class="waves-effect waves-light btn right"><i class="material-icons right">search</i>Filtr</a>
+
+				</div>
+			</div>
+
+		</div>
+		<div class="col s9">
+			<div class="row">
+				@foreach (var item in Model.Product)
+				{
+					<div class="col s12 m4">
+
+						<div class="card sticky-action hoverable">
+							<div class="card-image waves-effect waves-block waves-light">
+
+								@*<img class="activator" src="@Url.Content("~/UploadedFiles/" + @item.Img)">*@
+
+							</div>
+							<div class="card-content">
+								<span class="card-title activator grey-text text-darken-4">
+									@item.Name<i class="material-icons right">more_vert</i>
+								</span>
+								<p>
+									<b>$ @item.Price</b>
+								</p>
+
+							</div>
+							<div class="card-action">
+								<div class="row">
+									<a class="waves-effect waves-light btn-small" href="@Url.Action(MVC.Client.Home.Details(item.ProductId))"><i class="material-icons right">arrow_forward</i>Details</a>
+								</div>
+							</div>
+
+							<div class="card-reveal">
+								<span class="card-title grey-text text-darken-4">@item.Name<i class="material-icons right">close</i></span>
+								<p>
+									@*@item.Description*@
+								</p>
+							</div>
+						</div>
+					</div>
+				}
+			</div>
+
+			@Html.PagedListPager(Model.Product, page => Url.Action("Index", new { page, categoryId = ViewBag.CategoryId, name = ViewBag.Search.Name, pricefrom = ViewBag.Search.PriceFrom, priceto = ViewBag.Search.PriceTo }))
+		</div>
+
+	</div>
+
+}
+
+
+
+

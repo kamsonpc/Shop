@@ -1,7 +1,10 @@
 ﻿using AutoMapper;
-using SimpleShop.Extensions;
-using SimpleShop.Models;
-using SimpleShop.Models.ViewsModels;
+using SimpleShop.Areas.Admin.Models.Products;
+using SimpleShop.Areas.Client.Models.Carts;
+using SimpleShop.Areas.Client.Models.Orders;
+using SimpleShop.Areas.Client.Models.Product;
+using SimpleShop.Areas.Client.Models.UsersAddress;
+using SimpleShop.Data.Models;
 
 namespace SimpleShop.Mapping
 {
@@ -9,8 +12,6 @@ namespace SimpleShop.Mapping
 	{
 		public MappingProfiles()
 		{
-
-			CreateMap<Product, ProductVM>().ReverseMap();
 
 			CreateMap<OrdersPageVM, Order>().ReverseMap();
 

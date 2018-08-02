@@ -1,0 +1,73 @@
+﻿@model PagedList.IPagedList<SimpleShop.Areas.Client.Models.Orders.OrdersPageVM>
+@using PagedList.Mvc;
+@using SimpleShop.T4MVC
+
+@{
+	ViewBag.Title = "Index";
+}
+
+<h2>Moje zamówienia</h2>
+
+<table class="table table-bordered table-hover">
+	<thead>
+	<tr>
+		<th>
+			@Html.DisplayNameFor(model => model.First().OrderId)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.First().Product.Name)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.First().Price)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.First().Quantity)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.First().Date)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.First().Payment)
+		</th>
+	</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+			<tr>
+				<td>
+					@Html.DisplayFor(modelItem => item.OrderId)
+				</td>
+				<td>
+					<a href="@Url.Action(MVC.Product.Details(item.ProductId))">@Html.DisplayFor(modelItem => item.Product.Name)</a>
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Price)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Quantity)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Date)
+				</td>
+				<td>
+					@if (!item.Payment)
+					{
+						<span class="text-warning">Nie</span>
+					}
+					else
+					{
+						<span class="text-success">Tak</span>
+					}
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>
+<br />
+			Strona @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) z @Model.PageCount
+
+			@Html.PagedListPager(Model, page => Url.Action("Index", new { page, search = ViewBag.Search }))
+
+
+

@@ -1,0 +1,95 @@
+﻿@model PagedList.IPagedList<SimpleShop.Areas.Client.Models.Orders.OrdersPageVM>
+@using PagedList.Mvc;
+@using SimpleShop.T4MVC
+
+@{
+	ViewBag.Title = "Index";
+}
+
+<h2>Zamówienia</h2>
+@using (Html.BeginForm(MVC.Payment.Index(), FormMethod.Get))
+{
+	<div class="input-group search-container">
+		<span class="input-group-btn">
+			<button class="btn btn-primary" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+		</span>
+		<input type="text" name="search" class="form-control" placeholder="Wyszukaj ...">
+	</div>
+}
+<table class="table table-bordered table-hover">
+	<tr>
+		<th>
+			@Html.DisplayNameFor(model => model.First().OrderId)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.First().ApplicationUser.Email)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.First().Product.Name)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.First().Price)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.First().Quantity)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.First().Date)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.First().Payment)
+		</th>
+		<th>
+			Operacje
+		</th>
+	</tr>
+
+	@foreach (var item in Model)
+	{
+		<tr>
+			<td>
+				@Html.DisplayFor(modelItem => item.OrderId)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.ApplicationUser.Email)
+			</td>
+			<td>
+				<a href="@Url.Action(MVC.Product.Details(item.ProductId))">@Html.DisplayFor(modelItem => item.Product.Name)</a>
+			<td>
+				@Html.DisplayFor(modelItem => item.Price)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Quantity)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Date)
+			</td>
+
+			@if (!item.Payment)
+			{
+				<td>
+					<span>Nie</span>
+				</td>
+				<td>
+					<span>Tak</span>
+				</td>
+			}
+			else
+			{
+				<td>
+					<span class="text-success">Tak</span>
+				</td>
+				<td>
+					<a class="btn btn-primary" href="@Url.Action(MVC.Payment.Shipping(item.OrderId))">Dane Wysyłki</a>
+
+				</td>
+			}
+
+		</tr>
+	}
+
+</table>
+<br />
+			Strona @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) z @Model.PageCount
+
+			@Html.PagedListPager(Model, page => Url.Action("Index", new { page, search = ViewBag.Search }))

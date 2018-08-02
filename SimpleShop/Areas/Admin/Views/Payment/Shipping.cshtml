@@ -1,0 +1,55 @@
+﻿@model SimpleShop.Areas.Client.Models.Orders.ShippingVM
+
+@{
+    ViewBag.Title = "Shipping";
+}
+
+<h2>Wysyłka</h2>
+
+<div>
+    <h4>Dane Przesyłki</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NameAndSurname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NameAndSurname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PhoneNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CityCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CityCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Country)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Country)
+        </dd>
+
+    </dl>
+</div>
+

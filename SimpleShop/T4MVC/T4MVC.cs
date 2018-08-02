@@ -27,19 +27,34 @@ using T4MVC;
 [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
 public static partial class MVC
 {
-    public static SimpleShop.Controllers.AccountController Account = new SimpleShop.Controllers.T4MVC_AccountController();
-    public static SimpleShop.Controllers.CartController Cart = new SimpleShop.Controllers.T4MVC_CartController();
-    public static SimpleShop.Controllers.CategoriesController Categories = new SimpleShop.Controllers.T4MVC_CategoriesController();
-    public static SimpleShop.Controllers.HomeController Home = new SimpleShop.Controllers.T4MVC_HomeController();
-    public static SimpleShop.Controllers.ManageController Manage = new SimpleShop.Controllers.T4MVC_ManageController();
-    public static SimpleShop.Controllers.OrdersController Orders = new SimpleShop.Controllers.T4MVC_OrdersController();
-    public static SimpleShop.Controllers.PaymentController Payment = new SimpleShop.Controllers.T4MVC_PaymentController();
-    public static SimpleShop.Controllers.ProductController Product = new SimpleShop.Controllers.T4MVC_ProductController();
+    static readonly AdminClass s_Admin = new AdminClass();
+    public static AdminClass Admin { get { return s_Admin; } }
+    static readonly ClientClass s_Client = new ClientClass();
+    public static ClientClass Client { get { return s_Client; } }
     public static T4MVC.SharedController Shared = new T4MVC.SharedController();
 }
 
 namespace T4MVC
 {
+    [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+    public class AdminClass
+    {
+        public readonly string Name = "Admin";
+        public SimpleShop.Areas.Admin.Controllers.CategoriesController Categories = new SimpleShop.Areas.Admin.Controllers.T4MVC_CategoriesController();
+        public SimpleShop.Areas.Admin.Controllers.PaymentController Payment = new SimpleShop.Areas.Admin.Controllers.T4MVC_PaymentController();
+        public SimpleShop.Areas.Admin.Controllers.ProductController Product = new SimpleShop.Areas.Admin.Controllers.T4MVC_ProductController();
+    }
+    [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+    public class ClientClass
+    {
+        public readonly string Name = "Client";
+        public SimpleShop.Areas.Client.Controllers.AccountController Account = new SimpleShop.Areas.Client.Controllers.T4MVC_AccountController();
+        public SimpleShop.Areas.Client.Controllers.CartController Cart = new SimpleShop.Areas.Client.Controllers.T4MVC_CartController();
+        public SimpleShop.Areas.Client.Controllers.HomeController Home = new SimpleShop.Areas.Client.Controllers.T4MVC_HomeController();
+        public SimpleShop.Areas.Client.Controllers.ManageController Manage = new SimpleShop.Areas.Client.Controllers.T4MVC_ManageController();
+        public SimpleShop.Areas.Client.Controllers.OrdersController Orders = new SimpleShop.Areas.Client.Controllers.T4MVC_OrdersController();
+        public T4MVC.Client.AccountsController Accounts = new T4MVC.Client.AccountsController();
+    }
 }
 
 #pragma warning disable 0436
@@ -81,6 +96,9 @@ namespace Links
         public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(UrlPath + "/" + fileName); }
         public static readonly string bootstrap_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/bootstrap.min.js") ? Url("bootstrap.min.js") : Url("bootstrap.js");
         public static readonly string bootstrap_min_js = Url("bootstrap.min.js");
+        public static readonly string gridmvc_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/gridmvc.min.js") ? Url("gridmvc.min.js") : Url("gridmvc.js");
+        public static readonly string gridmvc_lang_ru_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/gridmvc.lang.ru.min.js") ? Url("gridmvc.lang.ru.min.js") : Url("gridmvc.lang.ru.js");
+        public static readonly string gridmvc_min_js = Url("gridmvc.min.js");
         public static readonly string jquery_1_10_2_intellisense_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/jquery-1.10.2.intellisense.min.js") ? Url("jquery-1.10.2.intellisense.min.js") : Url("jquery-1.10.2.intellisense.js");
         public static readonly string jquery_1_10_2_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/jquery-1.10.2.min.js") ? Url("jquery-1.10.2.min.js") : Url("jquery-1.10.2.js");
         public static readonly string jquery_1_10_2_min_js = Url("jquery-1.10.2.min.js");
@@ -104,6 +122,7 @@ namespace Links
         public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(UrlPath + "/" + fileName); }
         public static readonly string bootstrap_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/bootstrap.min.css") ? Url("bootstrap.min.css") : Url("bootstrap.css");
         public static readonly string bootstrap_min_css = Url("bootstrap.min.css");
+        public static readonly string Gridmvc_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/Gridmvc.min.css") ? Url("Gridmvc.min.css") : Url("Gridmvc.css");
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public static class Images {
             public const string UrlPath = "~/Content/Images";
@@ -127,6 +146,9 @@ namespace Links
             {
                 public static readonly string bootstrap_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/bootstrap.js"); 
                 public static readonly string bootstrap_min_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/bootstrap.min.js"); 
+                public static readonly string gridmvc_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/gridmvc.js"); 
+                public static readonly string gridmvc_lang_ru_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/gridmvc.lang.ru.js"); 
+                public static readonly string gridmvc_min_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/gridmvc.min.js"); 
                 public static readonly string jquery_1_10_2_intellisense_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/jquery-1.10.2.intellisense.js"); 
                 public static readonly string jquery_1_10_2_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/jquery-1.10.2.js"); 
                 public static readonly string jquery_1_10_2_min_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/jquery-1.10.2.min.js"); 
@@ -153,6 +175,7 @@ namespace Links
             {
                 public static readonly string bootstrap_css = T4MVCHelpers.ProcessAssetPath("~/Content/bootstrap.css");
                 public static readonly string bootstrap_min_css = T4MVCHelpers.ProcessAssetPath("~/Content/bootstrap.min.css");
+                public static readonly string Gridmvc_css = T4MVCHelpers.ProcessAssetPath("~/Content/Gridmvc.css");
                 public static readonly string materialize_css = T4MVCHelpers.ProcessAssetPath("~/Content/materialize.css");
                 public static readonly string PagedList_css = T4MVCHelpers.ProcessAssetPath("~/Content/PagedList.css");
                 public static readonly string Site_css = T4MVCHelpers.ProcessAssetPath("~/Content/Site.css");

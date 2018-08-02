@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using MvcSiteMapProvider;
-using SimpleShop.Interfaces;
-using SimpleShop.Models;
+using SimpleShop.Data.Models;
 
 namespace SimpleShop.BreadCrumbs
 {

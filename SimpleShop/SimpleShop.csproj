@@ -46,11 +46,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AutoMapper, Version=6.2.2.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
-      <HintPath>..\packages\AutoMapper.6.2.2\lib\net45\AutoMapper.dll</HintPath>
+    <Reference Include="AutoMapper, Version=7.0.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.7.0.1\lib\net45\AutoMapper.dll</HintPath>
     </Reference>
     <Reference Include="CommonServiceLocator, Version=2.0.1.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
       <HintPath>..\packages\Unity.5.2.0\lib\net47\CommonServiceLocator.dll</HintPath>
+    </Reference>
+    <Reference Include="GridMvc, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Grid.Mvc.3.0.0\lib\net40\GridMvc.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.8.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
@@ -76,6 +79,9 @@
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -246,84 +252,64 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\AdminMapping.cs" />
+    <Compile Include="Areas\Admin\Models\Categories\CategoryViewModel.cs" />
+    <Compile Include="Areas\Client\ClientAreaRegistration.cs" />
+    <Compile Include="Areas\Client\ClientMapping.cs" />
     <Compile Include="BreadCrumbs\DynamicNodeGenerator.cs" />
-    <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\BaseController.cs" />
-    <Compile Include="Controllers\CartController.cs" />
-    <Compile Include="Controllers\CategoriesController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Areas\Client\Controllers\AccountController.cs" />
+    <Compile Include="Areas\Client\Controllers\CartController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CategoriesController.cs" />
+    <Compile Include="Areas\Client\Controllers\HomeController.cs" />
     <Compile Include="App_Start\IocUnityConfig.cs" />
-    <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\OrdersController.cs" />
-    <Compile Include="Controllers\PaymentController.cs" />
-    <Compile Include="Controllers\ProductController.cs" />
-    <Compile Include="Extensions\MappingExtensions.cs" />
+    <Compile Include="Areas\Client\Controllers\ManageController.cs" />
+    <Compile Include="Areas\Client\Controllers\OrdersController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PaymentController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ProductController.cs" />
     <Compile Include="Filters\AuthorizeCustom.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\AlertHelpers.cs" />
+    <Compile Include="Helpers\BaseController.cs" />
     <Compile Include="Helpers\ButtonHelpers.cs" />
-    <Compile Include="Interfaces\Repositories\ICartRepository.cs" />
-    <Compile Include="Interfaces\Repositories\ICategoryRepository.cs" />
-    <Compile Include="Interfaces\Repositories\IOrderRepository.cs" />
-    <Compile Include="Interfaces\Repositories\IUserAddress.cs" />
-    <Compile Include="Interfaces\Services\ICartService.cs" />
-    <Compile Include="Interfaces\Services\IOrderService.cs" />
-    <Compile Include="Interfaces\Repositories\IProductRepository.cs" />
-    <Compile Include="Interfaces\Services\IProductService.cs" />
-    <Compile Include="Interfaces\IRepository.cs" />
-    <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Mapping\MappingProfiles.cs" />
-    <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\Cart.cs" />
-    <Compile Include="Models\Category.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\Order.cs" />
-    <Compile Include="Models\Product.cs" />
-    <Compile Include="Models\SearchModels\ProductSearchModel.cs" />
-    <Compile Include="Models\Status.cs" />
-    <Compile Include="Models\UnitOfWork.cs" />
-    <Compile Include="Models\UserAddress.cs" />
-    <Compile Include="Models\ViewsModels\CartVM.cs" />
-    <Compile Include="Models\ViewsModels\ProductPageVM.cs" />
-    <Compile Include="Models\ViewsModels\OrdersPageVM.cs" />
-    <Compile Include="Models\ViewsModels\ProductVM.cs" />
-    <Compile Include="Models\ViewsModels\ShippingVM.cs" />
-    <Compile Include="Models\ViewsModels\UserAddressVM.cs" />
+    <Compile Include="Areas\Client\Views\Accounts\AccountViewModels.cs" />
+    <Compile Include="Areas\Client\Models\Carts\CartVM.cs" />
+    <Compile Include="Areas\Client\Models\Manages\ManageViewModels.cs" />
+    <Compile Include="Areas\Client\Models\Orders\OrdersPageVM.cs" />
+    <Compile Include="Areas\Client\Models\Product\ProductPageVM.cs" />
+    <Compile Include="Areas\Admin\Models\Products\ProductVM.cs" />
+    <Compile Include="Areas\Client\Models\Orders\ShippingVM.cs" />
+    <Compile Include="Areas\Client\Models\UsersAddress\UserAddressVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\CartRepository.cs" />
-    <Compile Include="Repositories\CategoryRepository.cs" />
-    <Compile Include="Repositories\OrderRepository.cs" />
-    <Compile Include="Repositories\ProductRepository.cs" />
-    <Compile Include="Repositories\Repository.cs" />
-    <Compile Include="Repositories\UserAddressRepository.cs" />
-    <Compile Include="Services\CartService.cs" />
-    <Compile Include="Services\OrderService.cs" />
-    <Compile Include="Services\ProductService.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="T4MVC\AccountController.generated.cs">
+    <Compile Include="T4MVC\Admin.CategoriesController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
-    <Compile Include="T4MVC\CartController.generated.cs">
+    <Compile Include="T4MVC\Admin.PaymentController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
-    <Compile Include="T4MVC\CategoriesController.generated.cs">
+    <Compile Include="T4MVC\Admin.ProductController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
-    <Compile Include="T4MVC\HomeController.generated.cs">
+    <Compile Include="T4MVC\Client.AccountController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
-    <Compile Include="T4MVC\ManageController.generated.cs">
+    <Compile Include="T4MVC\Client.AccountsController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
-    <Compile Include="T4MVC\OrdersController.generated.cs">
+    <Compile Include="T4MVC\Client.CartController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
-    <Compile Include="T4MVC\PaymentController.generated.cs">
+    <Compile Include="T4MVC\Client.HomeController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
-    <Compile Include="T4MVC\ProductController.generated.cs">
+    <Compile Include="T4MVC\Client.ManageController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="T4MVC\Client.OrdersController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="T4MVC\SharedController.generated.cs">
@@ -334,11 +320,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Views\Shared\Alerts\Alert.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Gridmvc.css" />
     <Content Include="Content\Images\product_hero.png" />
     <Content Include="Content\materialize.css" />
     <Content Include="Content\PagedList.css" />
@@ -354,10 +340,21 @@
     <Content Include="Mvc.sitemap">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Areas\Admin\Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Areas\Client\Views\Web.config" />
+    <Content Include="Grid.mvc.readme" />
+    <Content Include="Areas\Admin\Views\Product\List.cshtml" />
+    <Content Include="Areas\Client\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <None Include="MvcSiteMapSchema.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\gridmvc.js" />
+    <Content Include="Scripts\gridmvc.lang.ru.js" />
+    <Content Include="Scripts\gridmvc.min.js" />
     <Content Include="Scripts\my.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -387,48 +384,47 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
-    <Content Include="Views\Account\ConfirmEmail.cshtml" />
-    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
-    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
-    <Content Include="Views\Account\ForgotPassword.cshtml" />
-    <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
-    <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Account\Register.cshtml" />
-    <Content Include="Views\Account\ResetPassword.cshtml" />
-    <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
-    <Content Include="Views\Account\SendCode.cshtml" />
-    <Content Include="Views\Account\VerifyCode.cshtml" />
-    <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
-    <Content Include="Views\Manage\ChangePassword.cshtml" />
-    <Content Include="Views\Manage\Index.cshtml" />
-    <Content Include="Views\Manage\ManageLogins.cshtml" />
-    <Content Include="Views\Manage\SetPassword.cshtml" />
-    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
+    <Content Include="Areas\Client\Views\Home\About.cshtml" />
+    <Content Include="Areas\Client\Views\Home\Contact.cshtml" />
+    <Content Include="Areas\Client\Models\Account\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Areas\Client\Models\Account\ConfirmEmail.cshtml" />
+    <Content Include="Areas\Client\Models\Account\ExternalLoginConfirmation.cshtml" />
+    <Content Include="Areas\Client\Models\Account\ExternalLoginFailure.cshtml" />
+    <Content Include="Areas\Client\Models\Account\ForgotPassword.cshtml" />
+    <Content Include="Areas\Client\Models\Account\ForgotPasswordConfirmation.cshtml" />
+    <Content Include="Areas\Client\Models\Account\Login.cshtml" />
+    <Content Include="Areas\Client\Models\Account\Register.cshtml" />
+    <Content Include="Areas\Client\Models\Account\ResetPassword.cshtml" />
+    <Content Include="Areas\Client\Models\Account\ResetPasswordConfirmation.cshtml" />
+    <Content Include="Areas\Client\Models\Account\SendCode.cshtml" />
+    <Content Include="Areas\Client\Models\Account\VerifyCode.cshtml" />
+    <Content Include="Areas\Client\Views\Manage\AddPhoneNumber.cshtml" />
+    <Content Include="Areas\Client\Views\Manage\ChangePassword.cshtml" />
+    <Content Include="Areas\Client\Views\Manage\Index.cshtml" />
+    <Content Include="Areas\Client\Views\Manage\ManageLogins.cshtml" />
+    <Content Include="Areas\Client\Views\Manage\SetPassword.cshtml" />
+    <Content Include="Areas\Client\Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Product\Index.cshtml" />
-    <Content Include="Views\Product\Details.cshtml" />
-    <Content Include="Views\Product\Edit.cshtml" />
-    <Content Include="Views\Product\Create.cshtml" />
-    <Content Include="Views\Orders\Index.cshtml" />
-    <Content Include="Views\Categories\Create.cshtml" />
-    <Content Include="Views\Categories\Delete.cshtml" />
-    <Content Include="Views\Categories\Edit.cshtml" />
-    <Content Include="Views\Categories\Index.cshtml" />
-    <Content Include="Views\Payment\Index.cshtml" />
-    <Content Include="Views\Payment\Shipping.cshtml" />
+    <Content Include="Areas\Client\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\Create.cshtml" />
+    <Content Include="Areas\Client\Views\Orders\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Categories\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Categories\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Categories\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Categories\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Payment\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Payment\Shipping.cshtml" />
     <Content Include="Views\Shared\_Notyfication.cshtml" />
     <Content Include="Views\Shared\_Search.cshtml" />
     <Content Include="Views\Shared\_Navbar.cshtml" />
     <Content Include="Views\Shared\_Footer.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Cart\Index.cshtml" />
-    <Content Include="Views\Cart\Complete.cshtml" />
-    <Content Include="Views\Account\_LayoutLogin.cshtml" />
+    <Content Include="Areas\Client\Views\Cart\Index.cshtml" />
+    <Content Include="Areas\Client\Views\Cart\Complete.cshtml" />
+    <Content Include="Areas\Client\Models\Account\_LayoutLogin.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\SiteMapTitleHelperModel.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\SiteMapPathHelperModel.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\SiteMapNodeModelList.cshtml" />
@@ -437,9 +433,11 @@
     <Content Include="Views\Shared\DisplayTemplates\MetaRobotsHelperModel.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\MenuHelperModel.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\CanonicalHelperModel.cshtml" />
-    <Content Include="Views\Account\SetAddress.cshtml" />
-    <Content Include="Views\Account\Address.cshtml" />
+    <Content Include="Areas\Client\Models\Account\SetAddress.cshtml" />
+    <Content Include="Areas\Client\Models\Account\Address.cshtml" />
     <Content Include="T4MVC\T4MVC.tt.hooks.t4" />
+    <Content Include="Views\Shared\_GridPager.cshtml" />
+    <Content Include="Views\Shared\_Grid.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -460,6 +458,12 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SimpleShop.Data\SimpleShop.Data.csproj">
+      <Project>{5DBA019F-6A0C-4897-BBEC-CEA4801D6E6B}</Project>
+      <Name>SimpleShop.Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
