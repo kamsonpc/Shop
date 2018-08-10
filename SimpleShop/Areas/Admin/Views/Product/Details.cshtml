@@ -1,4 +1,5 @@
-﻿@model SimpleShop.Areas.Admin.Models.Products.ProductVM
+﻿@using SimpleShop.Areas.Client.Models.Product
+@model ProductViewModel
 
 @{
 	ViewBag.Title = "Details";
@@ -22,7 +23,7 @@
 				<hr />
 				@if (Model.Quantity != 0)
 				{
-					using (Html.BeginForm(MVC.Cart.Add(), FormMethod.Get))
+					using (Html.BeginForm(MVC.Client.Cart.Add(), FormMethod.Get))
 					{
 						<div class="row">
 							<div class="input-field col s12">

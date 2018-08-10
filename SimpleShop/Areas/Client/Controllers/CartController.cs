@@ -11,7 +11,7 @@ using SimpleShop.Helpers;
 
 namespace SimpleShop.Areas.Client.Controllers
 {
-	[AuthorizeCustom]
+	[AuthorizeCustom(Roles = RolesTypes.Administrator)]
 	public partial class CartController : BaseController
 	{
 		private readonly ICartService _cartService;

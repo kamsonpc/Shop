@@ -1,0 +1,50 @@
+﻿
+@model MvcSiteMapProvider.Web.Html.Models.MenuHelperModel
+@using System.Web.Mvc.Html
+@using MvcSiteMapProvider.Web.Html.Models
+ 
+@helper  TopMenu(List<SiteMapNodeModel> nodeList)
+{
+			foreach (SiteMapNodeModel node in nodeList)
+			{
+				string url = node.IsClickable ? node.Url : "#";
+ 
+				if (!node.Children.Any())
+				{
+					<li><a href="@url">@node.Title</a></li>
+				}
+				
+ 
+				if (node != nodeList.Last())
+				{
+					<li class="divider"></li>
+				}
+			}
+}
+ 
+@*@helper DropDownMenu(SiteMapNodeModelList nodeList)
+{
+	<ul class="dropdown-menu" role="menu">
+		@foreach (SiteMapNodeModel node in nodeList)
+		{
+			if (node.Title == "Separator")
+			{
+				<li class="divider"></li>
+				continue;
+			}
+ 
+			string url = node.IsClickable ? node.Url : "#";
+ 
+			if (!node.Children.Any())
+			{
+				<li><a href="@url">@node.Title</a></li>
+			}
+			else
+			{
+				<li class="dropdown-submenu"><a href="@url">@node.Title</a>@DropDownMenu(node.Children)</li>
+			}
+		}
+	</ul>
+}*@
+ 
+@TopMenu(Model.Nodes)

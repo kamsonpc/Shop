@@ -1,0 +1,24 @@
+﻿<div class="navbar-fixed">
+	<nav>
+		<div class="nav-wrapper container">
+			<a href="#!" class="brand-logo">Logo</a>
+			<a href="#" data-target="mobile-nav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+
+			<ul class="right hide-on-med-and-down">
+				<li>@Html.ActionLink("Sklep", MVC.Client.Home.Index())</li>
+				<li>@Html.ActionLink("Moje Zamówienia", MVC.Client.Orders.Index())</li>
+				<li>@Html.ActionLink("Kontakt", MVC.Client.Home.Contact())</li>
+				@Html.Partial("_LoginPartial")
+			</ul>
+		</div>
+	</nav>
+
+	<ul class="sidenav" id="mobile-nav">
+		<li>@Html.ActionLink("Sklep", MVC.Client.Home.Index())</li>
+		<li>@Html.ActionLink("Kontakt", MVC.Client.Home.Contact())</li>
+		@Html.Partial("_LoginPartial")
+
+	</ul>
+
+
+</div>

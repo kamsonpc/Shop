@@ -17,7 +17,7 @@ namespace SimpleShop.Data.Repositories
 
 		public new IEnumerable<Order> Find(Expression<Func<Order, bool>> predicate)
 		{
-			return _contex.Orders.Include(p => p.Product).Include(a => a.ApplicationUser).Where(predicate);
+			return _contex.Orders.Where(predicate);
 		}
 
         public IEnumerable<Order> GetOrdersByUserId(string userId)

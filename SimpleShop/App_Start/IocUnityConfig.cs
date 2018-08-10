@@ -23,6 +23,7 @@ namespace SimpleShop
 			container.RegisterType<IProductService, ProductService>();
 			container.RegisterType<ICartService, CartService>();
 			container.RegisterType<IOrderService, OrderService>();
+			container.RegisterType<ICategoriesService, CategoriesService>();
 			container.RegisterType<IUnitOfWork, UnitOfWork>();
 
 

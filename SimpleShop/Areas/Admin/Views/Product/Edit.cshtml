@@ -1,15 +1,14 @@
-﻿@using SimpleShop.T4MVC
-@using Scripts = SimpleShop.T4MVC.Scripts
-@model SimpleShop.Areas.Admin.Models.Products.ProductVM
+﻿@using SimpleShop.Areas.Admin.Models.Products
+@model ProductViewModel
 
-@{
+@{ 
 	ViewBag.Title = "Create";
 }
 
 
 
 <div class="form-container z-depth-2">
-	@using (Html.BeginForm(MVC.Product.Edit(), FormMethod.Post))
+	@using (Html.BeginForm(MVC.Admin.Product.Edit(), FormMethod.Post))
 	{
 
 		@Html.AntiForgeryToken()
@@ -65,4 +64,5 @@
 
 
 @section Scripts {
-	@Scripts.jquery_validate_js
+	@Scripts.Render("~/bundles/jqueryval");
+}

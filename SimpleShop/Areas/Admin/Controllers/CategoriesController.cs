@@ -5,33 +5,33 @@ using System.Web.Mvc;
 using SimpleShop.Areas.Admin.Models.Categories;
 using SimpleShop.Data.Extensions;
 using SimpleShop.Data.Interfaces;
+using SimpleShop.Data.Interfaces.Services;
 using SimpleShop.Data.Models;
 using SimpleShop.Filters;
 using SimpleShop.Helpers;
 
 namespace SimpleShop.Areas.Admin.Controllers
 {
-	[AuthorizeCustom(RoleTypes.Administrator)]
+	[AuthorizeCustom(Roles = RolesTypes.Administrator)]
 	public partial class CategoriesController : BaseController
 	{
-		private readonly IUnitOfWork _unitOfWork;
+		private readonly ICategoriesService _categoriesService;
 
-		public CategoriesController(IUnitOfWork unitOfWork)
+		public CategoriesController(ICategoriesService categoriesService)
 		{
-			_unitOfWork = unitOfWork;
+			_categoriesService = categoriesService;
 		}
 
 		public virtual ActionResult Index()
 		{
-			var categories = _unitOfWork.Categories.GetAll()
-				.ToList()
+			var categories = _categoriesService.GetAll()
 				.MapTo<IEnumerable<CategoryViewModel>>();
-			return View(categories);
+			return View(MVC.Admin.Categories.Views.Index,categories);
 		}
 
 		public virtual ActionResult Create()
 		{
-			return View();
+			return View(MVC.Admin.Categories.Views.Create);
 		}
 
 		[HttpPost]
@@ -39,51 +39,31 @@ namespace SimpleShop.Areas.Admin.Controllers
 		public virtual ActionResult Create(Category category)
 		{
 			if (!ModelState.IsValid) return View(category);
-			_unitOfWork.Categories.Add(category);
-			_unitOfWork.Complete();
+			_categoriesService.Add(category.MapTo<Category>());
 			return RedirectToAction(MVC.Admin.Categories.Index());
 
 		}
 
-		public virtual ActionResult Edit(int? id)
+		public virtual ActionResult Edit(int id)
 		{
-			if (id == null)
-			{
-				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-			}
-			var category = _unitOfWork.Categories.Get(id.Value);
-			if (category == null)
-			{
-				return new HttpStatusCodeResult(HttpStatusCode.NotFound);
-			}
-			return View(category);
+			var category = _categoriesService.GetById(id)
+				.MapTo<CategoryViewModel>();
+			return View(MVC.Admin.Categories.Views.Edit,category);
 		}
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public virtual ActionResult Edit(Category category, int? id)
+		public virtual ActionResult Edit(CategoryViewModel category)
 		{
-			if (id == null)
-			{
-				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-			}
 
-			if (!ModelState.IsValid) return View(category);
-			_unitOfWork.Categories.Update(category, id.Value);
-			_unitOfWork.Complete();
+			if (!ModelState.IsValid) return View(MVC.Admin.Categories.Views.Edit, category);
+			_categoriesService.Update(category.MapTo<Category>());
 			return RedirectToAction(MVC.Admin.Categories.Index());
 		}
 
-		public virtual ActionResult Delete(int? id)
+		public virtual ActionResult Delete(int id)
 		{
-			if (id == null)
-			{
-				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-			}
-
-			var categoryToRemove = _unitOfWork.Categories.Get(id.Value);
-			_unitOfWork.Categories.Remove(categoryToRemove);
-			_unitOfWork.Complete();
+			_categoriesService.Remove(id);
 			return RedirectToAction(MVC.Admin.Categories.Index());
 		}
 	}

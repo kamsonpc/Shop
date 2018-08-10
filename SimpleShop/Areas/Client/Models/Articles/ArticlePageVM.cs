@@ -4,11 +4,11 @@ using SimpleShop.Areas.Admin.Models.Products;
 using SimpleShop.Data.Models;
 using SimpleShop.Data.Models.SearchModels;
 
-namespace SimpleShop.Areas.Client.Models.Product
+namespace SimpleShop.Areas.Client.Models.Articles
 {
-	public class ProductPageVM
+	public class ArticlePageVM
 	{
-		public IPagedList<ProductVM> Product { get; set; }
+		public IPagedList<ArticleViewModel> Product { get; set; }
 		public List<Category> Categories  { get; set; }
 		public ProductSearchModel Search { get; set; }
 	}

@@ -20,7 +20,7 @@ namespace SimpleShop.Areas.Client
 		{
 			context.MapRoute(
 				"Client_default",
-				"{controller}/{action}/{id}",
+				"Client/{controller}/{action}/{id}",
 				new { controller = "Home", action = "Index", id = UrlParameter.Optional },
 				new string[] { "SimpleShop.Areas.Client.Controllers" }
 			);

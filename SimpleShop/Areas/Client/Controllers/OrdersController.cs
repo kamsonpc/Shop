@@ -14,28 +14,17 @@ namespace SimpleShop.Areas.Client.Controllers
 	{
 		private readonly IOrderService _orderService;
 
+
 		public OrdersController(IOrderService orderService)
 		{
 			_orderService = orderService;
 		}
-
-        #region Index()
-        public virtual ActionResult Index()
-        {
-            return RedirectToAction(MVC.Client.Orders.List());
-        }
-        #endregion
-
-        #region List()
-        public virtual ActionResult List()
+		public virtual ActionResult Index()
 		{
-
-            var orders = _orderService.GetByUserId(User.Identity.GetUserId())
-                .MapTo<IEnumerable<OrdersPageVM>>();
-				
+			var orders = _orderService.GetByUserId(User.Identity.GetUserId())
+				.MapTo<IEnumerable<OrdersPageVM>>();
 
 			return View(MVC.Client.Orders.Views.List, orders);
 		}
-        #endregion
-    }
+	}
 }

@@ -1,6 +1,4 @@
-﻿@using Scripts = System.Web.Optimization.Scripts
-@model SimpleShop.Areas.Admin.Models.Products.ProductVM
-
+﻿@model SimpleShop.Areas.Admin.Models.Products.ProductViewModel
 @{
 	ViewBag.Title = "Create";
 }
@@ -8,7 +6,7 @@
 
 
 <div class="form-container z-depth-2">
-	@using (Html.BeginForm(MVC.Product.Create(), FormMethod.Post, new { enctype = "multipart/form-data" }))
+	@using (Html.BeginForm(MVC.Admin.Product.Create(), FormMethod.Post, new { enctype = "multipart/form-data" }))
 	{
 	
 		@Html.AntiForgeryToken()

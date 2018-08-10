@@ -1,0 +1,47 @@
+﻿@using Microsoft.AspNet.Identity
+@using (Html.BeginForm(MVC.Client.Account.LogOff(), FormMethod.Post, new { id = "logoutForm" }))
+{
+	@Html.AntiForgeryToken()
+	<ul id="slide-out" class="sidenav">
+	
+		<li>
+			<div class="user-view">
+				<div class="background">
+					<img src="~/Content/Images/office.jpg">
+				</div>
+				<a href="#user"><img class="circle" src="~/Content/Images/default-avatar.jpg"></a>
+				<a href="#name"><span class="white-text name">User</span></a>
+				<a href="#email"><span class="white-text email">@User.Identity.GetUserName()</span></a>
+				<a href="javascript:document.getElementById('logoutForm').submit()"><span class="white-text email">LogOut</span></a>
+
+			</div>
+		</li>
+		<li><div class="divider"></div></li>
+		<li><a class="subheader">Admin Settings</a></li>
+
+			<li>@Html.ActionLink("Kategorie", MVC.Admin.Categories.Index())</li>
+			<li>@Html.ActionLink("Płatności", MVC.Admin.Payment.Index())</li>
+		</ul>
+}
+<div class="navbar-fixed">
+	<nav>
+		<div class="nav-wrapper container">
+			<a href="#!" class="brand-logo">Logo</a>
+			<a href="#" data-target="mobile-nav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+
+			<ul class="right hide-on-med-and-down">
+				<li>@Html.ActionLink("Sklep", MVC.Client.Home.Index())</li>
+				<li>@Html.ActionLink("Kontakt", MVC.Client.Home.Contact())</li>
+				<li>
+					<a href="#" class="sidenav-activate">
+						<i class="material-icons">
+							settings
+						</i>
+					</a>
+				</li>
+				<li>
+				</li>
+			</ul>
+		</div>
+	</nav>
+</div>

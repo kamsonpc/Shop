@@ -60,6 +60,9 @@
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Mvc.Grid.Core, Version=5.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NonFactors.Grid.Core.Mvc5.5.0.0\lib\net45\Mvc.Grid.Core.dll</HintPath>
+    </Reference>
     <Reference Include="MvcSiteMapProvider, Version=4.6.22.0, Culture=neutral, PublicKeyToken=1923abe4657913cc, processorArchitecture=MSIL">
       <HintPath>..\packages\MvcSiteMapProvider.MVC5.Core.4.6.22\lib\net45\MvcSiteMapProvider.dll</HintPath>
     </Reference>
@@ -252,11 +255,13 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
-    <Compile Include="Areas\Admin\Models\AdminMapping.cs" />
     <Compile Include="Areas\Admin\Controllers\FileManagerController.cs" />
+    <Compile Include="Areas\Admin\Models\AdminMapping.cs" />
     <Compile Include="Areas\Admin\Models\Categories\CategoryViewModel.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Models\Products\ProductViewModel.cs" />
     <Compile Include="Areas\Client\ClientAreaRegistration.cs" />
+    <Compile Include="Areas\Client\Models\Articles\ArticleViewModel.cs" />
     <Compile Include="Areas\Client\Models\ClientMapping.cs" />
     <Compile Include="BreadCrumbs\DynamicNodeGenerator.cs" />
     <Compile Include="Areas\Client\Controllers\AccountController.cs" />
@@ -275,13 +280,15 @@
     <Compile Include="Helpers\AlertHelpers.cs" />
     <Compile Include="Helpers\BaseController.cs" />
     <Compile Include="Helpers\ButtonHelpers.cs" />
+    <Compile Include="Helpers\IconsHelper.cs" />
+    <Compile Include="Helpers\RolesTypes.cs" />
     <Compile Include="Mapping\MappingProfiles.cs" />
     <Compile Include="Areas\Client\Models\Accounts\AccountViewModels.cs" />
     <Compile Include="Areas\Client\Models\Carts\CartVM.cs" />
     <Compile Include="Areas\Client\Models\Manages\ManageViewModels.cs" />
     <Compile Include="Areas\Client\Models\Orders\OrdersPageVM.cs" />
-    <Compile Include="Areas\Client\Models\Product\ProductPageVM.cs" />
-    <Compile Include="Areas\Admin\Models\Products\ProductVM.cs" />
+    <Compile Include="Areas\Client\Models\Articles\ArticlePageVM.cs" />
+    <Compile Include="Areas\Admin\Models\Products\ProductListViewModel.cs" />
     <Compile Include="Areas\Client\Models\Orders\ShippingVM.cs" />
     <Compile Include="Areas\Client\Models\UsersAddress\UserAddressVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -289,13 +296,13 @@
     <Compile Include="T4MVC\Admin.CategoriesController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
-    <Compile Include="T4MVC\Admin.FileManagerController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
     <Compile Include="T4MVC\Admin.PaymentController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="T4MVC\Admin.ProductController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="T4MVC\Admin.SharedController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="T4MVC\Client.AccountController.generated.cs">
@@ -313,6 +320,9 @@
     <Compile Include="T4MVC\Client.OrdersController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="T4MVC\Client.SharedController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
     <Compile Include="T4MVC\SharedController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
@@ -326,8 +336,11 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Gridmvc.css" />
+    <Content Include="Content\Images\default-avatar.jpg" />
+    <Content Include="Content\Images\office.jpg" />
     <Content Include="Content\Images\product_hero.png" />
     <Content Include="Content\materialize.css" />
+    <Content Include="Content\MvcGrid\mvc-grid.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -341,14 +354,14 @@
     <Content Include="Mvc.sitemap">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Areas\Admin\Views\Web.config">
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="Areas\Client\Views\Web.config" />
-    <Content Include="Grid.mvc.readme" />
     <Content Include="Areas\Admin\Views\Product\List.cshtml" />
     <Content Include="Areas\Client\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="Content\MvcGrid\Fonts\GridGlyphs.woff" />
+    <Content Include="Grid.mvc.readme" />
+    <Content Include="Areas\Client\Views\Orders\List.cshtml" />
     <None Include="MvcSiteMapSchema.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -356,6 +369,8 @@
     <Content Include="Scripts\gridmvc.js" />
     <Content Include="Scripts\gridmvc.lang.ru.js" />
     <Content Include="Scripts\gridmvc.min.js" />
+    <Content Include="Scripts\MvcGrid\mvc-grid.js" />
+    <Content Include="Scripts\MvcGrid\mvc-grid.min.js" />
     <Content Include="Scripts\my.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -406,12 +421,11 @@
     <Content Include="Areas\Client\Views\Manage\SetPassword.cshtml" />
     <Content Include="Areas\Client\Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
-    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Areas\Client\Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Areas\Client\Views\Home\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Product\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Product\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Product\Create.cshtml" />
-    <Content Include="Areas\Client\Views\Orders\List.cshtml" />
     <Content Include="Areas\Admin\Views\Categories\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Categories\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Categories\Edit.cshtml" />
@@ -420,9 +434,8 @@
     <Content Include="Areas\Admin\Views\Payment\Shipping.cshtml" />
     <Content Include="Views\Shared\_Notyfication.cshtml" />
     <Content Include="Views\Shared\_Search.cshtml" />
-    <Content Include="Views\Shared\_Navbar.cshtml" />
-    <Content Include="Views\Shared\_Footer.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Navbar.cshtml" />
+    <Content Include="Areas\Client\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Client\Views\Cart\Index.cshtml" />
     <Content Include="Areas\Client\Views\Cart\Complete.cshtml" />
     <Content Include="Areas\Client\Views\Account\_LayoutLogin.cshtml" />
@@ -437,8 +450,15 @@
     <Content Include="Areas\Client\Views\Account\SetAddress.cshtml" />
     <Content Include="Areas\Client\Views\Account\Address.cshtml" />
     <Content Include="T4MVC\T4MVC.tt.hooks.t4" />
-    <Content Include="Views\Shared\_GridPager.cshtml" />
     <Content Include="Views\Shared\_Grid.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Footer.cshtml" />
+    <Content Include="Areas\Client\Views\Shared\_Footer.cshtml" />
+    <Content Include="Areas\Client\Views\Shared\_Navbar.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\SiteMapNavbarHelper.cshtml" />
+    <Content Include="Views\Shared\MvcGrid\_Pager.cshtml" />
+    <Content Include="Views\Shared\MvcGrid\_Grid.cshtml" />
+    <Content Include="Views\Shared\_GridPager.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -501,10 +521,6 @@
     <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.2.4.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.2.4.0\build\Microsoft.Net.Compilers.props'))" />
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
   </Target>
-  <PropertyGroup>
-    <PreBuildEvent>$(ProjectDir)..\SimpleShop.DB\bin\Debug\SimpleShop.DB.exe
-</PreBuildEvent>
-  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

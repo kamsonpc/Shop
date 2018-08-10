@@ -6,19 +6,21 @@
   <mvcSiteMapNode title="Home" controller="Home" action="Index">
     <mvcSiteMapNode title="About" controller="Home" action="About"/>
     <mvcSiteMapNode title="Contact" controller="Home" action="Contact"/>
+    <mvcSiteMapNode title="My Orders" controller="Orders" action="Index"/>
+    <mvcSiteMapNode title="Payment" controller="Payment" action="Index"/>
+    <mvcSiteMapNode title="Product" controller="Product" action="Index"/>
+    <mvcSiteMapNode title="Categories" controller="Categories" action="Index"/>
     <mvcSiteMapNode title="Shop" controller="Product" action="Index">
       <mvcSiteMapNode title="New Product" controller="Product" action="Create"/>
       <mvcSiteMapNode title="Edit Product" controller="Product" action="Edit"/>
       <mvcSiteMapNode title="Product" controller="Product"  action="Details" dynamicNodeProvider="SimpleShop.BreadCrumbs.DynamicNodeGenerator,SimpleShop" />
-      <mvcSiteMapNode title="Cart" controller="Cart" action="Index">
+      <mvcSiteMapNode title="Cart" controller="Cart" action="Index">  
         <mvcSiteMapNode title="Finalize" controller="Cart" action="Complete"/>
-      </mvcSiteMapNode>
-      <mvcSiteMapNode title="My Orders" controller="Orders" action="Index"/>
     </mvcSiteMapNode>
-
-
-
+  </mvcSiteMapNode>
   </mvcSiteMapNode>
 
 
+
 </mvcSiteMap>
+

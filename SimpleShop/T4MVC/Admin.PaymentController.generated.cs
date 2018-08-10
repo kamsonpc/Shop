@@ -166,10 +166,10 @@ namespace SimpleShop.Areas.Admin.Controllers
         }
 
         [NonAction]
-        partial void PayOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int? id);
+        partial void PayOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int id);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Pay(int? id)
+        public override System.Web.Mvc.ActionResult Pay(int id)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Pay);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
@@ -178,10 +178,10 @@ namespace SimpleShop.Areas.Admin.Controllers
         }
 
         [NonAction]
-        partial void ShippingOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int? id);
+        partial void ShippingOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int id);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Shipping(int? id)
+        public override System.Web.Mvc.ActionResult Shipping(int id)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Shipping);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);

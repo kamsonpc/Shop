@@ -62,7 +62,7 @@ namespace SimpleShop.Areas.Client.Controllers
 		public virtual ActionResult Login(string returnUrl)
 		{
 			ViewBag.ReturnUrl = returnUrl;
-			return View(MVC.Client.Account.Views.Login);
+			return View(MVC.Client.Account.Views.ViewNames.Login);
 		}
 
 		//
@@ -91,7 +91,7 @@ namespace SimpleShop.Areas.Client.Controllers
 				case SignInStatus.Failure:
 				default:
 					ModelState.AddModelError("", "Invalid login attempt.");
-					return View(MVC.Client.Account.Views.Login, model);
+					return View(model);
 			}
 		}
 

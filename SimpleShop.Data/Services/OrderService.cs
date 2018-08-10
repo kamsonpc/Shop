@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using SimpleShop.Data.Interfaces;
 using SimpleShop.Data.Interfaces.Services;
 using SimpleShop.Data.Models;
@@ -16,9 +17,10 @@ namespace SimpleShop.Data.Services
 			_unitOfWork = unitOfWork;
 		}
 
-		public List<Order> Find(string search)
+		public List<OrderInfo> Find(string search)
 		{
-			return _unitOfWork.Orders.Find(s => (s.ApplicationUser.Email.Contains(search)) || s.Product.Name.Contains(search)).ToList();
+			var orders = GetAll();
+			return orders.FindAll(s => s.ProductName.Contains(search));
 		}
 
 		public List<Order> GetByUserId(string id)
@@ -47,10 +49,11 @@ namespace SimpleShop.Data.Services
                 .Join(products, x => x.ProductId, o => o.ProductId, (o, x) => 
                 new OrderInfo
                 {
-                    Id = x.ProductId,
-                    Quantity = x.Quantity,
-                    
-                    
+                    Id = o.OrderId,
+                    Quantity = o.Quantity,
+					Date = o.Date,
+					Price = o.Price,
+					ProductName = x.Name
                 })
                 .ToList();
         }

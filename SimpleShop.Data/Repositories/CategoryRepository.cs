@@ -10,9 +10,9 @@ namespace SimpleShop.Data.Repositories
 		{
 		}
 
-		public bool Update(Category category, int id)
+		public bool Update(Category category)
 		{
-			var categoryInDb = Get(id);
+			var categoryInDb = Get(category.CategoryId);
 			if (categoryInDb == null) return false;
 			categoryInDb.Name = category.Name;
 			return true;

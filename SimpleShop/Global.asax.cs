@@ -3,7 +3,10 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using AutoMapper;
-using SimpleShop.Mapping;
+using SimpleShop.Areas.Admin;
+using SimpleShop.Areas.Admin.Models;
+using SimpleShop.Areas.Client;
+using SimpleShop.Areas.Client.Models;
 
 namespace SimpleShop
 {
@@ -17,7 +20,11 @@ namespace SimpleShop
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 	        IocUnityConfig.RegisterServices();
 	        GlobalConfiguration.Configure(WebApiConfig.Register);
-			Mapper.Initialize(cfg => cfg.AddProfile<MappingProfiles>());
+	        Mapper.Initialize(cfg =>
+	        {
+		        cfg.AddProfile<AdminMapping>();
+		        cfg.AddProfile<ClientMapping>();
+	        });
 			ViewEngines.Engines.Clear();
 			ViewEngines.Engines.Add(new RazorViewEngine());
 		}

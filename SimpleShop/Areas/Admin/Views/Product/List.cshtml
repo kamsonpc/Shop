@@ -1,8 +1,25 @@
-﻿@using SimpleShop.Areas.Admin.Models.Products
-@model IEnumerable<ProductVM>
+﻿
+@using SimpleShop.Areas.Admin.Models.Products
+@model IEnumerable<ProductListViewModel>
 
-@Html.Grid(Model).Columns(columns =>
-{
-	columns.Add(item => item.Name).Sortable(true);
-	columns.Add(item => item.Price).Sortable(true);
-}).WithPaging(20)
+@(Html
+		  .Grid(Model)
+		  .Build(columns =>
+		  {
+			  columns.Add(model => model.Name).Titled("Nazwa").Sortable(true);
+			  columns.Add(model => model.Price).Titled("Cena").Sortable(true);
+			  columns.Add()
+				  .Titled("Akcje")
+				  .RenderedAs(model => Html.Button(MVC.Admin.Product.Delete(model.ProductId), "Delete", Icons.delete, ButtonSize.small))
+				  .RenderedAs(model => Html.Button(MVC.Admin.Product.Edit(model.ProductId), "Edit", Icons.edit, ButtonSize.small));
+		  })
+
+		  .Empty("No data found")
+		  .Pageable(pager =>
+		  {
+			  pager.RowsPerPage = 20;
+		  })
+)
+<p>
+	@Html.Button(MVC.Admin.Product.Create(), "Dodaj", Icons.add, ButtonSize.large)
+</p>

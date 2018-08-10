@@ -2,38 +2,24 @@
 @using SimpleShop.Areas.Admin.Models.Categories
 @model IEnumerable<CategoryViewModel>
 
-
-@{
-	ViewBag.Title = "Index";
-}
-
-<h2>Lista Kategorii Produktów</h2>
-
-
-<table class="table">
-	<tr>
-		<th>
-			@Html.DisplayNameFor(model => model.Name)
-		</th>
-		<th>
-			Operacje
-		</th>
-	</tr>
-
-	@foreach (var item in Model)
+<h3>Lista Produktów</h3>
+@(Html
+	.Grid(Model)
+	.Build(columns =>
 	{
-		<tr>
-			<td>
-				@Html.DisplayFor(modelItem => item.Name)
-			</td>
-			<td>
-				@Html.Button(MVC.Admin.Categories.Edit(item.Id), "", "edit", ButtonSize.small);
-				@Html.Button(MVC.Admin.Categories.Delete(item.Id), "", "delete", ButtonSize.small);
-			</td>
-		</tr>
-	}
+		columns.Add(model => model.Name).Titled("Nazwa").Sortable(true);
+		columns.Add()
+			.Titled("Akcje")
+			.RenderedAs(model => Html.Button(MVC.Admin.Categories.Delete(model.CategoryId),"Delete",Icons.delete,ButtonSize.small));
+	})
 
-</table>
+	.Empty("No data found")
+	  .Pageable(pager =>
+	  {
+		  pager.RowsPerPage = 20;
+	  })
+)
+
 <p>
-	@Html.Button(MVC.Admin.Categories.Create(), "Dodaj", "add_box", ButtonSize.large);
+	@Html.Button(MVC.Admin.Categories.Create(), "Dodaj", Icons.add, ButtonSize.large)
 </p>

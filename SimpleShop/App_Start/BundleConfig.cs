@@ -9,6 +9,8 @@ namespace SimpleShop
 		{
 			bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
 						"~/Scripts/jquery-{version}.js"));
+			bundles.Add(new ScriptBundle("~/bundles/gridmvc").Include(
+				"~/Scripts/MvcGrid/mvc-grid.js"));
 
 			bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
 						"~/Scripts/jquery.validate*"));
@@ -28,7 +30,7 @@ namespace SimpleShop
 
 
 			bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/materialize.css",
-					  "~/Content/site.css"));
+					  "~/Content/site.css", "~/Content/MvcGrid/mvc-grid.css"));
 
 
 

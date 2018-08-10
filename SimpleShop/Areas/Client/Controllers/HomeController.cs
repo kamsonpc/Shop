@@ -4,7 +4,7 @@ using System.Net;
 using System.Web.Mvc;
 using PagedList;
 using SimpleShop.Areas.Admin.Models.Products;
-using SimpleShop.Areas.Client.Models.Product;
+using SimpleShop.Areas.Client.Models.Articles;
 using SimpleShop.Data.Extensions;
 using SimpleShop.Data.Interfaces;
 using SimpleShop.Data.Interfaces.Services;
@@ -32,14 +32,14 @@ namespace SimpleShop.Areas.Client.Controllers
 
 			var categories = _unitOfWork.Categories.GetAll().ToList();
 
-			var productPageVm = new ProductPageVM
+			var articlePageVm = new ArticlePageVM
 			{
-				Product = _productService.GetAll().MapTo<List<ProductVM>>()
+				Product = _productService.GetAll().MapTo<List<ArticleViewModel>>()
 					.ToPagedList(pageNumber, pageSize),
 				Categories = categories,
 			};
 
-			return View(MVC.Client.Home.Views.ViewNames.Index, productPageVm);
+			return View(MVC.Client.Home.Views.ViewNames.Index, articlePageVm);
 		}
 
 
@@ -71,7 +71,7 @@ namespace SimpleShop.Areas.Client.Controllers
 				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 			}
 
-			var product = _productService.GetById(id.Value).MapTo<ProductVM>();
+			var product = _productService.GetById(id.Value).MapTo<ProductListViewModel>();
 
 			if (product == null)
 			{

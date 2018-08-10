@@ -187,10 +187,10 @@ namespace SimpleShop.Areas.Admin.Controllers
         }
 
         [NonAction]
-        partial void EditOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int? id);
+        partial void EditOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int id);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Edit(int? id)
+        public override System.Web.Mvc.ActionResult Edit(int id)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Edit);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
@@ -199,23 +199,22 @@ namespace SimpleShop.Areas.Admin.Controllers
         }
 
         [NonAction]
-        partial void EditOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, SimpleShop.Data.Models.Category category, int? id);
+        partial void EditOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, SimpleShop.Areas.Admin.Models.Categories.CategoryViewModel category);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Edit(SimpleShop.Data.Models.Category category, int? id)
+        public override System.Web.Mvc.ActionResult Edit(SimpleShop.Areas.Admin.Models.Categories.CategoryViewModel category)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Edit);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "category", category);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
-            EditOverride(callInfo, category, id);
+            EditOverride(callInfo, category);
             return callInfo;
         }
 
         [NonAction]
-        partial void DeleteOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int? id);
+        partial void DeleteOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int id);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Delete(int? id)
+        public override System.Web.Mvc.ActionResult Delete(int id)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Delete);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);

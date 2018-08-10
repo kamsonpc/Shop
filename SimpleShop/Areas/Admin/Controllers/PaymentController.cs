@@ -34,22 +34,16 @@ namespace SimpleShop.Areas.Admin.Controllers
 			return View(result);
 		}
 
-		public virtual ActionResult Pay(int? id)
+		public virtual ActionResult Pay(int id)
 		{
-			if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-			_orderService.Pay(id.Value);
+			_orderService.Pay(id);
 			return RedirectToAction(MVC.Admin.Payment.Index());
 
 		}
 
-		public virtual ActionResult Shipping(int? id)
+		public virtual ActionResult Shipping(int id)
 		{
-			if (id == null)
-			{
-				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-			}
-
-			var shippingData = _orderService.GetShippinDataById(id.Value).MapTo<ShippingVM>();
+			var shippingData = _orderService.GetShippinDataById(id).MapTo<ShippingVM>();
 			if (shippingData == null)
 			{
 				return new HttpStatusCodeResult(HttpStatusCode.NotFound);

@@ -15,7 +15,9 @@ namespace SimpleShop.Areas.Admin.Models
 		public AdminMapping()
 		{
 			CreateMap<Category,CategoryViewModel>().ReverseMap();
-			CreateMap<Product, ProductVM>();
+			CreateMap<Product, ProductListViewModel>();
+			CreateMap<ProductViewModel, Product>();
+			CreateMap<Product, ProductViewModel>().Ignore(record => record.Categories);
 		}
 	}
 }

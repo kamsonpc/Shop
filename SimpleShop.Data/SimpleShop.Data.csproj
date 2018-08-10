@@ -124,6 +124,8 @@
     <Compile Include="Repositories\UserAddressRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Services\CartService.cs" />
+    <Compile Include="Services\CategoriesService.cs" />
+    <Compile Include="Interfaces\Services\ICategoriesService.cs" />
     <Compile Include="Services\OrderService.cs" />
     <Compile Include="Services\ProductService.cs" />
   </ItemGroup>
