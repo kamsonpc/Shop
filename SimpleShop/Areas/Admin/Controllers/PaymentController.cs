@@ -5,12 +5,13 @@ using PagedList;
 using SimpleShop.Areas.Client.Models.Orders;
 using SimpleShop.Data.Extensions;
 using SimpleShop.Data.Interfaces.Services;
+using SimpleShop.Data.Models;
 using SimpleShop.Filters;
 using SimpleShop.Helpers;
 
 namespace SimpleShop.Areas.Admin.Controllers
 {
-	[AuthorizeCustom(Roles = "Administrator")]
+	[AuthorizeCustom(RoleTypes.Administrator)]
 	public partial class PaymentController : BaseController
 	{
 		private readonly IOrderService _orderService;

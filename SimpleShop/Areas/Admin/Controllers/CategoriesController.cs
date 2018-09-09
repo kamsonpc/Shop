@@ -11,7 +11,7 @@ using SimpleShop.Helpers;
 
 namespace SimpleShop.Areas.Admin.Controllers
 {
-	[AuthorizeCustom(Roles = "Administrator")]
+	[AuthorizeCustom(RoleTypes.Administrator)]
 	public partial class CategoriesController : BaseController
 	{
 		private readonly IUnitOfWork _unitOfWork;

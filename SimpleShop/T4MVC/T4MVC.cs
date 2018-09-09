@@ -41,6 +41,7 @@ namespace T4MVC
     {
         public readonly string Name = "Admin";
         public SimpleShop.Areas.Admin.Controllers.CategoriesController Categories = new SimpleShop.Areas.Admin.Controllers.T4MVC_CategoriesController();
+        public SimpleShop.Areas.Admin.Controllers.FileManagerController FileManager = new SimpleShop.Areas.Admin.Controllers.T4MVC_FileManagerController();
         public SimpleShop.Areas.Admin.Controllers.PaymentController Payment = new SimpleShop.Areas.Admin.Controllers.T4MVC_PaymentController();
         public SimpleShop.Areas.Admin.Controllers.ProductController Product = new SimpleShop.Areas.Admin.Controllers.T4MVC_ProductController();
     }
@@ -53,7 +54,6 @@ namespace T4MVC
         public SimpleShop.Areas.Client.Controllers.HomeController Home = new SimpleShop.Areas.Client.Controllers.T4MVC_HomeController();
         public SimpleShop.Areas.Client.Controllers.ManageController Manage = new SimpleShop.Areas.Client.Controllers.T4MVC_ManageController();
         public SimpleShop.Areas.Client.Controllers.OrdersController Orders = new SimpleShop.Areas.Client.Controllers.T4MVC_OrdersController();
-        public T4MVC.Client.AccountsController Accounts = new T4MVC.Client.AccountsController();
     }
 }
 

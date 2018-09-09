@@ -275,7 +275,37 @@ namespace SimpleShop.Areas.Client.Controllers
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
+                public readonly string _ExternalLoginsListPartial = "_ExternalLoginsListPartial";
+                public readonly string _LayoutLogin = "_LayoutLogin";
+                public readonly string Address = "Address";
+                public readonly string ConfirmEmail = "ConfirmEmail";
+                public readonly string ExternalLoginConfirmation = "ExternalLoginConfirmation";
+                public readonly string ExternalLoginFailure = "ExternalLoginFailure";
+                public readonly string ForgotPassword = "ForgotPassword";
+                public readonly string ForgotPasswordConfirmation = "ForgotPasswordConfirmation";
+                public readonly string Login = "Login";
+                public readonly string Register = "Register";
+                public readonly string ResetPassword = "ResetPassword";
+                public readonly string ResetPasswordConfirmation = "ResetPasswordConfirmation";
+                public readonly string SendCode = "SendCode";
+                public readonly string SetAddress = "SetAddress";
+                public readonly string VerifyCode = "VerifyCode";
             }
+            public readonly string _ExternalLoginsListPartial = "~/Areas/Client/Views/Account/_ExternalLoginsListPartial.cshtml";
+            public readonly string _LayoutLogin = "~/Areas/Client/Views/Account/_LayoutLogin.cshtml";
+            public readonly string Address = "~/Areas/Client/Views/Account/Address.cshtml";
+            public readonly string ConfirmEmail = "~/Areas/Client/Views/Account/ConfirmEmail.cshtml";
+            public readonly string ExternalLoginConfirmation = "~/Areas/Client/Views/Account/ExternalLoginConfirmation.cshtml";
+            public readonly string ExternalLoginFailure = "~/Areas/Client/Views/Account/ExternalLoginFailure.cshtml";
+            public readonly string ForgotPassword = "~/Areas/Client/Views/Account/ForgotPassword.cshtml";
+            public readonly string ForgotPasswordConfirmation = "~/Areas/Client/Views/Account/ForgotPasswordConfirmation.cshtml";
+            public readonly string Login = "~/Areas/Client/Views/Account/Login.cshtml";
+            public readonly string Register = "~/Areas/Client/Views/Account/Register.cshtml";
+            public readonly string ResetPassword = "~/Areas/Client/Views/Account/ResetPassword.cshtml";
+            public readonly string ResetPasswordConfirmation = "~/Areas/Client/Views/Account/ResetPasswordConfirmation.cshtml";
+            public readonly string SendCode = "~/Areas/Client/Views/Account/SendCode.cshtml";
+            public readonly string SetAddress = "~/Areas/Client/Views/Account/SetAddress.cshtml";
+            public readonly string VerifyCode = "~/Areas/Client/Views/Account/VerifyCode.cshtml";
         }
     }
 
@@ -297,10 +327,10 @@ namespace SimpleShop.Areas.Client.Controllers
         }
 
         [NonAction]
-        partial void LoginOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, SimpleShop.Areas.Client.Views.Accounts.LoginViewModel model, string returnUrl);
+        partial void LoginOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, SimpleShop.Areas.Client.Models.Accounts.LoginViewModel model, string returnUrl);
 
         [NonAction]
-        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Login(SimpleShop.Areas.Client.Views.Accounts.LoginViewModel model, string returnUrl)
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Login(SimpleShop.Areas.Client.Models.Accounts.LoginViewModel model, string returnUrl)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Login);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
@@ -324,10 +354,10 @@ namespace SimpleShop.Areas.Client.Controllers
         }
 
         [NonAction]
-        partial void VerifyCodeOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, SimpleShop.Areas.Client.Views.Accounts.VerifyCodeViewModel model);
+        partial void VerifyCodeOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, SimpleShop.Areas.Client.Models.Accounts.VerifyCodeViewModel model);
 
         [NonAction]
-        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> VerifyCode(SimpleShop.Areas.Client.Views.Accounts.VerifyCodeViewModel model)
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> VerifyCode(SimpleShop.Areas.Client.Models.Accounts.VerifyCodeViewModel model)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.VerifyCode);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
@@ -347,10 +377,10 @@ namespace SimpleShop.Areas.Client.Controllers
         }
 
         [NonAction]
-        partial void RegisterOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, SimpleShop.Areas.Client.Views.Accounts.RegisterViewModel model);
+        partial void RegisterOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, SimpleShop.Areas.Client.Models.Accounts.RegisterViewModel model);
 
         [NonAction]
-        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Register(SimpleShop.Areas.Client.Views.Accounts.RegisterViewModel model)
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Register(SimpleShop.Areas.Client.Models.Accounts.RegisterViewModel model)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Register);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
@@ -383,10 +413,10 @@ namespace SimpleShop.Areas.Client.Controllers
         }
 
         [NonAction]
-        partial void ForgotPasswordOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, SimpleShop.Areas.Client.Views.Accounts.ForgotPasswordViewModel model);
+        partial void ForgotPasswordOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, SimpleShop.Areas.Client.Models.Accounts.ForgotPasswordViewModel model);
 
         [NonAction]
-        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> ForgotPassword(SimpleShop.Areas.Client.Views.Accounts.ForgotPasswordViewModel model)
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> ForgotPassword(SimpleShop.Areas.Client.Models.Accounts.ForgotPasswordViewModel model)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ForgotPassword);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
@@ -418,10 +448,10 @@ namespace SimpleShop.Areas.Client.Controllers
         }
 
         [NonAction]
-        partial void ResetPasswordOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, SimpleShop.Areas.Client.Views.Accounts.ResetPasswordViewModel model);
+        partial void ResetPasswordOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, SimpleShop.Areas.Client.Models.Accounts.ResetPasswordViewModel model);
 
         [NonAction]
-        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> ResetPassword(SimpleShop.Areas.Client.Views.Accounts.ResetPasswordViewModel model)
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> ResetPassword(SimpleShop.Areas.Client.Models.Accounts.ResetPasswordViewModel model)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ResetPassword);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
@@ -467,10 +497,10 @@ namespace SimpleShop.Areas.Client.Controllers
         }
 
         [NonAction]
-        partial void SendCodeOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, SimpleShop.Areas.Client.Views.Accounts.SendCodeViewModel model);
+        partial void SendCodeOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, SimpleShop.Areas.Client.Models.Accounts.SendCodeViewModel model);
 
         [NonAction]
-        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> SendCode(SimpleShop.Areas.Client.Views.Accounts.SendCodeViewModel model)
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> SendCode(SimpleShop.Areas.Client.Models.Accounts.SendCodeViewModel model)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SendCode);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
@@ -491,10 +521,10 @@ namespace SimpleShop.Areas.Client.Controllers
         }
 
         [NonAction]
-        partial void ExternalLoginConfirmationOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, SimpleShop.Areas.Client.Views.Accounts.ExternalLoginConfirmationViewModel model, string returnUrl);
+        partial void ExternalLoginConfirmationOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, SimpleShop.Areas.Client.Models.Accounts.ExternalLoginConfirmationViewModel model, string returnUrl);
 
         [NonAction]
-        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> ExternalLoginConfirmation(SimpleShop.Areas.Client.Views.Accounts.ExternalLoginConfirmationViewModel model, string returnUrl)
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> ExternalLoginConfirmation(SimpleShop.Areas.Client.Models.Accounts.ExternalLoginConfirmationViewModel model, string returnUrl)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ExternalLoginConfirmation);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);

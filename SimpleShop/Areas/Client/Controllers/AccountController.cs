@@ -6,8 +6,8 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using SimpleShop.Areas.Client.Models.Accounts;
 using SimpleShop.Areas.Client.Models.UsersAddress;
-using SimpleShop.Areas.Client.Views.Accounts;
 using SimpleShop.Data.Extensions;
 using SimpleShop.Data.Interfaces;
 using SimpleShop.Data.Models;
@@ -62,7 +62,7 @@ namespace SimpleShop.Areas.Client.Controllers
 		public virtual ActionResult Login(string returnUrl)
 		{
 			ViewBag.ReturnUrl = returnUrl;
-			return View();
+			return View(MVC.Client.Account.Views.Login);
 		}
 
 		//
@@ -91,7 +91,7 @@ namespace SimpleShop.Areas.Client.Controllers
 				case SignInStatus.Failure:
 				default:
 					ModelState.AddModelError("", "Invalid login attempt.");
-					return View(model);
+					return View(MVC.Client.Account.Views.Login, model);
 			}
 		}
 

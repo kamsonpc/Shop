@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace SimpleShop.Areas.Client.Views.Accounts
+namespace SimpleShop.Areas.Client.Models.Accounts
 {
     public class ExternalLoginConfirmationViewModel
     {

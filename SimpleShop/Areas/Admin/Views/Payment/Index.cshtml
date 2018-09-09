@@ -1,13 +1,12 @@
 ﻿@model PagedList.IPagedList<SimpleShop.Areas.Client.Models.Orders.OrdersPageVM>
 @using PagedList.Mvc;
-@using SimpleShop.T4MVC
 
 @{
 	ViewBag.Title = "Index";
 }
 
 <h2>Zamówienia</h2>
-@using (Html.BeginForm(MVC.Payment.Index(), FormMethod.Get))
+@using (Html.BeginForm(MVC.Admin.Payment.Index(), FormMethod.Get))
 {
 	<div class="input-group search-container">
 		<span class="input-group-btn">
@@ -54,7 +53,7 @@
 				@Html.DisplayFor(modelItem => item.ApplicationUser.Email)
 			</td>
 			<td>
-				<a href="@Url.Action(MVC.Product.Details(item.ProductId))">@Html.DisplayFor(modelItem => item.Product.Name)</a>
+				<a href="@Url.Action(MVC.Client.Home.Details(item.ProductId))">@Html.DisplayFor(modelItem => item.Product.Name)</a>
 			<td>
 				@Html.DisplayFor(modelItem => item.Price)
 			</td>

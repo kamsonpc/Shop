@@ -23,12 +23,12 @@ using System.Web.Mvc.Ajax;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
 using T4MVC;
-namespace SimpleShop.Areas.Client.Controllers
+namespace SimpleShop.Areas.Admin.Controllers
 {
-    public partial class OrdersController
+    public partial class FileManagerController
     {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        protected OrdersController(Dummy d) { }
+        protected FileManagerController(Dummy d) { }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         protected RedirectToRouteResult RedirectToAction(ActionResult result)
@@ -58,13 +58,13 @@ namespace SimpleShop.Areas.Client.Controllers
 
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public OrdersController Actions { get { return MVC.Client.Orders; } }
+        public FileManagerController Actions { get { return MVC.Admin.FileManager; } }
         [GeneratedCode("T4MVC", "2.0")]
-        public readonly string Area = "Client";
+        public readonly string Area = "Admin";
         [GeneratedCode("T4MVC", "2.0")]
-        public readonly string Name = "Orders";
+        public readonly string Name = "FileManager";
         [GeneratedCode("T4MVC", "2.0")]
-        public const string NameConst = "Orders";
+        public const string NameConst = "FileManager";
         [GeneratedCode("T4MVC", "2.0")]
         static readonly ActionNamesClass s_actions = new ActionNamesClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -73,12 +73,14 @@ namespace SimpleShop.Areas.Client.Controllers
         public class ActionNamesClass
         {
             public readonly string Index = "Index";
+            public readonly string Create = "Create";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
             public const string Index = "Index";
+            public const string Create = "Create";
         }
 
 
@@ -92,16 +94,14 @@ namespace SimpleShop.Areas.Client.Controllers
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
-                public readonly string List = "List";
             }
-            public readonly string List = "~/Areas/Client/Views/Orders/List.cshtml";
         }
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public partial class T4MVC_OrdersController : SimpleShop.Areas.Client.Controllers.OrdersController
+    public partial class T4MVC_FileManagerController : SimpleShop.Areas.Admin.Controllers.FileManagerController
     {
-        public T4MVC_OrdersController() : base(Dummy.Instance) { }
+        public T4MVC_FileManagerController() : base(Dummy.Instance) { }
 
         [NonAction]
         partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
@@ -111,6 +111,17 @@ namespace SimpleShop.Areas.Client.Controllers
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
             IndexOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void CreateOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Create()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Create);
+            CreateOverride(callInfo);
             return callInfo;
         }
 

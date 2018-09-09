@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
@@ -9,7 +8,7 @@ using SimpleShop.Areas.Admin.Models.Products;
 using SimpleShop.Data.Extensions;
 using SimpleShop.Data.Models;
 
-namespace SimpleShop.Areas.Admin
+namespace SimpleShop.Areas.Admin.Models
 {
 	public class AdminMapping : Profile
 	{

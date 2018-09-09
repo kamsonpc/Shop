@@ -253,10 +253,11 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
-    <Compile Include="Areas\Admin\AdminMapping.cs" />
+    <Compile Include="Areas\Admin\Models\AdminMapping.cs" />
+    <Compile Include="Areas\Admin\Controllers\FileManagerController.cs" />
     <Compile Include="Areas\Admin\Models\Categories\CategoryViewModel.cs" />
     <Compile Include="Areas\Client\ClientAreaRegistration.cs" />
-    <Compile Include="Areas\Client\ClientMapping.cs" />
+    <Compile Include="Areas\Client\Models\ClientMapping.cs" />
     <Compile Include="BreadCrumbs\DynamicNodeGenerator.cs" />
     <Compile Include="Areas\Client\Controllers\AccountController.cs" />
     <Compile Include="Areas\Client\Controllers\CartController.cs" />
@@ -275,7 +276,7 @@
     <Compile Include="Helpers\BaseController.cs" />
     <Compile Include="Helpers\ButtonHelpers.cs" />
     <Compile Include="Mapping\MappingProfiles.cs" />
-    <Compile Include="Areas\Client\Views\Accounts\AccountViewModels.cs" />
+    <Compile Include="Areas\Client\Models\Accounts\AccountViewModels.cs" />
     <Compile Include="Areas\Client\Models\Carts\CartVM.cs" />
     <Compile Include="Areas\Client\Models\Manages\ManageViewModels.cs" />
     <Compile Include="Areas\Client\Models\Orders\OrdersPageVM.cs" />
@@ -288,6 +289,9 @@
     <Compile Include="T4MVC\Admin.CategoriesController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="T4MVC\Admin.FileManagerController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
     <Compile Include="T4MVC\Admin.PaymentController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
@@ -295,9 +299,6 @@
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="T4MVC\Client.AccountController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="T4MVC\Client.AccountsController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="T4MVC\Client.CartController.generated.cs">
@@ -386,18 +387,18 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Areas\Client\Views\Home\About.cshtml" />
     <Content Include="Areas\Client\Views\Home\Contact.cshtml" />
-    <Content Include="Areas\Client\Models\Account\_ExternalLoginsListPartial.cshtml" />
-    <Content Include="Areas\Client\Models\Account\ConfirmEmail.cshtml" />
-    <Content Include="Areas\Client\Models\Account\ExternalLoginConfirmation.cshtml" />
-    <Content Include="Areas\Client\Models\Account\ExternalLoginFailure.cshtml" />
-    <Content Include="Areas\Client\Models\Account\ForgotPassword.cshtml" />
-    <Content Include="Areas\Client\Models\Account\ForgotPasswordConfirmation.cshtml" />
-    <Content Include="Areas\Client\Models\Account\Login.cshtml" />
-    <Content Include="Areas\Client\Models\Account\Register.cshtml" />
-    <Content Include="Areas\Client\Models\Account\ResetPassword.cshtml" />
-    <Content Include="Areas\Client\Models\Account\ResetPasswordConfirmation.cshtml" />
-    <Content Include="Areas\Client\Models\Account\SendCode.cshtml" />
-    <Content Include="Areas\Client\Models\Account\VerifyCode.cshtml" />
+    <Content Include="Areas\Client\Views\Account\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Areas\Client\Views\Account\ConfirmEmail.cshtml" />
+    <Content Include="Areas\Client\Views\Account\ExternalLoginConfirmation.cshtml" />
+    <Content Include="Areas\Client\Views\Account\ExternalLoginFailure.cshtml" />
+    <Content Include="Areas\Client\Views\Account\ForgotPassword.cshtml" />
+    <Content Include="Areas\Client\Views\Account\ForgotPasswordConfirmation.cshtml" />
+    <Content Include="Areas\Client\Views\Account\Login.cshtml" />
+    <Content Include="Areas\Client\Views\Account\Register.cshtml" />
+    <Content Include="Areas\Client\Views\Account\ResetPassword.cshtml" />
+    <Content Include="Areas\Client\Views\Account\ResetPasswordConfirmation.cshtml" />
+    <Content Include="Areas\Client\Views\Account\SendCode.cshtml" />
+    <Content Include="Areas\Client\Views\Account\VerifyCode.cshtml" />
     <Content Include="Areas\Client\Views\Manage\AddPhoneNumber.cshtml" />
     <Content Include="Areas\Client\Views\Manage\ChangePassword.cshtml" />
     <Content Include="Areas\Client\Views\Manage\Index.cshtml" />
@@ -410,7 +411,7 @@
     <Content Include="Areas\Admin\Views\Product\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Product\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Product\Create.cshtml" />
-    <Content Include="Areas\Client\Views\Orders\Index.cshtml" />
+    <Content Include="Areas\Client\Views\Orders\List.cshtml" />
     <Content Include="Areas\Admin\Views\Categories\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Categories\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Categories\Edit.cshtml" />
@@ -424,7 +425,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Client\Views\Cart\Index.cshtml" />
     <Content Include="Areas\Client\Views\Cart\Complete.cshtml" />
-    <Content Include="Areas\Client\Models\Account\_LayoutLogin.cshtml" />
+    <Content Include="Areas\Client\Views\Account\_LayoutLogin.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\SiteMapTitleHelperModel.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\SiteMapPathHelperModel.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\SiteMapNodeModelList.cshtml" />
@@ -433,8 +434,8 @@
     <Content Include="Views\Shared\DisplayTemplates\MetaRobotsHelperModel.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\MenuHelperModel.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\CanonicalHelperModel.cshtml" />
-    <Content Include="Areas\Client\Models\Account\SetAddress.cshtml" />
-    <Content Include="Areas\Client\Models\Account\Address.cshtml" />
+    <Content Include="Areas\Client\Views\Account\SetAddress.cshtml" />
+    <Content Include="Areas\Client\Views\Account\Address.cshtml" />
     <Content Include="T4MVC\T4MVC.tt.hooks.t4" />
     <Content Include="Views\Shared\_GridPager.cshtml" />
     <Content Include="Views\Shared\_Grid.cshtml" />
@@ -500,6 +501,10 @@
     <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.2.4.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.2.4.0\build\Microsoft.Net.Compilers.props'))" />
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
   </Target>
+  <PropertyGroup>
+    <PreBuildEvent>$(ProjectDir)..\SimpleShop.DB\bin\Debug\SimpleShop.DB.exe
+</PreBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

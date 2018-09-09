@@ -15,7 +15,7 @@ using SimpleShop.Helpers;
 
 namespace SimpleShop.Areas.Admin.Controllers
 {
-	[AuthorizeCustom(Roles = "Administrator")]
+	[AuthorizeCustom(RoleTypes.Administrator)]
 	[RouteArea("Admin", AreaPrefix = "admin")]
 
 	public partial class ProductController : BaseController

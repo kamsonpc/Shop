@@ -3,6 +3,7 @@ using System.Linq;
 using SimpleShop.Data.Interfaces;
 using SimpleShop.Data.Interfaces.Services;
 using SimpleShop.Data.Models;
+using SimpleShop.Data.Models.Orders;
 
 namespace SimpleShop.Data.Services
 {
@@ -13,11 +14,6 @@ namespace SimpleShop.Data.Services
 		public OrderService(IUnitOfWork unitOfWork)
 		{
 			_unitOfWork = unitOfWork;
-		}
-
-		public List<Order> GetAll()
-		{
-			return _unitOfWork.Orders.GetAll().ToList();
 		}
 
 		public List<Order> Find(string search)
@@ -43,5 +39,20 @@ namespace SimpleShop.Data.Services
 			_unitOfWork.Complete();
 		}
 
-	}
+        public List<OrderInfo> GetAll()
+        {
+            var order = _unitOfWork.Orders.GetAll();
+            var products = _unitOfWork.Products.GetAll();
+            return order
+                .Join(products, x => x.ProductId, o => o.ProductId, (o, x) => 
+                new OrderInfo
+                {
+                    Id = x.ProductId,
+                    Quantity = x.Quantity,
+                    
+                    
+                })
+                .ToList();
+        }
+    }
 }

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using SimpleShop.Data.Interfaces.Repositories;
 using SimpleShop.Data.Models;
+using SimpleShop.Data.Models.Orders;
 
 namespace SimpleShop.Data.Repositories
 {
@@ -16,20 +17,15 @@ namespace SimpleShop.Data.Repositories
 
 		public new IEnumerable<Order> Find(Expression<Func<Order, bool>> predicate)
 		{
-			return ApplicationDbContext.Orders.Include(p => p.Product).Include(a => a.ApplicationUser).Where(predicate);
+			return _contex.Orders.Include(p => p.Product).Include(a => a.ApplicationUser).Where(predicate);
 		}
 
-		public IEnumerable<Order> GetOrdersByUserId(string userId)
-		{
-			return ApplicationDbContext.Orders.Include(p => p.Product).Where(p => p.ApplicationUser.Id == userId).OrderByDescending(d => d.Date);
-		}
+        public IEnumerable<Order> GetOrdersByUserId(string userId)
+        {
+            throw new NotImplementedException();
+        }
 
-		public new IEnumerable<Order> GetAll()
-		{
-			return ApplicationDbContext.Orders.Include(p => p.Product).Include(a => a.ApplicationUser).OrderBy(p => p.Payment);
-		}
-
-		public ApplicationDbContext ApplicationDbContext
+        public ApplicationDbContext _contex
 		{
 			get { return Contex as ApplicationDbContext; }
 		}

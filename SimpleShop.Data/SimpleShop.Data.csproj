@@ -93,6 +93,7 @@
     <Compile Include="Extensions\MappingExtensions.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
+    <Compile Include="Interfaces\Repositories\IUserRepository.cs" />
     <Compile Include="Interfaces\Repositories\ICartRepository.cs" />
     <Compile Include="Interfaces\Repositories\ICategoryRepository.cs" />
     <Compile Include="Interfaces\Repositories\IOrderRepository.cs" />
@@ -101,11 +102,15 @@
     <Compile Include="Interfaces\Services\ICartService.cs" />
     <Compile Include="Interfaces\Services\IOrderService.cs" />
     <Compile Include="Interfaces\Services\IProductService.cs" />
+    <Compile Include="Models\Behaviours\Auditable.cs" />
     <Compile Include="Models\Cart.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\Order.cs" />
+    <Compile Include="Models\Orders\Order.cs" />
+    <Compile Include="Models\Orders\OrderInfo.cs" />
     <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\Roles\RoleTypes.cs" />
+    <Compile Include="Models\RoleTypes.cs" />
     <Compile Include="Models\SearchModels\ProductSearchModel.cs" />
     <Compile Include="Models\Status.cs" />
     <Compile Include="Models\UnitOfWork.cs" />
@@ -117,6 +122,7 @@
     <Compile Include="Repositories\ProductRepository.cs" />
     <Compile Include="Repositories\Repository.cs" />
     <Compile Include="Repositories\UserAddressRepository.cs" />
+    <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Services\CartService.cs" />
     <Compile Include="Services\OrderService.cs" />
     <Compile Include="Services\ProductService.cs" />

@@ -9,7 +9,7 @@ using SimpleShop.Areas.Admin.Models.Products;
 using SimpleShop.Data.Extensions;
 using SimpleShop.Data.Models;
 
-namespace SimpleShop.Areas.Client
+namespace SimpleShop.Areas.Client.Models
 {
 	public class ClientMapping : Profile
 	{

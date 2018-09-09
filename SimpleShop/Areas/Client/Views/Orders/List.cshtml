@@ -1,0 +1,15 @@
+﻿@using SimpleShop.Areas.Client.Models.Orders
+@model IEnumerable<OrdersPageVM>
+
+@Html.Grid(Model).Columns(columns =>
+{
+    columns.Add(o => o.OrderId);
+    columns.Add(o => o.ApplicationUser.UserName);
+    columns.Add(o => o.Product.Name);
+    columns.Add(o => o.Price);
+    columns.Add(o => o.Date);
+
+}).WithPaging(15).Sortable().Filterable().WithMultipleFilters()
+
+
+
