@@ -41,6 +41,7 @@ namespace T4MVC
     {
         public readonly string Name = "Admin";
         public SimpleShop.Areas.Admin.Controllers.CategoriesController Categories = new SimpleShop.Areas.Admin.Controllers.T4MVC_CategoriesController();
+        public SimpleShop.Areas.Admin.Controllers.FileManagerController FileManager = new SimpleShop.Areas.Admin.Controllers.T4MVC_FileManagerController();
         public SimpleShop.Areas.Admin.Controllers.PaymentController Payment = new SimpleShop.Areas.Admin.Controllers.T4MVC_PaymentController();
         public SimpleShop.Areas.Admin.Controllers.ProductController Product = new SimpleShop.Areas.Admin.Controllers.T4MVC_ProductController();
         public T4MVC.Admin.SharedController Shared = new T4MVC.Admin.SharedController();
@@ -97,6 +98,9 @@ namespace Links
         public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(UrlPath + "/" + fileName); }
         public static readonly string bootstrap_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/bootstrap.min.js") ? Url("bootstrap.min.js") : Url("bootstrap.js");
         public static readonly string bootstrap_min_js = Url("bootstrap.min.js");
+        public static readonly string gridmvc_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/gridmvc.min.js") ? Url("gridmvc.min.js") : Url("gridmvc.js");
+        public static readonly string gridmvc_lang_ru_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/gridmvc.lang.ru.min.js") ? Url("gridmvc.lang.ru.min.js") : Url("gridmvc.lang.ru.js");
+        public static readonly string gridmvc_min_js = Url("gridmvc.min.js");
         public static readonly string jquery_1_10_2_intellisense_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/jquery-1.10.2.intellisense.min.js") ? Url("jquery-1.10.2.intellisense.min.js") : Url("jquery-1.10.2.intellisense.js");
         public static readonly string jquery_1_10_2_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/jquery-1.10.2.min.js") ? Url("jquery-1.10.2.min.js") : Url("jquery-1.10.2.js");
         public static readonly string jquery_1_10_2_min_js = Url("jquery-1.10.2.min.js");
@@ -108,15 +112,6 @@ namespace Links
         public static readonly string jquery_validate_unobtrusive_min_js = Url("jquery.validate.unobtrusive.min.js");
         public static readonly string materialize_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/materialize.min.js") ? Url("materialize.min.js") : Url("materialize.js");
         public static readonly string modernizr_2_6_2_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/modernizr-2.6.2.min.js") ? Url("modernizr-2.6.2.min.js") : Url("modernizr-2.6.2.js");
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public static class MvcGrid {
-            public const string UrlPath = "~/Scripts/MvcGrid";
-            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(UrlPath); }
-            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(UrlPath + "/" + fileName); }
-            public static readonly string mvc_grid_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/mvc-grid.min.js") ? Url("mvc-grid.min.js") : Url("mvc-grid.js");
-            public static readonly string mvc_grid_min_js = Url("mvc-grid.min.js");
-        }
-    
         public static readonly string my_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/my.min.js") ? Url("my.min.js") : Url("my.js");
         public static readonly string respond_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/respond.min.js") ? Url("respond.min.js") : Url("respond.js");
         public static readonly string respond_min_js = Url("respond.min.js");
@@ -129,6 +124,7 @@ namespace Links
         public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(UrlPath + "/" + fileName); }
         public static readonly string bootstrap_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/bootstrap.min.css") ? Url("bootstrap.min.css") : Url("bootstrap.css");
         public static readonly string bootstrap_min_css = Url("bootstrap.min.css");
+        public static readonly string Gridmvc_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/Gridmvc.min.css") ? Url("Gridmvc.min.css") : Url("Gridmvc.css");
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public static class Images {
             public const string UrlPath = "~/Content/Images";
@@ -140,22 +136,6 @@ namespace Links
         }
     
         public static readonly string materialize_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/materialize.min.css") ? Url("materialize.min.css") : Url("materialize.css");
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public static class MvcGrid {
-            public const string UrlPath = "~/Content/MvcGrid";
-            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(UrlPath); }
-            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(UrlPath + "/" + fileName); }
-            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-            public static class Fonts {
-                public const string UrlPath = "~/Content/MvcGrid/Fonts";
-                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(UrlPath); }
-                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(UrlPath + "/" + fileName); }
-                public static readonly string GridGlyphs_woff = Url("GridGlyphs.woff");
-            }
-        
-            public static readonly string mvc_grid_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/mvc-grid.min.css") ? Url("mvc-grid.min.css") : Url("mvc-grid.css");
-        }
-    
         public static readonly string PagedList_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/PagedList.min.css") ? Url("PagedList.min.css") : Url("PagedList.css");
         public static readonly string Site_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/Site.min.css") ? Url("Site.min.css") : Url("Site.css");
     }
@@ -166,18 +146,13 @@ namespace Links
     {
         public static partial class Scripts 
         {
-            public static partial class MvcGrid 
-            {
-                public static class Assets
-                {
-                    public static readonly string mvc_grid_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/MvcGrid/mvc-grid.js"); 
-                    public static readonly string mvc_grid_min_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/MvcGrid/mvc-grid.min.js"); 
-                }
-            }
             public static class Assets
             {
                 public static readonly string bootstrap_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/bootstrap.js"); 
                 public static readonly string bootstrap_min_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/bootstrap.min.js"); 
+                public static readonly string gridmvc_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/gridmvc.js"); 
+                public static readonly string gridmvc_lang_ru_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/gridmvc.lang.ru.js"); 
+                public static readonly string gridmvc_min_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/gridmvc.min.js"); 
                 public static readonly string jquery_1_10_2_intellisense_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/jquery-1.10.2.intellisense.js"); 
                 public static readonly string jquery_1_10_2_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/jquery-1.10.2.js"); 
                 public static readonly string jquery_1_10_2_min_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/jquery-1.10.2.min.js"); 
@@ -200,23 +175,11 @@ namespace Links
                 {
                 }
             }
-            public static partial class MvcGrid 
-            {
-                public static partial class Fonts 
-                {
-                    public static class Assets
-                    {
-                    }
-                }
-                public static class Assets
-                {
-                    public static readonly string mvc_grid_css = T4MVCHelpers.ProcessAssetPath("~/Content/MvcGrid/mvc-grid.css");
-                }
-            }
             public static class Assets
             {
                 public static readonly string bootstrap_css = T4MVCHelpers.ProcessAssetPath("~/Content/bootstrap.css");
                 public static readonly string bootstrap_min_css = T4MVCHelpers.ProcessAssetPath("~/Content/bootstrap.min.css");
+                public static readonly string Gridmvc_css = T4MVCHelpers.ProcessAssetPath("~/Content/Gridmvc.css");
                 public static readonly string materialize_css = T4MVCHelpers.ProcessAssetPath("~/Content/materialize.css");
                 public static readonly string PagedList_css = T4MVCHelpers.ProcessAssetPath("~/Content/PagedList.css");
                 public static readonly string Site_css = T4MVCHelpers.ProcessAssetPath("~/Content/Site.css");

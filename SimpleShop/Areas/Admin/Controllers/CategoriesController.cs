@@ -7,12 +7,13 @@ using SimpleShop.Data.Extensions;
 using SimpleShop.Data.Interfaces;
 using SimpleShop.Data.Interfaces.Services;
 using SimpleShop.Data.Models;
+using SimpleShop.Data.Models.Roles;
 using SimpleShop.Filters;
 using SimpleShop.Helpers;
 
 namespace SimpleShop.Areas.Admin.Controllers
 {
-	[AuthorizeCustom(Roles = RolesTypes.Administrator)]
+	[AuthorizeCustom(RoleTypes.Administrator)]
 	public partial class CategoriesController : BaseController
 	{
 		private readonly ICategoriesService _categoriesService;

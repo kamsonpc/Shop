@@ -10,6 +10,8 @@ namespace SimpleShop.Data.Interfaces
 		IProductRepository Products { get; }
 		ICartRepository CartItems { get; }
 		IUserAddress UserAddress { get; }
+		IFolderRepository Folders { get; }
+
 
 		int Complete();
 	}

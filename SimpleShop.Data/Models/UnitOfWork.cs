@@ -16,6 +16,7 @@ namespace SimpleShop.Data.Models
 			Products = new ProductRepository(_contex);
 			CartItems = new CartRepository(_contex);
 			UserAddress = new UserAddressRepository(_contex);
+			Folders = new FolderRepository(_contex);
 		}
 
 		public ICategoryRepository Categories { get; private set; }
@@ -23,6 +24,8 @@ namespace SimpleShop.Data.Models
 		public IProductRepository Products { get; private set; }
 		public ICartRepository CartItems { get; private set; }
 		public IUserAddress UserAddress { get; private set; }
+		public IFolderRepository Folders { get; private set; }
+
 
 
 		public int Complete()

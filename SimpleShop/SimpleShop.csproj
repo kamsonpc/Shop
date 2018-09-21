@@ -60,9 +60,6 @@
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.VisualBasic" />
-    <Reference Include="Mvc.Grid.Core, Version=5.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NonFactors.Grid.Core.Mvc5.5.0.0\lib\net45\Mvc.Grid.Core.dll</HintPath>
-    </Reference>
     <Reference Include="MvcSiteMapProvider, Version=4.6.22.0, Culture=neutral, PublicKeyToken=1923abe4657913cc, processorArchitecture=MSIL">
       <HintPath>..\packages\MvcSiteMapProvider.MVC5.Core.4.6.22\lib\net45\MvcSiteMapProvider.dll</HintPath>
     </Reference>
@@ -82,6 +79,10 @@
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security.Claims, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Claims.4.3.0\lib\net46\System.Security.Claims.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
     </Reference>
@@ -259,6 +260,7 @@
     <Compile Include="Areas\Admin\Models\AdminMapping.cs" />
     <Compile Include="Areas\Admin\Models\Categories\CategoryViewModel.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Models\Filesmanager\ProductListViewModel.cs" />
     <Compile Include="Areas\Admin\Models\Products\ProductViewModel.cs" />
     <Compile Include="Areas\Client\ClientAreaRegistration.cs" />
     <Compile Include="Areas\Client\Models\Articles\ArticleViewModel.cs" />
@@ -281,7 +283,6 @@
     <Compile Include="Helpers\BaseController.cs" />
     <Compile Include="Helpers\ButtonHelpers.cs" />
     <Compile Include="Helpers\IconsHelper.cs" />
-    <Compile Include="Helpers\RolesTypes.cs" />
     <Compile Include="Mapping\MappingProfiles.cs" />
     <Compile Include="Areas\Client\Models\Accounts\AccountViewModels.cs" />
     <Compile Include="Areas\Client\Models\Carts\CartVM.cs" />
@@ -294,6 +295,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="T4MVC\Admin.CategoriesController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="T4MVC\Admin.FileManagerController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="T4MVC\Admin.PaymentController.generated.cs">
@@ -340,7 +344,6 @@
     <Content Include="Content\Images\office.jpg" />
     <Content Include="Content\Images\product_hero.png" />
     <Content Include="Content\materialize.css" />
-    <Content Include="Content\MvcGrid\mvc-grid.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -359,9 +362,10 @@
     <Content Include="Areas\Client\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Admin\Views\web.config" />
-    <Content Include="Content\MvcGrid\Fonts\GridGlyphs.woff" />
     <Content Include="Grid.mvc.readme" />
     <Content Include="Areas\Client\Views\Orders\List.cshtml" />
+    <Content Include="Areas\Admin\Views\Filemanager\List.cshtml" />
+    <Content Include="Areas\Admin\Views\Filemanager\_Filemanager.cshtml" />
     <None Include="MvcSiteMapSchema.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -369,8 +373,6 @@
     <Content Include="Scripts\gridmvc.js" />
     <Content Include="Scripts\gridmvc.lang.ru.js" />
     <Content Include="Scripts\gridmvc.min.js" />
-    <Content Include="Scripts\MvcGrid\mvc-grid.js" />
-    <Content Include="Scripts\MvcGrid\mvc-grid.min.js" />
     <Content Include="Scripts\my.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -456,8 +458,6 @@
     <Content Include="Areas\Client\Views\Shared\_Footer.cshtml" />
     <Content Include="Areas\Client\Views\Shared\_Navbar.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\SiteMapNavbarHelper.cshtml" />
-    <Content Include="Views\Shared\MvcGrid\_Pager.cshtml" />
-    <Content Include="Views\Shared\MvcGrid\_Grid.cshtml" />
     <Content Include="Views\Shared\_GridPager.cshtml" />
   </ItemGroup>
   <ItemGroup>

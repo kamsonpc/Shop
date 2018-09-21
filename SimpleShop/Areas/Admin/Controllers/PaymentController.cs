@@ -6,6 +6,7 @@ using SimpleShop.Areas.Client.Models.Orders;
 using SimpleShop.Data.Extensions;
 using SimpleShop.Data.Interfaces.Services;
 using SimpleShop.Data.Models;
+using SimpleShop.Data.Models.Roles;
 using SimpleShop.Filters;
 using SimpleShop.Helpers;
 

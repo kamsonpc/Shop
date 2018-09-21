@@ -39,12 +39,14 @@ namespace T4MVC
             public class _ViewNamesClass
             {
                 public readonly string _Grid = "_Grid";
+                public readonly string _GridPager = "_GridPager";
                 public readonly string _Notyfication = "_Notyfication";
                 public readonly string _Search = "_Search";
                 public readonly string Error = "Error";
                 public readonly string Lockout = "Lockout";
             }
             public readonly string _Grid = "~/Views/Shared/_Grid.cshtml";
+            public readonly string _GridPager = "~/Views/Shared/_GridPager.cshtml";
             public readonly string _Notyfication = "~/Views/Shared/_Notyfication.cshtml";
             public readonly string _Search = "~/Views/Shared/_Search.cshtml";
             public readonly string Error = "~/Views/Shared/Error.cshtml";
@@ -63,21 +65,6 @@ namespace T4MVC
                 public readonly string SiteMapNodeModelList = "SiteMapNodeModelList";
                 public readonly string SiteMapPathHelperModel = "SiteMapPathHelperModel";
                 public readonly string SiteMapTitleHelperModel = "SiteMapTitleHelperModel";
-            }
-            static readonly _MvcGridClass s_MvcGrid = new _MvcGridClass();
-            public _MvcGridClass MvcGrid { get { return s_MvcGrid; } }
-            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-            public partial class _MvcGridClass
-            {
-                static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
-                public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
-                public class _ViewNamesClass
-                {
-                    public readonly string _Grid = "_Grid";
-                    public readonly string _Pager = "_Pager";
-                }
-                public readonly string _Grid = "~/Views/Shared/MvcGrid/_Grid.cshtml";
-                public readonly string _Pager = "~/Views/Shared/MvcGrid/_Pager.cshtml";
             }
         }
     }

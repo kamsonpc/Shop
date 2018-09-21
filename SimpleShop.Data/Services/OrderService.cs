@@ -23,7 +23,7 @@ namespace SimpleShop.Data.Services
 			return orders.FindAll(s => s.ProductName.Contains(search));
 		}
 
-		public List<Order> GetByUserId(string id)
+		public List<OrderInfo> GetByUserId(string id)
 		{
 			return _unitOfWork.Orders.GetOrdersByUserId(id).ToList();
 		}

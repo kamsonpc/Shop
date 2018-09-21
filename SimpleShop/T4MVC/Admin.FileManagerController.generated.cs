@@ -73,14 +73,14 @@ namespace SimpleShop.Areas.Admin.Controllers
         public class ActionNamesClass
         {
             public readonly string Index = "Index";
-            public readonly string Create = "Create";
+            public readonly string List = "List";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
             public const string Index = "Index";
-            public const string Create = "Create";
+            public const string List = "List";
         }
 
 
@@ -94,7 +94,11 @@ namespace SimpleShop.Areas.Admin.Controllers
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
+                public readonly string _Filemanager = "_Filemanager";
+                public readonly string List = "List";
             }
+            public readonly string _Filemanager = "~/Areas/Admin/Views/Filemanager/_Filemanager.cshtml";
+            public readonly string List = "~/Areas/Admin/Views/Filemanager/List.cshtml";
         }
     }
 
@@ -115,13 +119,13 @@ namespace SimpleShop.Areas.Admin.Controllers
         }
 
         [NonAction]
-        partial void CreateOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+        partial void ListOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Create()
+        public override System.Web.Mvc.ActionResult List()
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Create);
-            CreateOverride(callInfo);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.List);
+            ListOverride(callInfo);
             return callInfo;
         }
 

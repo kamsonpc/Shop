@@ -20,9 +20,20 @@ namespace SimpleShop.Data.Repositories
 			return _contex.Orders.Where(predicate);
 		}
 
-        public IEnumerable<Order> GetOrdersByUserId(string userId)
+        public IEnumerable<OrderInfo> GetOrdersByUserId(string userId)
         {
-            throw new NotImplementedException();
+
+			return _contex.Orders.Where(x => x.ApplicationUserId == userId)
+				.Join(_contex.Products, x => x.ProductId, o => o.ProductId, (o, x) =>
+			        new OrderInfo
+			        {
+				        Id = o.OrderId,
+				        Quantity = o.Quantity,
+				        Date = o.Date,
+				        Price = o.Price,
+				        ProductName = x.Name
+			        });
+
         }
 
         public ApplicationDbContext _contex

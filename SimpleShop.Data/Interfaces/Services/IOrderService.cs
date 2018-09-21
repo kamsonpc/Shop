@@ -8,7 +8,7 @@ namespace SimpleShop.Data.Interfaces.Services
 	{
 		List<OrderInfo> GetAll();
 		List<OrderInfo> Find(string search);
-		List<Order> GetByUserId(string id);
+		List<OrderInfo> GetByUserId(string id);
 		Order GetShippinDataById(int id);
 		void Pay(int orderId);
 	}

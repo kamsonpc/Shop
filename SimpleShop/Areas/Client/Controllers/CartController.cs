@@ -6,12 +6,13 @@ using SimpleShop.Areas.Client.Models.Orders;
 using SimpleShop.Data.Extensions;
 using SimpleShop.Data.Interfaces.Services;
 using SimpleShop.Data.Models;
+using SimpleShop.Data.Models.Roles;
 using SimpleShop.Filters;
 using SimpleShop.Helpers;
 
 namespace SimpleShop.Areas.Client.Controllers
 {
-	[AuthorizeCustom(Roles = RolesTypes.Administrator)]
+	[AuthorizeCustom(RoleTypes.Administrator)]
 	public partial class CartController : BaseController
 	{
 		private readonly ICartService _cartService;

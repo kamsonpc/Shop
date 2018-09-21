@@ -10,7 +10,6 @@
 
 @Html.Grid(Model).Columns(columns =>
 {
-	/* Adding not mapped column, that renders body, using inline Razor html helper */
 	columns.Add()
 		.Encoded(false)
 		.Sanitized(false)
@@ -20,19 +19,16 @@
 				@Html.ActionLink("Edit", "Index")
 			</b>);
 
-/* Adding "OrderID" column: */
 			columns.Add(o => o.Id)
 				.Titled("Number")
 				.SetWidth(100);
 
-/* Adding "OrderDate" column: */
 			columns.Add(o => o.Date, "OrderCustomDate")
 				.Titled("Date")
 				.SortInitialDirection(GridSortDirection.Descending)
 				.Format("{0:dd/MM/yyyy}")
 				.SetWidth(110);
 
-/* Adding "CompanyName" column: */
 			columns.Add(o => o.ProductName)
 				.Titled("Company Name")
 				.ThenSortByDescending(o => o.Id)

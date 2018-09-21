@@ -60,7 +60,9 @@
       <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
     </Reference>
@@ -102,15 +104,17 @@
     <Compile Include="Interfaces\Services\ICartService.cs" />
     <Compile Include="Interfaces\Services\IOrderService.cs" />
     <Compile Include="Interfaces\Services\IProductService.cs" />
-    <Compile Include="Models\Behaviours\Auditable.cs" />
+    <Compile Include="Models\Behaviours\IAuditable.cs" />
+    <Compile Include="Models\Behaviours\IEntity.cs" />
     <Compile Include="Models\Cart.cs" />
     <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\Files\Files.cs" />
+    <Compile Include="Models\Folders\Folder.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Orders\Order.cs" />
     <Compile Include="Models\Orders\OrderInfo.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\Roles\RoleTypes.cs" />
-    <Compile Include="Models\RoleTypes.cs" />
     <Compile Include="Models\SearchModels\ProductSearchModel.cs" />
     <Compile Include="Models\Status.cs" />
     <Compile Include="Models\UnitOfWork.cs" />
@@ -138,6 +142,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
