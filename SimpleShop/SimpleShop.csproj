@@ -260,7 +260,7 @@
     <Compile Include="Areas\Admin\Models\AdminMapping.cs" />
     <Compile Include="Areas\Admin\Models\Categories\CategoryViewModel.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
-    <Compile Include="Areas\Admin\Models\Filesmanager\ProductListViewModel.cs" />
+    <Compile Include="Areas\Admin\Models\Filesmanager\FolderListViewModel.cs" />
     <Compile Include="Areas\Admin\Models\Products\ProductViewModel.cs" />
     <Compile Include="Areas\Client\ClientAreaRegistration.cs" />
     <Compile Include="Areas\Client\Models\Articles\ArticleViewModel.cs" />
@@ -385,6 +385,8 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\vue.js" />
+    <Content Include="Scripts\vue.min.js" />
     <Content Include="T4MVC\T4MVC.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>T4MVC.cs</LastGenOutput>

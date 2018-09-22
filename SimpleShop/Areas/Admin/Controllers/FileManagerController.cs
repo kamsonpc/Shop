@@ -1,14 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Web.Mvc;
-using SimpleShop.Areas.Admin.Models.Categories;
-using SimpleShop.Data.Extensions;
-using SimpleShop.Data.Interfaces;
-using SimpleShop.Data.Models;
+﻿using SimpleShop.Data.Interfaces;
 using SimpleShop.Data.Models.Roles;
+using SimpleShop.Data.Services;
 using SimpleShop.Filters;
 using SimpleShop.Helpers;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace SimpleShop.Areas.Admin.Controllers
 {
@@ -16,20 +12,36 @@ namespace SimpleShop.Areas.Admin.Controllers
     public partial class FileManagerController : BaseController
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IFilemanagerService _filemanagerService;
 
-        public FileManagerController(IUnitOfWork unitOfWork)
+        public FileManagerController(IUnitOfWork unitOfWork, IFilemanagerService filemanagerService)
         {
             _unitOfWork = unitOfWork;
+            _filemanagerService = filemanagerService;
         }
 
         public virtual ActionResult Index()
         {
-	        return RedirectToAction(MVC.Admin.FileManager.List());
+            return RedirectToAction(MVC.Admin.FileManager.List());
         }
 
         public virtual ActionResult List()
         {
             return View(MVC.Admin.FileManager.Views.List);
         }
-    }	
+
+        public virtual JsonResult ReadFiles(string path = @"/")
+        {
+            var folders = _filemanagerService.GetFilesTree();
+            if (path == "/")
+            {
+                var currentFolder = folders.Where(x => x.ParentId == null);
+            }
+            var currentDir = _filemanagerService.GetFilesTree();
+            return Json(currentDir);
+        }
+
+
+
+    }
 }

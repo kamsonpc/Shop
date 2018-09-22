@@ -1,9 +1,15 @@
-﻿using SimpleShop.Data.Models.Behaviours;
+﻿using SimpleShop.Data.Models.Files;
 using System;
+using System.Collections.Generic;
 
-namespace SimpleShop.Data.Models.Folders
+namespace SimpleShop.Data.Models.FilesTree
 {
-    public class Folder : IEntity, IAuditable
+    public class FilesTree
+    {
+
+    }
+
+    public class Node
     {
         public long Id { get; set; }
         public string CreatedBy { get; set; }
@@ -13,6 +19,7 @@ namespace SimpleShop.Data.Models.Folders
         public string Name { get; set; }
         public long? ParentId { get; set; }
         public long Depth { get; set; }
+        public List<File> Files { get; set; }
+        public List<Node> SubFolders { get; set; }
     }
-
 }
