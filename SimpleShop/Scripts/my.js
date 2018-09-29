@@ -7,7 +7,4 @@
 		$('.sidenav').sidenav('open');
 
 	});
-	$('.mvc-grid').mvcgrid();
-
-
 });

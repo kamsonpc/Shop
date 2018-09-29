@@ -12,7 +12,13 @@ namespace SimpleShop
 			routes.RouteExistingFiles = false;
 
 			routes.LowercaseUrls = true;
-
+			routes.MapRoute(
+				"Default",
+				"{controller}/{action}/{id}",
+				new { area = "Client", controller = "Home", action = "Index", id = UrlParameter.Optional }, // Parameter defaults
+				null,
+				new[] { "SimpleShop.Areas.Client.Controllers" }
+			).DataTokens.Add("area", "Client");
 		}
 	}
 }
