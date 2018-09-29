@@ -1,17 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Web;
-using System.Web.Mvc;
-using SimpleShop.Areas.Admin.Models.Products;
+﻿using SimpleShop.Areas.Admin.Models.Products;
 using SimpleShop.Data.Extensions;
-using SimpleShop.Data.Interfaces;
 using SimpleShop.Data.Interfaces.Services;
 using SimpleShop.Data.Models;
 using SimpleShop.Data.Models.Roles;
 using SimpleShop.Filters;
 using SimpleShop.Helpers;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Web;
+using System.Web.Mvc;
 
 namespace SimpleShop.Areas.Admin.Controllers
 {
@@ -31,14 +30,19 @@ namespace SimpleShop.Areas.Admin.Controllers
 		private List<SelectListItem> PopulateCategoriesList()
 		{
 			return _categoriesService.GetAll()
-				.Select(x => new SelectListItem() { Value = x.CategoryId.ToString(), Text = x.Name })
+				.Select(x => new SelectListItem()
+				{
+					Value = x.CategoryId.ToString(),
+					Text = x.Name
+				})
 				.ToList();
 		}
 
 		public virtual ActionResult Index()
 		{
-			var products = _productService.GetAll().MapTo<IEnumerable<ProductListViewModel>>();
-			return View(MVC.Admin.Product.Views.ViewNames.List,products);
+			var products = _productService.GetAll()
+				.MapTo<IEnumerable<ProductListViewModel>>();
+			return View(MVC.Admin.Product.Views.ViewNames.List, products);
 		}
 
 		[AuthorizeCustom(RoleTypes.Administrator)]
@@ -49,7 +53,7 @@ namespace SimpleShop.Areas.Admin.Controllers
 				Categories = PopulateCategoriesList()
 			};
 
-			return View(MVC.Admin.Product.Views.Create,productVm);
+			return View(MVC.Admin.Product.Views.Create, productVm);
 		}
 
 		[HttpPost]
@@ -60,7 +64,7 @@ namespace SimpleShop.Areas.Admin.Controllers
 
 			if (!ModelState.IsValid)
 			{
-				return View(MVC.Admin.Product.Views.Create,productVm);
+				return View(MVC.Admin.Product.Views.Create, productVm);
 			}
 
 			if (file.ContentLength > 0 && file.ContentLength < 327680 && file.ContentType.Contains("image"))
@@ -79,7 +83,7 @@ namespace SimpleShop.Areas.Admin.Controllers
 				{
 					Console.WriteLine(e);
 					Alert("Nie udało się dodać", NotificationType.danger);
-					return View(MVC.Admin.Product.Views.Create,productVm);
+					return View(MVC.Admin.Product.Views.Create, productVm);
 				}
 			}
 
@@ -97,7 +101,7 @@ namespace SimpleShop.Areas.Admin.Controllers
 			}
 
 			productVm.Categories = PopulateCategoriesList();
-			return View(MVC.Admin.Product.Views.Edit,productVm);
+			return View(MVC.Admin.Product.Views.Edit, productVm);
 		}
 
 		[HttpPost]
@@ -109,7 +113,7 @@ namespace SimpleShop.Areas.Admin.Controllers
 			{
 				productVm.Categories = PopulateCategoriesList();
 
-				return View(MVC.Admin.Product.Views.Edit,productVm);
+				return View(MVC.Admin.Product.Views.Edit, productVm);
 			}
 
 			var product = productVm.MapTo<Product>();

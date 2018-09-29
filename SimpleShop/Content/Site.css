@@ -111,3 +111,9 @@ p.list-group-item-text
 	display: block;
 	text-align: center; 
 }
+.table-hover tbody tr:hover {
+	 background-color: rgba(0, 0, 0, 0.075);
+ }
+.btn {
+	margin: 5px;
+}

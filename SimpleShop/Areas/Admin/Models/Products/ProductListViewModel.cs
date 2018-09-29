@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Web.Mvc;
-
-namespace SimpleShop.Areas.Admin.Models.Products
+﻿namespace SimpleShop.Areas.Admin.Models.Products
 {
 	public class ProductListViewModel
 	{

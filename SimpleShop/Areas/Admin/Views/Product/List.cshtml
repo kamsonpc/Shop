@@ -2,24 +2,30 @@
 @using SimpleShop.Areas.Admin.Models.Products
 @model IEnumerable<ProductListViewModel>
 
-@(Html
-		  .Grid(Model)
-		  .Build(columns =>
-		  {
-			  columns.Add(model => model.Name).Titled("Nazwa").Sortable(true);
-			  columns.Add(model => model.Price).Titled("Cena").Sortable(true);
-			  columns.Add()
-				  .Titled("Akcje")
-				  .RenderedAs(model => Html.Button(MVC.Admin.Product.Delete(model.ProductId), "Delete", Icons.delete, ButtonSize.small))
-				  .RenderedAs(model => Html.Button(MVC.Admin.Product.Edit(model.ProductId), "Edit", Icons.edit, ButtonSize.small));
-		  })
+<h2>Produkty</h2>
+@Html.Grid(Model).Columns(columns =>
+{
 
-		  .Empty("No data found")
-		  .Pageable(pager =>
-		  {
-			  pager.RowsPerPage = 20;
-		  })
-)
+
+			columns.Add(o => o.Name)
+				.Titled("Nazwa")
+				.SetWidth(100);
+
+				columns.Add(o => o.Price)
+				.Titled("Cena")
+				.SetWidth(100);
+			columns.Add()
+				.Encoded(false)
+				.Sanitized(false)
+				.SetWidth(30)
+				.Titled("Akcje")
+				.RenderValueAs(model =>
+				(
+					Html.Button(MVC.Admin.Product.Edit(model.ProductId), "Edytuj", Icons.edit, ButtonSize.small).ToHtmlString() +
+					Html.Button(MVC.Admin.Product.Delete(model.ProductId), "Usuń", Icons.delete, ButtonSize.small).ToHtmlString()
+				));
+
+		}).WithPaging(15).Sortable().Filterable().WithMultipleFilters()
 <p>
 	@Html.Button(MVC.Admin.Product.Create(), "Dodaj", Icons.add, ButtonSize.large)
 </p>
