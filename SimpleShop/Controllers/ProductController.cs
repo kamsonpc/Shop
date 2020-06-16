@@ -12,6 +12,7 @@ using SimpleShop.Interfaces.Services;
 using SimpleShop.Models;
 using SimpleShop.Models.SearchModels;
 using SimpleShop.Models.ViewsModels;
+using SimpleShop.T4MVC;
 using static SimpleShop.Views.Shared.Alerts.Alert;
 
 namespace SimpleShop.Controllers
@@ -41,7 +42,7 @@ namespace SimpleShop.Controllers
 			var productPageVm = new ProductPageVM
 			{
 				Product = _productService.Search(search, categoryId).MapTo<List<ProductVM>>()
-					.ToPagedList(pageNumber, pageSize),
+					.ToPagedList(pageNumber, PageSize),
 				Categories = categories,
 				Search = search
 			};
@@ -68,7 +69,7 @@ namespace SimpleShop.Controllers
 			return View(product);
 		}
 
-		[AuthorizeCustom(Roles = "Administrator")]
+		[AuthorizePolicy(Roles = "Administrator")]
 		public virtual ActionResult Create()
 		{
 			var productVm = new ProductVM
@@ -81,7 +82,7 @@ namespace SimpleShop.Controllers
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		[AuthorizeCustom(Roles = "Administrator")]
+		[AuthorizePolicy(Roles = "Administrator")]
 		public virtual ActionResult Create(ProductVM productVm, HttpPostedFileBase file)
 		{
 			productVm.Categories = _unitOfWork.Categories.GetSelectList();
@@ -114,7 +115,7 @@ namespace SimpleShop.Controllers
 
 		}
 
-		[AuthorizeCustom(Roles = "Administrator")]
+		[AuthorizePolicy(Roles = "Administrator")]
 		public virtual ActionResult Edit(int? id)
 		{
 			if (id == null)
@@ -131,7 +132,7 @@ namespace SimpleShop.Controllers
 			return View(productVm);
 		}
 
-		[AuthorizeCustom(Roles = "Administrator")]
+		[AuthorizePolicy(Roles = "Administrator")]
 		[HttpPost]
 		[ValidateAntiForgeryToken]
 		public virtual ActionResult Edit(int? id, ProductVM productVm)
@@ -153,7 +154,7 @@ namespace SimpleShop.Controllers
 			return RedirectToAction(MVC.Product.Index());
 		}
 
-		[AuthorizeCustom(Roles = "Administrator")]
+		[AuthorizePolicy(Roles = "Administrator")]
 		public virtual ActionResult Delete(int? id)
 		{
 			if (id == null)

@@ -6,12 +6,13 @@ using SimpleShop.Filters;
 using SimpleShop.Interfaces.Services;
 using SimpleShop.Models;
 using SimpleShop.Models.ViewsModels;
+using SimpleShop.T4MVC;
 using static SimpleShop.Views.Shared.Alerts.Alert;
 
 
 namespace SimpleShop.Controllers
 {
-	[AuthorizeCustom]
+	[AuthorizePolicy]
 	public partial class CartController : BaseController
 	{
 		private readonly ICartService _cartService;

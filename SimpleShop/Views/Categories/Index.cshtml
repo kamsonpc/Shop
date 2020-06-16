@@ -1,4 +1,5 @@
 ﻿@using SimpleShop.Helpers
+@using SimpleShop.T4MVC
 @model IEnumerable<SimpleShop.Models.Category>
 
 @{
@@ -33,5 +34,5 @@
 
 </table>
 <p>
-	@Html.Button(MVC.Categories.Create(), "Dodaj", "add_box", ButtonSize.large);
+	@Html.Button(MVC.Categories.Create(), "Dodaj", "add_box", ButtonSize.large)
 </p>

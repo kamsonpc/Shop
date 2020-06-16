@@ -10,9 +10,9 @@
 #region T4MVC
 
 using System;
-using System.Diagnostics;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
@@ -22,58 +22,50 @@ using System.Web.Mvc;
 using System.Web.Mvc.Ajax;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
-using T4MVC;
 
-[GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-public static partial class MVC
+namespace SimpleShop.T4MVC
 {
-    public static SimpleShop.Controllers.AccountController Account = new SimpleShop.Controllers.T4MVC_AccountController();
-    public static SimpleShop.Controllers.CartController Cart = new SimpleShop.Controllers.T4MVC_CartController();
-    public static SimpleShop.Controllers.CategoriesController Categories = new SimpleShop.Controllers.T4MVC_CategoriesController();
-    public static SimpleShop.Controllers.HomeController Home = new SimpleShop.Controllers.T4MVC_HomeController();
-    public static SimpleShop.Controllers.ManageController Manage = new SimpleShop.Controllers.T4MVC_ManageController();
-    public static SimpleShop.Controllers.OrdersController Orders = new SimpleShop.Controllers.T4MVC_OrdersController();
-    public static SimpleShop.Controllers.PaymentController Payment = new SimpleShop.Controllers.T4MVC_PaymentController();
-    public static SimpleShop.Controllers.ProductController Product = new SimpleShop.Controllers.T4MVC_ProductController();
-    public static T4MVC.SharedController Shared = new T4MVC.SharedController();
-}
-
-namespace T4MVC
-{
-}
+    [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+    public static partial class MVC
+    {
+        public static SimpleShop.Controllers.AccountController Account = new SimpleShop.Controllers.T4MVC_AccountController();
+        public static SimpleShop.Controllers.CartController Cart = new SimpleShop.Controllers.T4MVC_CartController();
+        public static SimpleShop.Controllers.CategoriesController Categories = new SimpleShop.Controllers.T4MVC_CategoriesController();
+        public static SimpleShop.Controllers.HomeController Home = new SimpleShop.Controllers.T4MVC_HomeController();
+        public static SimpleShop.Controllers.ManageController Manage = new SimpleShop.Controllers.T4MVC_ManageController();
+        public static SimpleShop.Controllers.OrdersController Orders = new SimpleShop.Controllers.T4MVC_OrdersController();
+        public static SimpleShop.Controllers.PaymentController Payment = new SimpleShop.Controllers.T4MVC_PaymentController();
+        public static SimpleShop.Controllers.ProductController Product = new SimpleShop.Controllers.T4MVC_ProductController();
+        public static global::T4MVC.SharedController Shared = new global::T4MVC.SharedController();
+    }
 
 #pragma warning disable 0436
-namespace T4MVC
-{
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
     public class Dummy
     {
         private Dummy() { }
         public static Dummy Instance = new Dummy();
     }
-}
+
 #pragma warning restore 0436
 
-[GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-internal partial class T4MVC_System_Web_Mvc_ActionResult : System.Web.Mvc.ActionResult, IT4MVCActionResult
-{
-    public T4MVC_System_Web_Mvc_ActionResult(string area, string controller, string action, string protocol = null): base()
+    [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+    internal partial class T4MVC_System_Web_Mvc_ActionResult : System.Web.Mvc.ActionResult, IT4MVCActionResult
     {
-        this.InitMVCT4Result(area, controller, action, protocol);
-    }
+        public T4MVC_System_Web_Mvc_ActionResult(string area, string controller, string action, string protocol = null): base()
+        {
+            this.InitMVCT4Result(area, controller, action, protocol);
+        }
      
-    public override void ExecuteResult(System.Web.Mvc.ControllerContext context) { }
+        public override void ExecuteResult(System.Web.Mvc.ControllerContext context) { }
     
-    public string Controller { get; set; }
-    public string Action { get; set; }
-    public string Protocol { get; set; }
-    public RouteValueDictionary RouteValueDictionary { get; set; }
-}
+        public string Controller { get; set; }
+        public string Action { get; set; }
+        public string Protocol { get; set; }
+        public RouteValueDictionary RouteValueDictionary { get; set; }
+    }
 
 
-
-namespace Links
-{
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
     public static class Scripts {
         public const string UrlPath = "~/Scripts";
@@ -159,44 +151,42 @@ namespace Links
             }
         }
     }
-}
 
-[GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-internal static class T4MVCHelpers {
-    // You can change the ProcessVirtualPath method to modify the path that gets returned to the client.
-    // e.g. you can prepend a domain, or append a query string:
-    //      return "http://localhost" + path + "?foo=bar";
-    private static string ProcessVirtualPathDefault(string virtualPath) {
-        // The path that comes in starts with ~/ and must first be made absolute
-        string path = VirtualPathUtility.ToAbsolute(virtualPath);
+    [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+    internal static class T4MVCHelpers {
+        // You can change the ProcessVirtualPath method to modify the path that gets returned to the client.
+        // e.g. you can prepend a domain, or append a query string:
+        //      return "http://localhost" + path + "?foo=bar";
+        private static string ProcessVirtualPathDefault(string virtualPath) {
+            // The path that comes in starts with ~/ and must first be made absolute
+            string path = VirtualPathUtility.ToAbsolute(virtualPath);
         
-        // Add your own modifications here before returning the path
-        return path;
+            // Add your own modifications here before returning the path
+            return path;
+        }
+
+        private static string ProcessAssetPathDefault(string virtualPath) {
+            // The path that comes in starts with ~/ and should retain this prefix
+            return virtualPath;
+        }
+
+        // Calling ProcessVirtualPath through delegate to allow it to be replaced for unit testing
+        public static Func<string, string> ProcessVirtualPath = ProcessVirtualPathDefault;
+        public static Func<string, string> ProcessAssetPath = ProcessAssetPathDefault;
+
+        // Calling T4Extension.TimestampString through delegate to allow it to be replaced for unit testing and other purposes
+        public static Func<string, string> TimestampString = System.Web.Mvc.T4Extensions.TimestampString;
+
+        // Logic to determine if the app is running in production or dev environment
+        public static bool IsProduction() { 
+            return (HttpContext.Current != null && !HttpContext.Current.IsDebuggingEnabled); 
+        }
     }
 
-    private static string ProcessAssetPathDefault(string virtualPath) {
-        // The path that comes in starts with ~/ and should retain this prefix
-        return virtualPath;
-    }
-
-    // Calling ProcessVirtualPath through delegate to allow it to be replaced for unit testing
-    public static Func<string, string> ProcessVirtualPath = ProcessVirtualPathDefault;
-    public static Func<string, string> ProcessAssetPath = ProcessAssetPathDefault;
-
-    // Calling T4Extension.TimestampString through delegate to allow it to be replaced for unit testing and other purposes
-    public static Func<string, string> TimestampString = System.Web.Mvc.T4Extensions.TimestampString;
-
-    // Logic to determine if the app is running in production or dev environment
-    public static bool IsProduction() { 
-        return (HttpContext.Current != null && !HttpContext.Current.IsDebuggingEnabled); 
-    }
-}
 
 
 
 
-
-#endregion T4MVC
+    #endregion T4MVC
 #pragma warning restore 1591, 3008, 3009, 0108, 0114
-
-
+}

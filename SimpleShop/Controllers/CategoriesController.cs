@@ -4,10 +4,11 @@ using System.Web.Mvc;
 using SimpleShop.Filters;
 using SimpleShop.Interfaces;
 using SimpleShop.Models;
+using SimpleShop.T4MVC;
 
 namespace SimpleShop.Controllers
 {
-	[AuthorizeCustom(Roles = "Administrator")]
+	[AuthorizePolicy(Roles = "Administrator")]
 	public partial class CategoriesController : BaseController
 	{
 		private readonly IUnitOfWork _unitOfWork;

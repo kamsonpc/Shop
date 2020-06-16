@@ -6,10 +6,11 @@ using SimpleShop.Extensions;
 using SimpleShop.Filters;
 using SimpleShop.Interfaces.Services;
 using SimpleShop.Models.ViewsModels;
+using SimpleShop.T4MVC;
 
 namespace SimpleShop.Controllers
 {
-	[AuthorizeCustom(Roles = "Administrator")]
+	[AuthorizePolicy(Roles = "Administrator")]
 	public partial class PaymentController : BaseController
 	{
 		private readonly IOrderService _orderService;
@@ -25,7 +26,7 @@ namespace SimpleShop.Controllers
 			var orders = string.IsNullOrEmpty(search) ? _orderService.GetAll() : _orderService.Find(search);
 
 			var result = orders.MapTo<List<OrdersPageVM>>()
-			   .ToPagedList(pageNumber, pageSize);
+			   .ToPagedList(pageNumber, PageSize);
 
 			ViewBag.Search = search;
 

@@ -5,7 +5,7 @@ namespace SimpleShop.Controllers
 {
 	public abstract  class BaseController : Controller
 	{
-		public const int pageSize = 10;
+		public const int PageSize = 10;
 
 		public void Alert(string message, NotificationType notificationType)
 		{

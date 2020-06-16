@@ -4,7 +4,7 @@ using System.Web.Routing;
 namespace SimpleShop.Filters
 {
 
-	public class AuthorizeCustom : AuthorizeAttribute
+	public class AuthorizePolicy : AuthorizeAttribute
 	{
 		protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
 		{

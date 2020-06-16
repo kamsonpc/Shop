@@ -12,27 +12,25 @@ using Unity.Mvc5;
 
 namespace SimpleShop
 {
-	public class IocUnityConfig
-	{
-		public static void RegisterServices()
-		{
-			var container = new UnityContainer();
+    public class IocUnityConfig
+    {
+        public static void RegisterServices()
+        {
+            var container = new UnityContainer();
 
-			container.RegisterType<ICategoryRepository, CategoryRepository>();
-			container.RegisterType<IProductService, ProductService>();
-			container.RegisterType<ICartService, CartService>();
-			container.RegisterType<IOrderService, OrderService>();
-			container.RegisterType<IUnitOfWork, UnitOfWork>();
-
-
-			container.RegisterType<ApplicationSignInManager>();
-			container.RegisterType<ApplicationUserManager>();
-			container.RegisterType<AccountController>(new InjectionConstructor());
-			container.RegisterType<ManageController>(new InjectionConstructor());
-
-			DependencyResolver.SetResolver(new UnityDependencyResolver(container));
+            container.RegisterType<ICategoryRepository, CategoryRepository>();
+            container.RegisterType<IProductService, ProductService>();
+            container.RegisterType<ICartService, CartService>();
+            container.RegisterType<IOrderService, OrderService>();
+            container.RegisterType<IUnitOfWork, UnitOfWork>();
 
 
-		}
-	}
+            container.RegisterType<ApplicationSignInManager>();
+            container.RegisterType<ApplicationUserManager>();
+            container.RegisterType<AccountController>(new InjectionConstructor());
+            container.RegisterType<ManageController>(new InjectionConstructor());
+
+            DependencyResolver.SetResolver(new UnityDependencyResolver(container));
+        }
+    }
 }

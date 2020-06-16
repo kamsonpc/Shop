@@ -22,6 +22,7 @@ using System.Web.Mvc;
 using System.Web.Mvc.Ajax;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
+using SimpleShop.T4MVC;
 using T4MVC;
 namespace SimpleShop.Controllers
 {

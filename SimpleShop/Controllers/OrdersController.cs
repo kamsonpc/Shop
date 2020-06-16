@@ -23,7 +23,7 @@ namespace SimpleShop.Controllers
 			var pageNumber = page ?? 1;
 			var orders = _orderService.GetByUserId(User.Identity.GetUserId())
 				.MapTo<IEnumerable<OrdersPageVM>>()
-				.ToPagedList(pageNumber, pageSize);
+				.ToPagedList(pageNumber, PageSize);
 
 			return View(orders);
 		}
