@@ -26,8 +26,8 @@
 				@Html.DisplayFor(modelItem => item.Name)
 			</td>
 			<td>
-				@Html.Button(MVC.Categories.Edit(item.CategoryId), "", "edit", ButtonSize.small);
-				@Html.Button(MVC.Categories.Delete(item.CategoryId), "", "delete", ButtonSize.small);
+				@Html.Button(MVC.Categories.Edit(item.CategoryId), "", "edit", ButtonSize.small)
+				@Html.Button(MVC.Categories.Delete(item.CategoryId), "", "delete", ButtonSize.small)
 			</td>
 		</tr>
 	}
